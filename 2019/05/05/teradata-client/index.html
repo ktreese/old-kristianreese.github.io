@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>How to Install Teradata Client 13.10 | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How to install Teradata Client 13.10 64bit on RedHat 6 x86_64!!! note    This does not cover installation from the CDROM media. The procedure below pertains to downloading the software from Teradata,">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Install Teradata Client 13.10">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/teradata-client/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How to install Teradata Client 13.10 64bit on RedHat 6 x86_64!!! note    This does not cover installation from the CDROM media. The procedure below pertains to downloading the software from Teradata,">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T02:56:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to Install Teradata Client 13.10">
+<meta name="twitter:description" content="How to install Teradata Client 13.10 64bit on RedHat 6 x86_64!!! note    This does not cover installation from the CDROM media. The procedure below pertains to downloading the software from Teradata,">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-teradata-client" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        How to Install Teradata Client 13.10
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/teradata-client/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-to-install-Teradata-Client-13-10-64bit-on-RedHat-6-x86-64"><a href="#How-to-install-Teradata-Client-13-10-64bit-on-RedHat-6-x86-64" class="headerlink" title="How to install Teradata Client 13.10 64bit on RedHat 6 x86_64"></a>How to install Teradata Client 13.10 64bit on RedHat 6 x86_64</h1><p>!!! note<br>    <strong>This does not cover installation from the CDROM media.</strong></p>
+<pre><code>The procedure below pertains to downloading the software from Teradata, and installing the packages.
+
+I found that installing the Teradata client on RedHat 6 wasn&apos;t intuitive, and the install document (from teradata knowledge article KAP1B923E) wasn&apos;t straight forward.
+</code></pre><p>Here are some considerations while preparing to install the client:</p>
+<ol>
+<li><p>Where do I download the software?</p>
+<ol>
+<li>Login to your account at <a href="https://access.teradata.com" target="_blank" rel="noopener">Teradata Portal site</a></li>
+<li>Click on Software Downloads</li>
+<li>Click on “Teradata Client”</li>
+<li>Under “TD Client Platform”, click Linux</li>
+<li>Select software base.  In this case, I’ve downloaded TTU 13.10</li>
+<li>Select platform base.<ol>
+<li>download 64bit x8664</li>
+<li>download 32bit i386</li>
+<li>(yes - download both as some of the 32bit packages are dependencies to installing the 64bit packages)</li>
+</ol>
+</li>
+<li>Select Current and Submit</li>
+<li>Select all packages for download and download them via any of the options provided<ol>
+<li>Note: Even though the page is subsequently labeled as “patches”.  It’s the full client version.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>How to install the Teradata Client</p>
+<ol>
+<li>gunzip/untar the downloaded packages</li>
+<li>copy these packages into a new directory (<em>I created a directory called tdclient</em>).  Note; The TTU 12.0 and 13.x packages for Linux work on either RedHat or SuSE. Although they’re labeled as specific to one or the other, each works on both.<ul>
+<li>TeraGSS_redhatlinux-i386-13.10.06.01-1.i386.rpm</li>
+<li>TeraGSS_suselinux-x8664-13.10.06.01-1.x86_64.rpm</li>
+<li>tdicu-13.10.00.02-1.noarch.rpm</li>
+<li>tdodbc-13.10.00.09-1.noarch.rpm</li>
+<li>cliv2-13.10.00.13-1.noarch.rpm</li>
+<li>piom-13.10.00.10-1.noarch.rpm</li>
+<li>npaxsmod-13.10.00.02-1.i386.rpm</li>
+<li>bteq-13.10.00.10-1.i386.rpm</li>
+<li>fastexp-13.10.00.15-1.i386.rpm</li>
+<li>fastld-13.10.00.16-1.i386.rpm</li>
+<li>mload-13.10.00.10-1.i386.rpm</li>
+<li>tpump-13.10.00.10-1.i386.rpm</li>
+</ul>
+</li>
+<li>If not installed, install the following packages before proceeding<ul>
+<li>ksh</li>
+<li>compat-libstdc++-33.i686</li>
+</ul>
+</li>
+<li>create an install script as follows.</li>
+</ol>
+</li>
+</ol>
+<h2 id="Install-Procedure"><a href="#Install-Procedure" class="headerlink" title="Install Procedure"></a>Install Procedure</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/ksh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -f /bin/ksh ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Please install ksh before proceeding: 'yum install ksh'  exiting..."</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">if</span> [ -L /usr/bin/ksh ]; <span class="keyword">then</span></span><br><span class="line">                <span class="built_in">echo</span> ok</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">"soft linking /bin/ksh -&gt; /usr/bin/ksh"</span></span><br><span class="line">                ln -s /bin/ksh /usr/bin/ksh</span><br><span class="line">                <span class="built_in">echo</span> ok</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">rpm -q compat-libstdc++-33 &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"><span class="keyword">if</span> [ $? -eq 1 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Please install compat-libstdc++-33 before proceeding: 'yum install compat-libstdc++-33.i686'  exiting..."</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">rpm -ivh TeraGSS_redhatlinux-i386-13.10.06.01-1.i386.rpm</span><br><span class="line">rpm -ivh TeraGSS_suselinux-x8664-13.10.06.01-1.x86_64.rpm</span><br><span class="line">rpm -ivh tdicu-13.10.00.02-1.noarch.rpm</span><br><span class="line">rpm -ivh tdodbc-13.10.00.09-1.noarch.rpm</span><br><span class="line">rpm -ivh cliv2-13.10.00.13-1.noarch.rpm</span><br><span class="line">rpm -ivh piom-13.10.00.10-1.noarch.rpm</span><br><span class="line">rpm -ivh npaxsmod-13.10.00.02-1.i386.rpm</span><br><span class="line">rpm -ivh bteq-13.10.00.10-1.i386.rpm</span><br><span class="line">rpm -ivh fastexp-13.10.00.15-1.i386.rpm</span><br><span class="line">rpm -ivh fastld-13.10.00.16-1.i386.rpm</span><br><span class="line">rpm -ivh mload-13.10.00.10-1.i386.rpm</span><br><span class="line">rpm -ivh tpump-13.10.00.10-1.i386.rpm</span><br></pre></td></tr></table></figure>
+<p>First, we check if ksh is installed.  The script will actually fail once it attempts to interpret the shebang if ksh isn’t in the specified location, so you may need to adjust some of the syntax accordingly if ksh is somewhere else besides /bin.  Further into the script, a soft link to /usr/bin/ksh is created because the tdodbc package looks for ksh in /usr/bin.  If all checks out, packages are installed ==in the order of which they need to be installed==.  I put this together rather quickly so there are other ways to invoke the prerequisities, but it works fine for the purposes of getting to the main objective.  If something messes up, the packages need to be uninstalled before you can reinstall the packages.  See uninstall procedure at the end of this article.</p>
+<p>Here is the output after running a successful install:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ./install.ksh</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:TeraGSS_redhatlinux-i38<span class="comment">########################################### [100%]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Output has been written to Binary file <span class="string">"/usr/teragss/redhatlinux-i386/13.10.06.01/bin/../etc/tdgssconfig.bin"</span> </span><br><span class="line"></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:TeraGSS_suselinux-x8664<span class="comment">########################################### [100%]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> Output has been written to Binary file <span class="string">"/usr/teragss/suselinux-x8664/13.10.06.01/bin/../etc/tdgssconfig.bin"</span> </span><br><span class="line"></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:tdicu                  <span class="comment">########################################### [100%]</span></span><br><span class="line">Adding TD_ICU_DATA environment variable to /etc/profile file.</span><br><span class="line">Adding TD_ICU_DATA environment variable to /etc/csh.login file.</span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:tdodbc                 <span class="comment">########################################### [100%]</span></span><br><span class="line">set_default_version -b 32 -v 13.10 -i /opt</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_32/lib</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_32/lib</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_32/lib]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_32/lib: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_32/locale</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_32/locale</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_32/locale]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_32/locale: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_32/include</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_32/include</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_32/include]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_32/include: directory]</span><br><span class="line"></span><br><span class="line">.build_pre130_bridge -b 32 -i /opt</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_32_PRE130_BRIDGE/drivers/tdata.so</span><br><span class="line">    target:  /opt/teradata/client/ODBC_32/lib/tdata.so</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_32_PRE130_BRIDGE/drivers/tdata.so]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/lib/tdata.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_32_PRE130_BRIDGE/lib</span><br><span class="line">    target:  /opt/teradata/client/ODBC_32/lib</span><br><span class="line"></span><br><span class="line">\c</span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_32_PRE130_BRIDGE/lib]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/lib]</span><br><span class="line">[3]             +-&gt; [/opt/teradata/client/13.10/odbc_32/lib: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_32_PRE130_BRIDGE/locale</span><br><span class="line">    target:  /opt/teradata/client/ODBC_32/locale</span><br><span class="line"></span><br><span class="line">\c</span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_32_PRE130_BRIDGE/locale]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/locale]</span><br><span class="line">[3]             +-&gt; [/opt/teradata/client/13.10/odbc_32/locale: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_32_PRE130_BRIDGE/odbcinst.ini</span><br><span class="line">    target:  /opt/teradata/client/ODBC_32/odbcinst.ini</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_32_PRE130_BRIDGE/odbcinst.ini]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/odbcinst.ini: ASCII text]</span><br><span class="line"></span><br><span class="line">enable_legacy_installdir -b 32 -i /opt -I /usr/odbc</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /usr/odbc</span><br><span class="line">    target:  /opt/teradata/client/.ODBC_32_PRE130_BRIDGE</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/.ODBC_32_PRE130_BRIDGE: directory]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/drivers/tdata.so]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/lib/tdata.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/odbcinst.ini]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_32/odbcinst.ini: ASCII text]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/locale/en_US/LC_MESSAGES/odbc.po: ASCII English text, with very long lines]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/locale/en_US/LC_MESSAGES/odbc.m: GLF_BINARY_LSB_FIRST]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/libtdparse.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/vscnctdlg.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/odbccurs.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/libtdsso.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/odbctrac.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/tdata.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/libodbc.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/tdconndlg.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/libodbcinst.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/usr/odbc/lib/libivicu24.so: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">set_default_version -b 64 -v 13.10 -i /opt</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_64/lib</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_64/lib</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_64/lib]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_64/lib: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_64/locale</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_64/locale</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_64/locale]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_64/locale: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/ODBC_64/include</span><br><span class="line">    target:  /opt/teradata/client/13.10/odbc_64/include</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/ODBC_64/include]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/13.10/odbc_64/include: directory]</span><br><span class="line"></span><br><span class="line">.build_pre130_bridge -b 64 -i /opt</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_64_PRE130_BRIDGE/drivers/tdata.so</span><br><span class="line">    target:  /opt/teradata/client/ODBC_64/lib/tdata.so</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_64_PRE130_BRIDGE/drivers/tdata.so]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/lib/tdata.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_64_PRE130_BRIDGE/lib</span><br><span class="line">    target:  /opt/teradata/client/ODBC_64/lib</span><br><span class="line"></span><br><span class="line">\c</span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_64_PRE130_BRIDGE/lib]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/lib]</span><br><span class="line">[3]             +-&gt; [/opt/teradata/client/13.10/odbc_64/lib: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_64_PRE130_BRIDGE/locale</span><br><span class="line">    target:  /opt/teradata/client/ODBC_64/locale</span><br><span class="line"></span><br><span class="line">\c</span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_64_PRE130_BRIDGE/locale]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/locale]</span><br><span class="line">[3]             +-&gt; [/opt/teradata/client/13.10/odbc_64/locale: directory]</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/.ODBC_64_PRE130_BRIDGE/odbcinst.ini</span><br><span class="line">    target:  /opt/teradata/client/ODBC_64/odbcinst.ini</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/.ODBC_64_PRE130_BRIDGE/odbcinst.ini]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/odbcinst.ini: ASCII text]</span><br><span class="line"></span><br><span class="line">enable_legacy_installdir -b 64 -i /opt -I /opt/teradata/client/odbc</span><br><span class="line"></span><br><span class="line">ADDING SYMBOLIC LINK:</span><br><span class="line">    <span class="built_in">source</span>:  /opt/teradata/client/odbc</span><br><span class="line">    target:  /opt/teradata/client/.ODBC_64_PRE130_BRIDGE</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/.ODBC_64_PRE130_BRIDGE: directory]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/drivers/tdata.so]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/lib/tdata.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/odbcinst.ini]</span><br><span class="line">[2]         +-&gt; [/opt/teradata/client/ODBC_64/odbcinst.ini: ASCII text]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/locale/en_US/LC_MESSAGES/odbc.po: ASCII English text, with very long lines]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/locale/en_US/LC_MESSAGES/odbc.m: GLF_BINARY_LSB_FIRST]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/libtdparse.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/vscnctdlg.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/odbccurs.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/libddicu24.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/libtdsso.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/odbctrac.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/tdata.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/libodbc.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/tdconndlg.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line">symbolic link trail:</span><br><span class="line">[1]     +-&gt; [/opt/teradata/client/odbc/lib/libodbcinst.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ============================================================================</span><br><span class="line">    ***                     IMPORTANT ODBC USER BULLETIN                     ***</span><br><span class="line">    ============================================================================</span><br><span class="line"></span><br><span class="line">    The TTU 13.0 release has introduced a new TTU directory tree structure </span><br><span class="line">    <span class="built_in">which</span> has unified all the TTU products under a common TTU release directory.</span><br><span class="line">    The ODBC 13.0 installation package has taken steps to make this new tree </span><br><span class="line">    structure transparent to the existing ODBC users that have selected the </span><br><span class="line">    default install directory when installing an ODBC release prior to 13.0.  </span><br><span class="line">    In the <span class="keyword">case</span> <span class="built_in">where</span> the user has selected a non-default install directory, </span><br><span class="line">    the user will need to follow the instructions that are documented <span class="keyword">in</span> the </span><br><span class="line">    ODBC README file.</span><br><span class="line"></span><br><span class="line">    In either <span class="keyword">case</span>, it is strongly recommended that the user <span class="built_in">read</span> the ODBC README</span><br><span class="line">    file to understand the new TTU tree structure and how it relates to the </span><br><span class="line">    ODBC Driver and its odbc.ini and odbcinst.ini files.</span><br><span class="line"></span><br><span class="line">    ============================================================================</span><br><span class="line">    ***                     IMPORTANT ODBC USER BULLETIN                     ***</span><br><span class="line">    ============================================================================</span><br><span class="line"></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:cliv2                  <span class="comment">########################################### [100%]</span></span><br><span class="line">Adding cliv2 COPLIB environment variable to /etc/profile file.</span><br><span class="line">Adding cliv2 COPERR environment variable to /etc/profile file.</span><br><span class="line">Adding tdmst entry to /etc/services file.</span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:piom                   <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:npaxsmod               <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:bteq                   <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:fastexp                <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:fastld                 <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:mload                  <span class="comment">########################################### [100%]</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:tpump                  <span class="comment">########################################### [100%]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Uninstall-Procedure"><a href="#Uninstall-Procedure" class="headerlink" title="Uninstall Procedure"></a>Uninstall Procedure</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">rpm -e tpump-13.10.00.10-1.i386</span><br><span class="line">rpm -e tdodbc-13.10.00.09-1.noarch</span><br><span class="line">rpm -e bteq-13.10.00.10-1.i386</span><br><span class="line">rpm -e mload-13.10.00.10-1.i386</span><br><span class="line">rpm -e fastld-13.10.00.16-1.i386</span><br><span class="line">rpm -e fastexp-13.10.00.15-1.i386</span><br><span class="line">rpm -e cliv2-13.10.00.13-1.noarch</span><br><span class="line">rpm -e tdicu-13.10.00.02-1.noarch</span><br><span class="line">rpm -e TeraGSS<span class="emphasis">_suselinux-x8664-13.10.06.01-1.x86_</span>64</span><br><span class="line">rpm -e TeraGSS_redhatlinux-i386-13.10.06.01-1.i386</span><br><span class="line">rpm -e piom-13.10.00.10-1.noarch</span><br><span class="line">rpm -e npaxsmod-13.10.00.02-1.i386</span><br><span class="line"></span><br><span class="line">rm -rf /opt/teradata</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/teradata-client/" data-id="cjvacabze000x07o9nttez0ou" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "How to Install Teradata Client 13.10",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/teradata-client/",
+        "description": "How to install Teradata Client 13.10 64bit on RedHat 6 x86_64!!! note    This does not cover installation from the CDROM media.
+The procedure below pertains to downloading the software from Teradata, "
+        "wordCount": 3022
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/resize-iscsi-lun/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Resize an iscsi LUN in Linux
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/add-and-delete-a-null-route/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Add and Delete null routes</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/teradata-client/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

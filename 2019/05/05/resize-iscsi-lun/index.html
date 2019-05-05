@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Resize an iscsi LUN in Linux | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Resize an iscsi LUN in Linux">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/resize-iscsi-lun/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T03:02:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Resize an iscsi LUN in Linux">
+<meta name="twitter:description" content="How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-resize-iscsi-lun" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Resize an iscsi LUN in Linux
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/resize-iscsi-lun/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-To-Resize-an-iscsi-LUN-in-Linux"><a href="#How-To-Resize-an-iscsi-LUN-in-Linux" class="headerlink" title="How To Resize an iscsi LUN in Linux"></a>How To Resize an iscsi LUN in Linux</h1><p>NetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To display the new size of the LUN you must restart the iSCSI service. But a restart of the iSCSI service fails if any iSCSI devices are mounted at that time. Because of this, even if the LUN on which the file system is located is resized, you must unmount the file system and then restart iSCSI and the multipathing service before Linux can detect the new size.</p>
+<p>!!! warning<br>    Though this procedure below has been tested, it is always a good idea to back up your data before attempting resizing.</p>
+<h2 id="Collect-information-on-the-partition-to-be-resized"><a href="#Collect-information-on-the-partition-to-be-resized" class="headerlink" title="Collect information on the partition to be resized"></a>Collect information on the partition to be resized</h2><p>For the purposes of this example, <code>/dev/sdc1</code> is the iscsi lun partition to be resized.  Run through the following commands and set the information aside:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~<span class="comment"># df /dev/sdc1</span></span><br><span class="line">~<span class="comment"># df -h /dev/sdc1</span></span><br><span class="line">~<span class="comment"># fdisk -l /dev/sdc</span></span><br><span class="line">~<span class="comment"># fdisk -s /dev/sdc1</span></span><br></pre></td></tr></table></figure>
+<p>!!! info<br>    The first two commands are to provide a “snapshot” look at the size of the partition before making any changes.  The third command contains useful information needed to successfully increase the partition in a later step.  Make note of the starting cylinder from the output.  For example:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 # fdisk -l /dev/sdc</span><br><span class="line"><span class="code">    </span></span><br><span class="line">Disk /dev/sdc: 32.2 GB, 32212254720 bytes</span><br><span class="line">64 heads, 32 sectors/track, 30720 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line"><span class="code">    </span></span><br><span class="line">Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdc1            1       30720    31457264   83  Linux</span><br></pre></td></tr></table></figure>
+<p>!!! tip<br>    Note the amount of cylinders and what the starting cylinder is.  In the example above, the starting cylinder is 1.</p>
+<p>!!! info<br>    If the partition to be increased contains system/OS files, you may need to boot off a rescue disk to perform the resize operation.  Otherwise, it the parition is a data partition, then it simply needs to be unmounted.</p>
+<h2 id="Increase-size-of-the-LUN-on-the-NetApp"><a href="#Increase-size-of-the-LUN-on-the-NetApp" class="headerlink" title="Increase size of the LUN on the NetApp"></a>Increase size of the LUN on the NetApp</h2><p><code>netapp&gt; lun resize /vol/mylun +5g</code></p>
+<h2 id="Unmount-the-device"><a href="#Unmount-the-device" class="headerlink" title="Unmount the device"></a>Unmount the device</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># umount /dev/sdc1</span></span><br></pre></td></tr></table></figure>
+<h2 id="Perform-a-file-system-check"><a href="#Perform-a-file-system-check" class="headerlink" title="Perform a file system check"></a>Perform a file system check</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># fsck -n /dev/sdc1</span></span><br></pre></td></tr></table></figure>
+<h2 id="Restart-iscsi-daemon"><a href="#Restart-iscsi-daemon" class="headerlink" title="Restart iscsi daemon"></a>Restart iscsi daemon</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># /etc/init.d/iscsid restart</span></span><br><span class="line"> * Unmounting iscsi partition... ...</span><br><span class="line"> * Logging out of iSCSI targets</span><br><span class="line"> * Logging out of session [sid: 1, target: iqn.1992-08.com.netapp:sn.151753609, portal: 10.10.2.2,3260]</span><br><span class="line"> * Logout of [sid: 1, target: iqn.1992-08.com.netapp:sn.151753609, portal: 10.10.2.2,3260]: successful</span><br><span class="line"> * Stopping iSCSI initiator service ...                                                                                               [ ok ]</span><br><span class="line"> * Removing iSCSI modules ...                                                                                                         [ ok ]</span><br><span class="line"> * Loading iSCSI modules ...                                                                                                          [ ok ]</span><br><span class="line"> * Starting iSCSI initiator service ...                                                                                               [ ok ]</span><br><span class="line"> * Logging into iSCSI targets</span><br><span class="line"> * Logging <span class="keyword">in</span> to [iface: default, target: iqn.1992-08.com.netapp:sn.151753609, portal: 10.10.2.2,3260]</span><br><span class="line"> * Login to [iface: default, target: iqn.1992-08.com.netapp:sn.151753609, portal: 10.10.2.2,3260]: successful</span><br><span class="line"> * Waiting <span class="keyword">for</span> udev to process new devices</span><br><span class="line"> * Mounting iscsi partition... ...</span><br></pre></td></tr></table></figure>
+<p>!!! note<br>    From the ‘fdisk -l’ output below, the device changed from /dev/sdc to /dev/sdb.  This may happen due to udev during iscsi restart and is normal. You will also notice the amount of cylinders has changed due to the lun size increase command performed on the netapp but the cylidner start/end is the same as before.</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 # fdisk -l</span><br><span class="line">&lt;snip&gt;</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 107.3 GB, 107374182400 bytes</span><br><span class="line">64 heads, 32 sectors/track, 102400 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line"></span><br><span class="line"><span class="code">    Device Boot      Start         End      Blocks   Id  System</span></span><br><span class="line"> /dev/sdb1               1       30720    31457264   83  Linux</span><br></pre></td></tr></table></figure>
+<h2 id="Run-a-file-system-check"><a href="#Run-a-file-system-check" class="headerlink" title="Run a file system check"></a>Run a file system check</h2><p>Ensure the file system is clean before attempting to change the layout of the partition.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># fsck -n /dev/sdb1</span></span><br><span class="line">fsck 1.38 (30-Jun-2005)</span><br><span class="line">e2fsck 1.38 (30-Jun-2005)</span><br><span class="line">/dev/sdb1 has gone 701 days without being checked, check forced.</span><br><span class="line">Pass 1: Checking inodes, blocks, and sizes</span><br><span class="line">Pass 2: Checking directory structure</span><br><span class="line">Pass 3: Checking directory connectivity</span><br><span class="line">/lost+found not found.  Create? no</span><br><span class="line"></span><br><span class="line">Pass 4: Checking reference counts</span><br><span class="line">Pass 5: Checking group summary information</span><br><span class="line"></span><br><span class="line">/dev/sdb1: ********** WARNING: Filesystem still has errors **********</span><br><span class="line"></span><br><span class="line">/dev/sdb1: 16940/3932160 files (0.3% non-contiguous), 7425413/7864316 blocks</span><br></pre></td></tr></table></figure>
+<p>It still has errors because lost+found directory is missing in ==MY== example, but I opted not to create it in this step to avoid further changes to the file system.</p>
+<h3 id="optional-Convert-the-file-system-into-an-ext2-file-system"><a href="#optional-Convert-the-file-system-into-an-ext2-file-system" class="headerlink" title="(optional) Convert the file system into an ext2 file system"></a>(optional) Convert the file system into an ext2 file system</h3><p>This may be optional.  Depending on your kernel, <code>resize2fs</code> may only work on ext2 file systems.  Refer to your man page.  In my case, it doesn’t support ext3 so the steps involved are to:</p>
+<ol>
+<li><p>remove the journal</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># tune2fs -O ^has_journal /dev/sdb1</span></span><br><span class="line">tune2fs 1.38 (30-Jun-2005)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>delete the current partition table and recreate it with the new cylinder boundaries</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># fdisk /dev/sdb</span></span><br><span class="line">   </span><br><span class="line">The number of cylinders <span class="keyword">for</span> this disk is <span class="built_in">set</span> to 102400.</span><br><span class="line">There is nothing wrong with that, but this is larger than 1024,</span><br><span class="line">and could <span class="keyword">in</span> certain setups cause problems with:</span><br><span class="line">1) software that runs at boot time (e.g., old versions of LILO)</span><br><span class="line">2) booting and partitioning software from other OSs</span><br><span class="line">   (e.g., DOS FDISK, OS/2 FDISK)</span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  p  </span><br><span class="line">   </span><br><span class="line">Disk /dev/sdb: 107.3 GB, 107374182400 bytes</span><br><span class="line">64 heads, 32 sectors/track, 102400 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line">   </span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdb1               1       30720    31457264   83  Linux</span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  d  </span><br><span class="line">Selected partition  1  </span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  p  </span><br><span class="line">   </span><br><span class="line">Disk /dev/sdb: 107.3 GB, 107374182400 bytes</span><br><span class="line">64 heads, 32 sectors/track, 102400 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line">   </span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  n  </span><br><span class="line">Command action</span><br><span class="line">   e   extended</span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line"> p </span><br><span class="line">Partition number (1-4):  1 </span><br><span class="line">First cylinder (1-102400, default 1):  1   &lt;- taken from fdisk -l output <span class="keyword">in</span> preliminary steps.  Make sure start cylinder is same as it was before!!! If you get an error like <span class="string">"Value out of range"</span>, you may need to use parted instead of fdisk.  Se footnotes below.</span><br><span class="line">Last cylinder or +size or +sizeM or +sizeK (1-102400, default 102400):</span><br><span class="line">Using default value 102400</span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  p </span><br><span class="line">   </span><br><span class="line">Disk /dev/sdb: 107.3 GB, 107374182400 bytes</span><br><span class="line">64 heads, 32 sectors/track, 102400 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line">   </span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdb1               1      102400   104857584   83  Linux</span><br><span class="line">   </span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):  w </span><br><span class="line">The partition table has been altered!</span><br><span class="line">   </span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Syncing disks.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>Run another file system check.  Note this time we use e2fsck because we’re still an ext2 file system.  This time, I created the lost+found.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># e2fsck -f /dev/sdb1</span></span><br><span class="line">e2fsck 1.38 (30-Jun-2005)</span><br><span class="line">Pass 1: Checking inodes, blocks, and sizes</span><br><span class="line">Pass 2: Checking directory structure</span><br><span class="line">Pass 3: Checking directory connectivity</span><br><span class="line">/lost+found not found.  Create&lt;y&gt;? yes</span><br><span class="line"></span><br><span class="line">Pass 4: Checking reference counts</span><br><span class="line">Pass 5: Checking group summary information</span><br><span class="line"></span><br><span class="line">/dev/sdb1: ***** FILE SYSTEM WAS MODIFIED *****</span><br><span class="line">/dev/sdb1: 16941/3932160 files (0.3% non-contiguous), 7392612/7864316 blocks</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Resize-the-partition"><a href="#Resize-the-partition" class="headerlink" title="Resize the partition"></a>Resize the partition</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># resize2fs /dev/sdb1</span></span><br><span class="line">resize2fs 1.38 (30-Jun-2005)</span><br><span class="line">Resizing the filesystem on /dev/sdb1 to 26214396 (4k) blocks.</span><br><span class="line">The filesystem on /dev/sdb1 is now 26214396 blocks long.</span><br></pre></td></tr></table></figure>
+<h2 id="Run-another-fsck"><a href="#Run-another-fsck" class="headerlink" title="Run another fsck"></a>Run another fsck</h2><p>Ensure it is clean by running another file system check:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># fsck -n /dev/sdb1</span></span><br><span class="line">fsck 1.38 (30-Jun-2005)</span><br><span class="line">e2fsck 1.38 (30-Jun-2005)</span><br><span class="line">/dev/sdb1: clean, 16941/13107200 files, 7680539/26214396 blocks</span><br></pre></td></tr></table></figure>
+<p>The resize operation is now complete.</p>
+<h2 id="Add-an-ext3-journal-to-the-filesystem"><a href="#Add-an-ext3-journal-to-the-filesystem" class="headerlink" title="Add an ext3 journal to the filesystem"></a>Add an ext3 journal to the filesystem</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># tune2fs -j /dev/sdb1</span></span><br><span class="line">tune2fs 1.38 (30-Jun-2005)</span><br><span class="line">Creating journal inode: <span class="keyword">done</span></span><br><span class="line">This filesystem will be automatically checked every 25 mounts or</span><br><span class="line">180 days, whichever comes first.  Use tune2fs -c or -i to override.</span><br></pre></td></tr></table></figure>
+<h2 id="Remount-the-lun"><a href="#Remount-the-lun" class="headerlink" title="Remount the lun"></a>Remount the lun</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># mount /dev/sdb1  /mnt</span></span><br></pre></td></tr></table></figure>
+<h2 id="Enjoy-the-new-size"><a href="#Enjoy-the-new-size" class="headerlink" title="Enjoy the new size!"></a>Enjoy the new size!</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux01 <span class="comment"># df -h /dev/sdb1</span></span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sdb1              99G   28G   67G  30% /var/services/db/mysql</span><br><span class="line">PRODUCTION linux01 <span class="comment"># </span></span><br><span class="line">PRODUCTION linux01 <span class="comment"># ls -l /mnt</span></span><br><span class="line">total 28853216</span><br><span class="line">drwx------ 2 mysql mysql        4096 Jul 30 22:47 database22_100</span><br><span class="line">drwx------ 2 mysql mysql        4096 Jul 30 22:47 database22_101</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_102</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_103</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_104</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_105</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_106</span><br><span class="line">drwx------ 2 mysql users        4096 Jul 30 22:47 database22_107</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="Footnotes"><a href="#Footnotes" class="headerlink" title="Footnotes"></a>Footnotes</h1><p>In this example, fdisk supplied an error “Value out of range” when trying to set a starting cyclinger to a value less than 2048.  I had an incident where a LUNs starting cyclinder was 63, and since I did not want to lose the data held between data 63 and 2048, I used parted to repartition the disk.  Having a starting cyclinder of 63 more than likely means not be aligned with the underlying storage, but that’s another topic.  There may be better ways to do this, but this is how I’ve worked it out and am documenting it until I have the opportunity to run through the process again.  If improvements can be made, I’ll update the doc or will review anyone who cares to comment.</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">PRODUCTION linux101 ~ # parted /dev/sdb</span><br><span class="line">GNU Parted 3.1</span><br><span class="line">Using /dev/sdb</span><br><span class="line">Welcome to GNU Parted! Type 'help' to view a list of commands.</span><br><span class="line">(parted) print                                                            </span><br><span class="line">Model: NETAPP LUN (scsi)</span><br><span class="line">Disk /dev/sdb: 107GB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line">Number  Start   End    Size   Type     File system  Flags</span><br><span class="line">1      1049kB  107GB  107GB  primary</span><br><span class="line">(parted) unit cyl                                                         </span><br><span class="line">(parted) print                                                            </span><br><span class="line">Model: NETAPP LUN (scsi)</span><br><span class="line">Disk /dev/sdb: 13055cyl</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">BIOS cylinder,head,sector geometry: 13055,255,63.  Each cylinder is 8225kB.</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line">Number  Start  End       Size      Type     File system  Flags</span><br><span class="line">1      0cyl   13054cyl  13054cyl  primary</span><br><span class="line">(parted) unit s (you might have to type 'unit &lt;enter&gt; s')</span><br><span class="line">(parted) print                                                            </span><br><span class="line">Model: NETAPP LUN (scsi)</span><br><span class="line">Disk /dev/sdb: 209743872s</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line">Number  Start  End         Size        Type     File system  Flags</span><br><span class="line">1      2048s  209717247s  209715200s  primary</span><br><span class="line">(parted) rm 1                                                             </span><br><span class="line">(parted) print                                                            </span><br><span class="line">Model: NETAPP LUN (scsi)</span><br><span class="line">Disk /dev/sdb: 209743872s</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line">Number  Start  End  Size  Type  File system  Flags</span><br><span class="line">(parted) mkpart                                                           </span><br><span class="line">Partition type?  primary/extended? primary                                </span><br><span class="line">File system type?  [ext2]? ext3                                           </span><br><span class="line">Start? 63s                                                                </span><br><span class="line">End? 209717247s    &lt;&lt;&lt; use value from output in print above in matching highlight (see footnote below)                                                       </span><br><span class="line">Warning: The resulting partition is not properly aligned for best performance.</span><br><span class="line">Ignore/Cancel? Ignore                                                     </span><br><span class="line">(parted) print                                                            </span><br><span class="line">Model: NETAPP LUN (scsi)</span><br><span class="line">Disk /dev/sdb: 209743872s</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line">Number  Start  End         Size        Type     File system  Flags</span><br><span class="line">1      63s    209717247s  209717185s  primary  ext2</span><br><span class="line">(parted) quit                                                             </span><br><span class="line">Information: You may need to update /etc/fstab.</span><br><span class="line"></span><br><span class="line">PRODUCTION atl4mysqlv101 ~ # fdisk -l                                         </span><br><span class="line">Disk /dev/sda: 292.3 GB, 292326211584 bytes</span><br><span class="line">255 heads, 63 sectors/track, 35539 cylinders, total 570949632 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x77e3ed41</span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sda1              63     8016434     4008186   83  Linux</span><br><span class="line">/dev/sda2         8016435    16032869     4008217+  83  Linux</span><br><span class="line">/dev/sda3        16032870    20049119     2008125   82  Linux swap / Solaris</span><br><span class="line">/dev/sda4        20049120   570934034   275442457+   5  Extended</span><br><span class="line">/dev/sda5        20049183    36065924     8008371   83  Linux</span><br><span class="line">/dev/sda6        36065988    52082729     8008371   83  Linux</span><br><span class="line">/dev/sda7        52082793   570934034   259425621   83  Linux</span><br><span class="line">Disk /dev/sdb: 107.4 GB, 107388862464 bytes</span><br><span class="line">255 heads, 63 sectors/track, 13055 cylinders, total 209743872 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x0005ed03</span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdb1             63  209717247   104858592+  83  Linux</span><br><span class="line">PRODUCTION mysqlv101 ~ #</span><br></pre></td></tr></table></figure>
+<p>Footnotes:</p>
+<p>If the end sector matches what it was previous, I’ve had to use fdisk just to see what the End value is of the extended LUN, then use parted to ensure the use of the correct starting cyl.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/resize-iscsi-lun/" data-id="cjvacaby0000w07o97zpbe8ln" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Resize an iscsi LUN in Linux",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/resize-iscsi-lun/",
+        "description": "How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ"
+        "wordCount": 4100
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/rescan-for-lun/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            How To Rescan Linux for a New LUN
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/teradata-client/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">How to Install Teradata Client 13.10</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/resize-iscsi-lun/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

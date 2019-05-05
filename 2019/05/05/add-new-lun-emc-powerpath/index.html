@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Add New LUN via EMC powerpath | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How to add a new LUN using EMC Navisphere and powerpathOverview Create a new LUN on an EMC Clariion CX3-40 via Navisphere Assign LUN to proper Storage Group Use powermt to bring LUN in and configure i">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Add New LUN via EMC powerpath">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/add-new-lun-emc-powerpath/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How to add a new LUN using EMC Navisphere and powerpathOverview Create a new LUN on an EMC Clariion CX3-40 via Navisphere Assign LUN to proper Storage Group Use powermt to bring LUN in and configure i">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://kristianreese.com/images/emc/screen1.png">
+<meta property="og:updated_time" content="2019-05-05T03:49:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Add New LUN via EMC powerpath">
+<meta name="twitter:description" content="How to add a new LUN using EMC Navisphere and powerpathOverview Create a new LUN on an EMC Clariion CX3-40 via Navisphere Assign LUN to proper Storage Group Use powermt to bring LUN in and configure i">
+<meta name="twitter:image" content="http://kristianreese.com/images/emc/screen1.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-add-new-lun-emc-powerpath" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Add New LUN via EMC powerpath
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/add-new-lun-emc-powerpath/" class="article-date">
+            <time datetime="2019-05-05T06:49:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-to-add-a-new-LUN-using-EMC-Navisphere-and-powerpath"><a href="#How-to-add-a-new-LUN-using-EMC-Navisphere-and-powerpath" class="headerlink" title="How to add a new LUN using EMC Navisphere and powerpath"></a>How to add a new LUN using EMC Navisphere and powerpath</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ol>
+<li><a href="add_new_lun_emc_powerpath/#create-a-new-lun-on-an-emc-clariion-cx3-40-via-navisphere">Create a new LUN on an EMC Clariion CX3-40 via Navisphere</a></li>
+<li><a href="add_new_lun_emc_powerpath/#assign-lun-to-proper-storage-group">Assign LUN to proper Storage Group</a></li>
+<li><a href="add_new_lun_emc_powerpath/#use-powermt-to-bring-lun-in-and-configure-it">Use powermt to bring LUN in and configure it</a></li>
+<li><a href="add_new_lun_emc_powerpath/#rescan-scsi-bus-on-linux-server-for-new-lun">Rescan scsi bus on Linux server for new LUN</a></li>
+<li><a href="add_new_lun_emc_powerpath/#bring-new-lun-under-lvm-control-and-create-file-system">Bring new LUN under LVM control and create file system</a></li>
+</ol>
+<h3 id="Create-a-new-LUN-on-an-EMC-Clariion-CX3-40-via-Navisphere"><a href="#Create-a-new-LUN-on-an-EMC-Clariion-CX3-40-via-Navisphere" class="headerlink" title="Create a new LUN on an EMC Clariion CX3-40 via Navisphere"></a>Create a new LUN on an EMC Clariion CX3-40 via Navisphere</h3><ol>
+<li>Login to Navisphere.</li>
+<li><p>Within the Enterprise Storage window, expand the Storage Domains tree until the RAID Groups are displayed</p>
+<p><img src="/images/emc/screen1.png" alt></p>
+</li>
+<li><p>Right click on the RAID Group that’s to contain the new LUN</p>
+</li>
+<li>Choose the option <code>Bind LUN...</code></li>
+<li>The window below will display.  Fill it out as shown or with the desired options<br> <img src="/images/emc/screen2.png" alt="raidgroup"></li>
+<li>Click Apply.  Confirmation dialogs will appear.<br> <img src="/images/emc/screen3.png" alt="confirm1"><br> <img src="/images/emc/screen4.png" alt="confirm2"></li>
+</ol>
+<h3 id="Assign-LUN-to-proper-Storage-Group"><a href="#Assign-LUN-to-proper-Storage-Group" class="headerlink" title="Assign LUN to proper Storage Group"></a>Assign LUN to proper Storage Group</h3><ol>
+<li>Next, assign the LUN to the desired storage group by right clicking on the new LUN and choosing the option to “Add to Storage Group”<br> <img src="/images/emc/screen6.png" alt="add_storage_group"></li>
+<li>Click <code>OK</code> and confirm.<br> <img src="/images/emc/screen7.png" alt="confirm3"></li>
+</ol>
+<h3 id="Use-powermt-to-bring-LUN-in-and-configure-it"><a href="#Use-powermt-to-bring-LUN-in-and-configure-it" class="headerlink" title="Use powermt to bring LUN in and configure it"></a>Use powermt to bring LUN in and configure it</h3><p>Now that the LUN has been created, it’s time to discover it on the server.  Using the PowerPath Management Utility <code>powermt</code>, we accomplish this by running these commands:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># powermt config</span></span><br><span class="line"><span class="section"># powermt display dev=all</span></span><br></pre></td></tr></table></figure>
+<p>If the new LUN is not showing, check that both paths are healthy with the <code>powermt display</code> command. If degraded, you may not be able to discover the new LUN.  This happened to me and I had to reboot the machine to clear everything up, which returned both paths to an optimal state. I could have tried <code>powremt restore</code> which performs an I/O path check and will mark alive any previous paths marked as dead, but I took the easy way out ;)</p>
+<h3 id="Rescan-scsi-bus-on-Linux-server-for-new-LUN"><a href="#Rescan-scsi-bus-on-Linux-server-for-new-LUN" class="headerlink" title="Rescan scsi bus on Linux server for new LUN"></a>Rescan scsi bus on Linux server for new LUN</h3><p>If, after running <code>powermt config</code> the LUN is still not visible, you may rescan the bus:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">~# for host in $(ls -1d /sys/class/fc<span class="emphasis">_host/*); do echo "1" &gt; $&#123;host&#125;/issue_</span>lip; done</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">~# for host in $(ls -1d /sys/class/scsi_host/*); do echo "- - -" &gt; $&#123;host&#125;/scan ; done</span><br></pre></td></tr></table></figure>
+<p>and try <code>powermt config</code> followed by a <code>powermt display</code> to see the new LUN.</p>
+<h3 id="Bring-new-LUN-under-LVM-control-and-create-file-system"><a href="#Bring-new-LUN-under-LVM-control-and-create-file-system" class="headerlink" title="Bring new LUN under LVM control and create file system"></a>Bring new LUN under LVM control and create file system</h3><p>Once you know what block device is associated with the LUN as seen in the <code>powermt display dev=all</code> output, the following series of command will be used to bring the disk under LVM:</p>
+<ul>
+<li><code>fdisk /dev/emcpowerag</code></li>
+<li><code>pvcreate /dev/emcpowerag1</code></li>
+<li><code>vgcreate vg_dwstore /dev/emcpowerag1</code></li>
+<li><code>vgchange --addtag dwetlprod2 vg_dwstore</code></li>
+<li><code>lvcreate -l 25599 -n lv_dwstore vg_dwstore</code></li>
+<li><code>lvchange -ay vg_dwstore/lv_dwstore</code></li>
+<li><code>mkfs.ext3 /dev/vg_dwstore/lv_dwstore</code></li>
+<li><code>mkdir /dwstore</code></li>
+<li><code>mount /dev/vg_dwstore/lv_dwstore /dwstore</code></li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@dwetlprod2 bin]# fdisk /dev/emcpowerag</span><br><span class="line">Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel</span><br><span class="line">Building a new DOS disklabel. Changes will remain in memory only,</span><br><span class="line">until you decide to write them. After that, of course, the previous</span><br><span class="line">content won't be recoverable.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The number of cylinders for this disk is set to 13054.</span><br><span class="line">There is nothing wrong with that, but this is larger than 1024,</span><br><span class="line">and could in certain setups cause problems with:</span><br><span class="line">1) software that runs at boot time (e.g., old versions of LILO)</span><br><span class="line">2) booting and partitioning software from other OSs</span><br><span class="line">   (e.g., DOS FDISK, OS/2 FDISK)</span><br><span class="line">Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)</span><br><span class="line"></span><br><span class="line">Command (m for help): p</span><br><span class="line"></span><br><span class="line">Disk /dev/emcpowerag: 107.3 GB, 107374182400 bytes</span><br><span class="line">255 heads, 63 sectors/track, 13054 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line"><span class="code">          Device Boot      Start         End      Blocks   Id  System</span></span><br><span class="line"></span><br><span class="line">Command (m for help): n</span><br><span class="line">Command action</span><br><span class="line">   e   extended</span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">p</span><br><span class="line"></span><br><span class="line">Partition number (1-4): 1</span><br><span class="line">First cylinder (1-13054, default 1): </span><br><span class="line">Using default value 1</span><br><span class="line">Last cylinder or +size or +sizeM or +sizeK (1-13054, default 13054): </span><br><span class="line">Using default value 13054</span><br><span class="line"></span><br><span class="line">Command (m for help): t</span><br><span class="line">Selected partition 1</span><br><span class="line">Hex code (type L to list codes): 8e</span><br><span class="line">Changed system type of partition 1 to 8e (Linux LVM)</span><br><span class="line"></span><br><span class="line">Command (m for help): w</span><br><span class="line">The partition table has been altered!</span><br><span class="line"></span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Syncing disks.</span><br><span class="line">[root@dwetlprod2 bin]# </span><br><span class="line">[root@dwetlprod2 bin]# pvcreate /dev/emcpowerag1</span><br><span class="line">  Physical volume "/dev/emcpowerag1" successfully created</span><br><span class="line">[root@dwetlprod2 bin]# vgcreate vg_dwstore /dev/emcpowerag1 </span><br><span class="line">  Volume group "vg_dwstore" successfully created</span><br><span class="line"></span><br><span class="line">[root@dwetlprod2 bin]# pvdisplay /dev/emcpowerag1 </span><br><span class="line">  --- Physical volume ---</span><br><span class="line">  PV Name               /dev/emcpowerag1</span><br><span class="line">  VG Name               vg_dwstore</span><br><span class="line">  PV Size               100.00 GB / not usable 0   </span><br><span class="line">  Allocatable           yes </span><br><span class="line">  PE Size (KByte)       4096</span><br><span class="line">  Total PE              25599</span><br><span class="line">  Free PE               25599</span><br><span class="line">  Allocated PE          0</span><br><span class="line">  PV UUID               VkvFFP-qBlo-1U6A-JDXS-nceB-GOCy-xpZH1R</span><br><span class="line">   </span><br><span class="line">[root@dwetlprod2 bin]# </span><br><span class="line">[root@dwetlprod2 bin]# lvcreate -l 25599 -n lv<span class="emphasis">_dwstore vg_</span>dwstore</span><br><span class="line">  Failed to activate new LV.</span><br></pre></td></tr></table></figure>
+<p>!!! error “Failed to activate new LV”<br>    I have host tags enabled in lvm.conf, so I must <a href="/Linux/failed_to_activate_lv">tag the volume group</a> to that of the hostname!</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@dwetlprod2 bin]# vgchange --addtag dwetlprod2 vg_dwstore</span><br><span class="line">  Volume group "vg_dwstore" successfully changed</span><br><span class="line">[root@dwetlprod2 bin]# lvchange -ay vg<span class="emphasis">_dwstore/lv_</span>dwstore</span><br><span class="line">[root@dwetlprod2 bin]# </span><br><span class="line">[root@dwetlprod2 bin]# mkfs.ext3 /dev/vg<span class="emphasis">_dwstore/lv_</span>dwstore </span><br><span class="line">mke2fs 1.35 (28-Feb-2004)</span><br><span class="line">Filesystem label=</span><br><span class="line">OS type: Linux</span><br><span class="line">Block size=4096 (log=2)</span><br><span class="line">Fragment size=4096 (log=2)</span><br><span class="line">13107200 inodes, 26213376 blocks</span><br><span class="line">1310668 blocks (5.00%) reserved for the super user</span><br><span class="line">First data block=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">800 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">16384 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line"><span class="code">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span></span><br><span class="line"><span class="code">        4096000, 7962624, 11239424, 20480000, 23887872</span></span><br><span class="line"></span><br><span class="line">Writing inode tables: done                            </span><br><span class="line">Creating journal (8192 blocks): done</span><br><span class="line">Writing superblocks and filesystem accounting information: done</span><br><span class="line"></span><br><span class="line">This filesystem will be automatically checked every 34 mounts or</span><br><span class="line">180 days, whichever comes first.  Use tune2fs -c or -i to override.</span><br><span class="line">[root@dwetlprod2 bin]# mkdir /dwstore</span><br><span class="line">[root@dwetlprod2 bin]# mount /dev/vg<span class="emphasis">_dwstore/lv_</span>dwstore /dwstore</span><br><span class="line">[root@dwetlprod2 bin]# df -Ph /dwstore</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg<span class="emphasis">_dwstore-lv_</span>dwstore   99G   92M   94G   1% /dwstore</span><br></pre></td></tr></table></figure>
+<p>Put entry in /etc/fstab and it’s done!</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/add-new-lun-emc-powerpath/" data-id="cjvacabsg000107o9i4pe0unl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Add New LUN via EMC powerpath",
+        "image": "http://kristianreese.com/images/emc/screen1.png",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/add-new-lun-emc-powerpath/",
+        "description": "How to add a new LUN using EMC Navisphere and powerpathOverview
+Create a new LUN on an EMC Clariion CX3-40 via Navisphere
+Assign LUN to proper Storage Group
+Use powermt to bring LUN in and configure i"
+        "wordCount": 1297
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/add-and-delete-a-null-route/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Add and Delete null routes
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/add-disk-without-rebooting/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Add Disk without Rebooting</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/add-new-lun-emc-powerpath/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

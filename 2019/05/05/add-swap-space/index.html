@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>How to Add Swap Space | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.  Use of a hard disk partition Create a swap file on an existing file system  To view current">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Add Swap Space">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/add-swap-space/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.  Use of a hard disk partition Create a swap file on an existing file system  To view current">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T02:58:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to Add Swap Space">
+<meta name="twitter:description" content="How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.  Use of a hard disk partition Create a swap file on an existing file system  To view current">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-add-swap-space" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        How to Add Swap Space
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/add-swap-space/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-To-Add-Swap-Space-to-a-Linux-System"><a href="#How-To-Add-Swap-Space-to-a-Linux-System" class="headerlink" title="How To Add Swap Space to a Linux System"></a>How To Add Swap Space to a Linux System</h1><p>There are two ways to go about adding swap space to a linux system.</p>
+<ol>
+<li>Use of a hard disk partition</li>
+<li>Create a swap file on an existing file system</li>
+</ol>
+<p>To view current swap utilization, a user can use the commands free or swapon.  Swap utilization may also be viewed within the <code>/proc</code> file system:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># free -m</span></span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:         48297      34139      14157          0        556      25966</span><br><span class="line">-/+ buffers/cache:       7616      40681</span><br><span class="line">Swap:        10236         49      10187</span><br><span class="line"></span><br><span class="line">[root@linux01 ~]<span class="comment"># swapon -s</span></span><br><span class="line">Filename                                Type            Size    Used    Priority</span><br><span class="line">/dev/sda3                               partition       10482404        50364   -1</span><br><span class="line"></span><br><span class="line">[root@linux01 ~]<span class="comment"># cat /proc/swaps </span></span><br><span class="line">Filename                                Type            Size    Used    Priority</span><br><span class="line">/dev/sda3                               partition       10482404        50364   -1</span><br></pre></td></tr></table></figure>
+<p>Clearly, we see <code>swap -s</code> and <code>/proc/swaps</code> provides the same output</p>
+<hr>
+<h2 id="Method-1"><a href="#Method-1" class="headerlink" title="Method 1"></a>Method 1</h2><h3 id="Disk-partition"><a href="#Disk-partition" class="headerlink" title="Disk partition"></a>Disk partition</h3><p>Use of a hard disk partition is very simple to setup.  If a spare hard disk is available, or there’s unpartitioned space available on an existing hard disk, use <code>fdisk</code> to create a partition.  In my case, I had neither immediately available to me, but what I did have was plenty of EMC SAN, so I created a LUN, presented it to the server, and created a partition via fdisk just as if it were a regular disk.  While creating the partition, don’t forget to set the partition type to <code>Linux swap</code> ==Hex code 82== via the ==t== option in <code>fdisk</code>:</p>
+<p>   <code>t   change a partition&#39;s system id</code></p>
+<p>In the case of VMware, a virtual disk can be added.  In this case, or in the case of adding a new physical disk to a server, here’s how to add the disk to the system without rebooting, minus the need to create the ext3 filesystem of course.</p>
+<p>Here is what mine looked like after creating the partition via fdisk:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># fdisk -l /dev/emcpoweraj</span></span><br><span class="line"></span><br><span class="line">Disk /dev/emcpoweraj: 32.2 GB, 32212254720 bytes</span><br><span class="line">64 heads, 32 sectors/track, 30720 cylinders</span><br><span class="line">Units = cylinders of 2048 * 512 = 1048576 bytes</span><br><span class="line"></span><br><span class="line">          Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/emcpoweraj1               1       30720    31457216   82  Linux swap</span><br></pre></td></tr></table></figure>
+<p>Next, use the <code>mkswap</code> command to set up a Linux swap area, and <code>swapon</code> to enable the device for swapping</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># mkswap /dev/emcpoweraj1</span></span><br><span class="line">[root@linux01 ~]<span class="comment"># swapon /dev/emcpoweraj1</span></span><br></pre></td></tr></table></figure>
+<p>In order to make this swap partition available across reboots, don’t forget to add it to the <code>/etc/fstab</code> file.</p>
+<p>!!! note “fstab entry”<br>    <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section">## xtra swap via EMC LUN</span></span><br><span class="line">/dev/emcpoweraj1        swap    swap    defaults        0 0</span><br></pre></td></tr></table></figure></p>
+<p>Verify the new swap space is available to the system:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># cat /proc/swaps </span></span><br><span class="line">Filename                                Type            Size    Used    Priority</span><br><span class="line">/dev/sda3                               partition       10482404        50360   -1</span><br><span class="line">/dev/emcpoweraj1                        partition       31457208        0       -2</span><br><span class="line"></span><br><span class="line">[root@linux01 ~]<span class="comment"># free -m</span></span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:         48297      32580      15717          0        562      26390</span><br><span class="line">-/+ buffers/cache:       5626      42671</span><br><span class="line">Swap:        40956         49      40907</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Method-2"><a href="#Method-2" class="headerlink" title="Method 2"></a>Method 2</h2><h3 id="Free-disk-space"><a href="#Free-disk-space" class="headerlink" title="Free disk space"></a>Free disk space</h3><p>If you don’t have additional, physical hardware or non-partitioned space available, but have plenty of free disk space within an existing filesystem, you can create a file and use that for swap space.  Here’s an example of adding 2 GB of swap via a swap file:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># dd if=/dev/zero of=/root/xtraswap bs=1M count=2048</span></span><br><span class="line">2048+0 records <span class="keyword">in</span></span><br><span class="line">2048+0 records out</span><br><span class="line"></span><br><span class="line">[root@linux01 ~]<span class="comment"># ls -lh /root/xtraswap </span></span><br><span class="line">-rw-r--r--  1 root root 2.0G Jul 23 14:08 /root/xtraswap</span><br></pre></td></tr></table></figure>
+<p>Permissions should be changed such that only root has access, then setup the linux swap area via mkswap and enable it</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux01 ~]<span class="comment"># chmod 600 /root/xtraswap</span></span><br><span class="line">[root@linux01 ~]<span class="comment"># mkswap /root/xtraswap</span></span><br><span class="line">Setting up swapspace version 1, size = 2147479 kB</span><br><span class="line">[root@linux01 ~]<span class="comment"># swapon /root/xtraswap</span></span><br></pre></td></tr></table></figure>
+<p>Just as in method 1 above, verify the extra swap space has been added by looking at <code>/proc/swaps</code> or using the <code>swap -s</code> command.  In addition, add the newly created swap space to <code>/etc/fstab</code> to ensure it’s available on reboot.</p>
+<p>!!! note “fstab entry”<br>    <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section">## xtra swap via swap file</span></span><br><span class="line">/root/xtraswap        swap    swap    defaults        0 0</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/add-swap-space/" data-id="cjvacabsk000207o9uxadgyon" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "How to Add Swap Space",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/add-swap-space/",
+        "description": "How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
+
+Use of a hard disk partition
+Create a swap file on an existing file system
+
+To view current "
+        "wordCount": 1345
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/top-cpu-mem-processes/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Top CPU &amp; Memory Processes
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Create temp file with random characters</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/add-swap-space/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

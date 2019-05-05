@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Create chroot jail with openssh | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp;amp; tried to install">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Create chroot jail with openssh">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/create-chroot-jail-with-openssh/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp;amp; tried to install">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T02:59:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create chroot jail with openssh">
+<meta name="twitter:description" content="How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp;amp; tried to install">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-create-chroot-jail-with-openssh" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Create chroot jail with openssh
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-to-create-a-chroot-jail-with-openssh-sftp-only"><a href="#How-to-create-a-chroot-jail-with-openssh-sftp-only" class="headerlink" title="How to create a chroot jail with openssh (sftp only)"></a>How to create a chroot jail with openssh (sftp only)</h1><p>This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install and configure rssh to no avail.  I was continually met with “Connection closed” messages which has been documented in the <a href="http://www.pizzashack.org/rssh/faq.shtml#6" target="_blank" rel="noopener">rssh FAQ</a>, and the provided solution did not work.  I therefore sought out an alternative solution and was pleased to find a simpler solution using openssh.</p>
+<h5 id="Check-current-version-of-openssh"><a href="#Check-current-version-of-openssh" class="headerlink" title="Check current version of openssh"></a>Check current version of openssh</h5><p>If you’re not running openssh version 4.9p1 or higher, you must upgrade openssh in order to take advantage of the chroot feature and avoid having to setup an elaborate chroot with libraries and install third-party shells.</p>
+<h5 id="Start-by-installing-some-development-tools"><a href="#Start-by-installing-some-development-tools" class="headerlink" title="Start by installing some development tools"></a>Start by installing some development tools</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y gcc openssl-devel pam-devel rpm-build</span><br></pre></td></tr></table></figure>
+<h5 id="Download-openssh-5-2p1"><a href="#Download-openssh-5-2p1" class="headerlink" title="Download openssh 5.2p1"></a>Download openssh 5.2p1</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget ftp://mirror.planetunix.net/pub/OpenBSD/OpenSSH/portable/openssh-5.2p1.tar.gz</span><br></pre></td></tr></table></figure>
+<h5 id="Build-RPM-based-off-the-source"><a href="#Build-RPM-based-off-the-source" class="headerlink" title="Build RPM based off the source"></a>Build RPM based off the source</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar xvfz openssh-5.2p1.tar.gz</span><br><span class="line">cp ./openssh-5.2p1/contrib/redhat/openssh.spec /usr/src/redhat/SPECS/</span><br><span class="line">cp  ./openssh-5.2p1.tar.gz /usr/src/redhat/SOURCES/</span><br><span class="line"><span class="built_in">cd</span> /usr/src/redhat/SPECS/</span><br><span class="line">perl -i.bak -pe <span class="string">'s/^(%define no_(gnome|x11)_askpass)\s+0$/$1 1/'</span> openssh.spec</span><br><span class="line">rpmbuild -bb openssh.spec</span><br><span class="line"><span class="built_in">cd</span> /usr/src/redhat/RPMS/`uname -i`</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ls -l</span></span><br><span class="line">-rw-r--r-- 1 root root 275215 Oct 25 16:31 openssh-5.2p1-1.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 root root 437468 Oct 25 16:31 openssh-clients-5.2p1-1.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 root root 275724 Oct 25 16:31 openssh-server-5.2p1-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rpm -Uvh openssh*rpm</span></span><br><span class="line">Preparing...                <span class="comment">########################################### [100%]</span></span><br><span class="line">   1:openssh                <span class="comment">########################################### [ 33%]</span></span><br><span class="line">   2:openssh-clients        <span class="comment">########################################### [ 67%]</span></span><br><span class="line">   3:openssh-server         <span class="comment">########################################### [100%]</span></span><br><span class="line"></span><br><span class="line">warning: /etc/pam.d/sshd created as /etc/pam.d/sshd.rpmnew</span><br><span class="line">warning: /etc/ssh/sshd_config created as /etc/ssh/sshd_config.rpmnew</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/pam.d/sshd /etc/pam.d/sshd.orig</span><br><span class="line">cp /etc/pam.d/sshd.rpmnew /etc/pam.d/sshd</span><br><span class="line">mv /etc/ssh/sshd_config /etc/ssh/sshd_config.orig</span><br><span class="line">cp /etc/ssh/sshd_config.rpmnew /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<h5 id="Restart-sshd-and-verify-version"><a href="#Restart-sshd-and-verify-version" class="headerlink" title="Restart sshd and verify version"></a>Restart sshd and verify version</h5><p><code>service sshd restart</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ssh -V</span></span><br><span class="line">OpenSSH_5.2p1, OpenSSL 0.9.8e-fips-rhel5 01 Jul 2008</span><br></pre></td></tr></table></figure>
+<p>!!! info “”<br>    After restarting, it may say initlog is obsolete, but, you can ignore as that option is deprecated.</p>
+<h5 id="Configure-sshd-config-and-restart-sshd"><a href="#Configure-sshd-config-and-restart-sshd" class="headerlink" title="Configure sshd_config and restart sshd"></a>Configure sshd_config and restart sshd</h5><p>!!! note “Configure sshd_config and restart sshd”<br>    <code>vi /etc/ssh/sshd_config</code></p>
+<pre><code>Set the following options at the very end of the file.  Note you may have to comment out the sftp-server Subsystem.  Also ensure the `Match` directive is at the end of the config file.
+
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># override default of no subsystems</span></span><br><span class="line"><span class="section">#Subsystem      sftp    /usr/libexec/openssh/sftp-server</span></span><br><span class="line">Subsystem       sftp    internal-sftp</span><br><span class="line"></span><br><span class="line">Match Group sftp</span><br><span class="line"><span class="code">        ChrootDirectory %h</span></span><br><span class="line"><span class="code">        ForceCommand internal-sftp</span></span><br><span class="line"><span class="code">        AllowTcpForwarding no</span></span><br></pre></td></tr></table></figure>
+</code></pre><p>!!! important<br>    Don’t forget to restart sshd after saving the sshd_config file.</p>
+<h5 id="Add-chroot-group-user-and-set-permissions"><a href="#Add-chroot-group-user-and-set-permissions" class="headerlink" title="Add chroot group/user and set permissions"></a>Add chroot group/user and set permissions</h5><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">groupadd sftp</span><br><span class="line">useradd -d /chroot -u 555 -G sftp -m -s /bin/false sftpuser</span><br><span class="line">chown root:root /chroot</span><br><span class="line">chmod 0755 /chroot</span><br><span class="line">mkdir /chroot/sftpuser</span><br><span class="line">chown sftpuser:sftp /chroot/sftpuser</span><br></pre></td></tr></table></figure>
+<p>Seting the users shell to <code>/bin/false</code> ensures they will never, ever get shell access.  You may set the permisisons for your given scenario.  The above example would be the proper setup if more than one user is given access, which would not allow any files or directories to be created in the root of the jail (/chroot).  Only uploading of files/directories will be allowed within the users “personal” directory (sftpuser).</p>
+<p>That’s it.  sftp to the host and the user will not be able to traverse file systems.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/create-chroot-jail-with-openssh/" data-id="cjvacabss000707o97npzvqyy" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Create chroot jail with openssh",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/create-chroot-jail-with-openssh/",
+        "description": "How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install"
+        "wordCount": 691
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/boot-grub-stage1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            /boot/grub/stage1 not read correctly
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/failed-to-activate-lv/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Failed to activate lv</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/create-chroot-jail-with-openssh/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

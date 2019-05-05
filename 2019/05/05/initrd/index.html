@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Extracting initrd | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:  cpio archive ext2 filesystem data  The easiest way to determine what you’re w">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Extracting initrd">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/initrd/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:  cpio archive ext2 filesystem data  The easiest way to determine what you’re w">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T03:01:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Extracting initrd">
+<meta name="twitter:description" content="How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:  cpio archive ext2 filesystem data  The easiest way to determine what you’re w">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-initrd" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Extracting initrd
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/initrd/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="How-to-extract-and-view-contents-of-initrd"><a href="#How-to-extract-and-view-contents-of-initrd" class="headerlink" title="How to extract and view contents of initrd"></a>How to extract and view contents of initrd</h1><p>Depending on your version of linux, the /boot/initrd may be one of two formats:</p>
+<ul>
+<li>cpio archive</li>
+<li>ext2 filesystem data</li>
+</ul>
+<p>The easiest way to determine what you’re working with is by using the file command.  Here are examples showing the output for each file type listed in the above bullet points:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux ~]<span class="comment"># file /boot/initramfs-2.6.32-220.17.1.el6.x86_64.img </span></span><br><span class="line">/boot/initramfs-2.6.32-220.17.1.el6.x86_64.img: gzip compressed data, from Unix, last modified: Thu Jun 28 18:33:36 2012, max compression</span><br><span class="line"></span><br><span class="line">[root@linux ~]<span class="comment"># file /boot/initramfs64-catalyst</span></span><br><span class="line">initramfs64-catalyst: gzip compressed data, from Unix, max compression</span><br></pre></td></tr></table></figure>
+<p>To be sure what you’re dealing with, supply the -z option to the file command as this will attempt to look inside the compressed files to see what the contents are:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux ~]<span class="comment"># file -z /boot/initrd-2.6.9-023stab053.2-smp.img </span></span><br><span class="line">/boot/initrd-2.6.9-023stab053.2-smp.img: Linux rev 1.0 ext2 filesystem data (gzip compressed data, from Unix, max compression)</span><br><span class="line"></span><br><span class="line">[root@linux ~]<span class="comment"># file -z /boot/initramfs64-catalyst</span></span><br><span class="line">initramfs64-catalyst: ASCII cpio archive (SVR4 with no CRC) (gzip compressed data, from Unix, max compression)</span><br></pre></td></tr></table></figure>
+<h2 id="Mount-it"><a href="#Mount-it" class="headerlink" title="Mount it"></a>Mount it</h2><p>Mount ext2 filesystem data (gzip compressed) initrd contents</p>
+<p>I like to work with copies of the initrd, so I created a dir in /root/initrd and work with it there:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux root]<span class="comment"># mkdir /root/initrd; cd /root/initrd</span></span><br><span class="line">[root@linux initrd]<span class="comment"># cp /boot/initrd-2.6.9-023stab053.2-smp.img .</span></span><br></pre></td></tr></table></figure>
+<p>Some online documents indicate the initrd should be renamed with the .gz extension so that gunzip can be used to extract the compressed file, but most linux distros ship with the handy zcat command, which saves us a step from having to rename files.  This is the method I prefer:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux initrd]<span class="comment"># zcat initrd-2.6.9-023stab053.2-smp.img &gt; initrd-2.6.9-023stab053.2-smp</span></span><br><span class="line">[root@linux initrd]<span class="comment"># file -z initrd-2.6.9-023stab053.2-smp</span></span><br><span class="line">initrd-2.6.9-023stab053.2-smp: Linux rev 1.0 ext2 filesystem data</span><br></pre></td></tr></table></figure>
+<p>Now it’s ready to be mounted as a loop device:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux initrd]<span class="comment"># mount -o loop ./initrd-2.6.9-023stab053.2-smp /mnt</span></span><br><span class="line">[root@linux initrd]<span class="comment"># ls -l /mnt</span></span><br><span class="line">total 9</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 bin</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 dev</span><br><span class="line">drwxr-xr-x  4 root root 1024 Jun 25 15:40 etc</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 lib</span><br><span class="line">-rwxr-xr-x  1 root root  869 Jun 25 15:40 linuxrc</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 loopfs</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 proc</span><br><span class="line">lrwxrwxrwx  1 root root    3 Jun 25 15:40 sbin -&gt; bin</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 sys</span><br><span class="line">drwxr-xr-x  2 root root 1024 Jun 25 15:40 sysroot</span><br></pre></td></tr></table></figure>
+<h2 id="Extract-it"><a href="#Extract-it" class="headerlink" title="Extract it"></a>Extract it</h2><p>Extract cpio archive initrd contents</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@linux initrd]<span class="comment"># cp /boot/initramfs64-catalyst .</span></span><br><span class="line">[root@linux initrd]<span class="comment"># zcat initramfs64-catalyst | cpio -id</span></span><br><span class="line">[root@vpsrep tmp]<span class="comment"># ls -l</span></span><br><span class="line">total 387232</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:57 bin</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:57 boot</span><br><span class="line">drwxr-xr-x   3 root root      4096 Jun 26 21:58 dev</span><br><span class="line">drwxr-xr-x  32 root root      4096 Jun 26 21:58 etc</span><br><span class="line">drwxr-x---   5 root root      4096 Jun 26 21:58 evolution</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 home</span><br><span class="line">lrwxrwxrwx   1 root root        15 Jun 26 21:58 init -&gt; /evolution/init</span><br><span class="line">-rw-r--r--   1 root root 396057600 Jun 26 21:55 initramfs64-catalyst.cpio</span><br><span class="line">lrwxrwxrwx   1 root root         5 Jun 26 21:58 lib -&gt; lib64</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 lib32</span><br><span class="line">drwxr-xr-x   9 root root      4096 Jun 26 21:58 lib64</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 media</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 mnt</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 opt</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 proc</span><br><span class="line">drwx------   2 root root      4096 Jun 26 21:58 root</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 sbin</span><br><span class="line">drwxr-xr-x   2 root root      4096 Jun 26 21:58 sys</span><br><span class="line">drwxrwxrwt   2 root root      4096 Jun 26 21:58 tmp</span><br><span class="line">drwxr-xr-x  12 root root      4096 Jun 26 21:58 usr</span><br><span class="line">drwxr-xr-x   9 root root      4096 Jun 26 21:58 var</span><br></pre></td></tr></table></figure>
+<p>!!! note</p>
+<p>The <code>--verbose</code> option may be supplied to list the files to the console as they are being extracted, or adding v to the options in the example above, as in cpio -idv</p>
+<p>cpio -itv will simply list the contents without extracting them.</p>
+<ul>
+<li>The -itv options are short hand for –extract –list –verbose</li>
+<li>The -idv options are short hand for –extract –make-directories –verbose</li>
+</ul>
+<h2 id="Repackaging-initrd"><a href="#Repackaging-initrd" class="headerlink" title="Repackaging initrd"></a>Repackaging initrd</h2><p>!!! tip “Repackaging”<br>    If some some reason a change needs to be made to the initrd and it needs to be buttoned back up, this is how to do it:</p>
+<h3 id="ext2-filesystem-data"><a href="#ext2-filesystem-data" class="headerlink" title="ext2 filesystem data"></a>ext2 filesystem data</h3><p>copy whatever files you want to whereever the initrd ext2 filesystem was mounted.  Once finished, umount the filesystem, gzip it (which will give it the .gz extension), then rename it to the original initrd file that was copied or some other name like initrd-2.6.9-023stab053.2-smp-mpath.img.  If a new name is given, be sure to update the boot loader configuration files like /boot/grub/grub.conf.</p>
+<h3 id="cpio-archive"><a href="#cpio-archive" class="headerlink" title="cpio archive"></a>cpio archive</h3><p>From within the directory the contents were extracted, first remove or move the .cpio file to another parent directory outside to ensure it’s not part of the new cpio archive then recreate the archive:</p>
+<p><code>find . | cpio --quiet -c -o | gzip -9 -n &gt; ../initramfs64-catalyst</code></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/initrd/" data-id="cjvacabt8000e07o9x3vm34c8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Extracting initrd",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/initrd/",
+        "description": "How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
+
+cpio archive
+ext2 filesystem data
+
+The easiest way to determine what you’re w"
+        "wordCount": 1026
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/ip-conntrack/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            ip_conntrack table full
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/postfix-masquerade/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">postfix masquerade</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/initrd/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

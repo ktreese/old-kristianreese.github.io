@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Advanced techniques using unix &#39;find&#39; | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="I found this article on IBMs Developer Works site and had to put it here!  Some of this is basic, but it’s a good read nonetheless. There’s nothing quite like the thrill of exploring, discovering new">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced techniques using unix &#39;find&#39;">
+<meta property="og:url" content="http://kristianreese.com/2019/05/05/advanced-techniques-for-using-the-unix-find-command/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="I found this article on IBMs Developer Works site and had to put it here!  Some of this is basic, but it’s a good read nonetheless. There’s nothing quite like the thrill of exploring, discovering new">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T02:59:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Advanced techniques using unix &#39;find&#39;">
+<meta name="twitter:description" content="I found this article on IBMs Developer Works site and had to put it here!  Some of this is basic, but it’s a good read nonetheless. There’s nothing quite like the thrill of exploring, discovering new">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-advanced-techniques-for-using-the-unix-find-command" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Advanced techniques using unix &#39;find&#39;
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/05/advanced-techniques-for-using-the-unix-find-command/" class="article-date">
+            <time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>I found this article on <a href="http://www.ibm.com/developerworks/aix/library/au-unix-find.html" target="_blank" rel="noopener">IBMs Developer Works site</a> and had to put it here!  Some of this is basic, but it’s a good read nonetheless.</p>
+<p>There’s nothing quite like the thrill of exploring, discovering new people, places, and things. The territory might change, but a few principles remain the same. One of those principles is to keep a written record of your journey; another is to know and use your tools.</p>
+<p>The UNIX® operating system is much like a vast, uncharted wilderness. As you travel the terrain, you can pick up tools that assist you later. The find command is such a tool. The find command is capable of much more than simply locating files; it can automatically execute sequences of other UNIX commands, using the filenames found for input, as this article explains.</p>
+<h2 id="Find-with-few-limits"><a href="#Find-with-few-limits" class="headerlink" title="Find with few limits"></a>Find with few limits</h2><p>All operating systems worth their salt have a tool to assist you in finding things. Unlike most of these tools, the UNIX find command can automatically perform many operations for you on the files it finds.</p>
+<p>Standard find tools found in graphical user interfaces (GUIs) allow you to do a few common tasks with the files you find: You can mark them for cutting, copying, and pasting; you can move them to a new location; and you can open them with the program used to create them. These operations involve two or more steps and aren’t automatic – you find the files first, and then you use the GUI to mark them for the next operation. This approach is fine for many users, but the explorer wants more.</p>
+<p>The UNIX find command can delete, copy, move, and execute files that it finds. In addition, with the -exec parameter, it can automatically run files through any sequence of UNIX commands you need. It can even ask you before it performs such operations on any file.</p>
+<h2 id="Simplify-management-of-your-file-system"><a href="#Simplify-management-of-your-file-system" class="headerlink" title="Simplify management of your file system"></a>Simplify management of your file system</h2><p>The UNIX find command, like most UNIX commands, has an intimidating array of options and switches that can discourage people from learning its depth – but true explorers aren’t intimidated just because the territory is vast. A good general principle goes a long way toward simplifying a complex topic. Start up an xterm, and try the following command:</p>
+<p><code>$ find . -name *.gif -exec ls {} \;</code></p>
+<p>The <code>-exec</code> parameter holds the real power. When a file is found that matches the search criteria, the -exec parameter defines what to do with the file. This example tells the computer to:</p>
+<ol>
+<li>Search from the current directory on down, using the dot (.) just after find.</li>
+<li>Locate all files that have a name ending in .gif (graphic files).</li>
+<li>List all found files, using the ls command.</li>
+</ol>
+<p>The -exec parameter requires further scrutiny. When a filename is found that matches the search criteria, the find command executes the ls {} string, substituting the filename and path for the {} text. If saturn.gif was found in the search, find would execute this command:</p>
+<p><code>$ ls ./gif_files/space/solar_system/saturn.gif</code></p>
+<p>The rest of the article builds on this general principle: Thoughtful use of the <code>find</code> command can make the management of UNIX file systems a much easier task. For example, the <code>find</code> command can process commands based on the type of file system where the file is found, if you use the <code>-fstype</code> parameter. And it’s often useful to have the <code>find</code> command prompt you before it executes commands on a found file; you can tell it to do so by using the <code>-ok</code> parameter, as you’ll see next.</p>
+<h2 id="Optional-execution"><a href="#Optional-execution" class="headerlink" title="Optional execution"></a>Optional execution</h2><p>An important alternative to the <code>-exec</code> parameter is <code>-ok</code>; it behaves the same as <code>-exec</code>, but it prompts you to see if you want to run the command on that file. Suppose you want to remove most of the .txt files in your home directory, but you wish to do it on a file-by-file basis. Delete operations like the UNIX rm command are dangerous, because it’s possible to inadvertently delete files that are important when they’re found by an automated process like <code>find</code>; you might want to scrutinize all the files the system finds before removing them.</p>
+<p>The following command lists all the .txt files in your home directory. To delete the files, you must enter <code>Y</code> or <code>y</code> when the <code>find</code> command prompts you for action by listing the filename:</p>
+<p><code>$ find $HOME/. -name *.txt -ok rm {} \;</code></p>
+<p>Each file found is listed, and the system pauses for you to enter <code>Y</code> or <code>y</code>. If you press the Enter key, the system won’t delete the file. Listing 1 shows some sample results:</p>
+<p>Listing 1. Sample results</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt; rm ... /home/bill/./.kde/share/apps/karm/karmdata.txt &gt; ?</span><br><span class="line">&lt; rm ... /home/bill/./archives/LDDS.txt &gt; ?</span><br><span class="line">&lt; rm ... /home/bill/./www/txt/textfile1.txt &gt; ?</span><br><span class="line">&lt; rm ... /home/bill/./www/txt/faq.txt &gt; ?</span><br><span class="line">&lt; rm ... /home/bill/./www/programs/MIKE.txt &gt; ?</span><br><span class="line">&lt; rm ... /home/bill/./www/programs/EESTRING.txt &gt; ?</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+<p>After each question mark, the system paused; in this case, the Enter key was pressed to continue to the next file. (No files were removed.) The <code>-ok</code> parameter lets you control the automatic processing of each found file, adding a measure of safety to the danger of automatic file removal.</p>
+<p>If too many files are involved for you to spend time with the <code>-ok</code> parameter, a good rule of thumb is to run the find command with <code>-exec</code> to list the files that would be deleted; then, after examining the list to be sure no important files will be deleted, run the command again, replacing ls with rm.</p>
+<p>Both <code>-exec</code> and <code>-ok</code> are useful, and you must decide which works best for you in your current situation. Remember, safety first!</p>
+<h2 id="Use-find-creatively"><a href="#Use-find-creatively" class="headerlink" title="Use find creatively"></a>Use find creatively</h2><p>You can perform myriad tasks with the find command. This section provides some examples of ways you can put find to work as you manage your file system.</p>
+<p>To keep things simple, these examples avoid <code>-exec</code> commands that involve the piping of output from one command to another. However, you’re free to use commands like these in a find’s <code>-exec</code> clause.</p>
+<h3 id="Clean-out-temporary-files"><a href="#Clean-out-temporary-files" class="headerlink" title="Clean out temporary files"></a>Clean out temporary files</h3><p>You can use find to clean directories and subdirectories of the temporary files generated during normal use, thereby saving disk space. To do so, use the following command:</p>
+<p><code>$ find . \( -name a.out -o -name &#39;*.o&#39; -o -name &#39;core&#39; \) -exec rm {} \;</code></p>
+<p>File masks identifying the file types to be removed are located between the parentheses; each file mask is preceded by -name. This list can be extended to include any temporary file types you can come up with that need to be cleaned off the system. In the course of compiling and linking code, programmers and their tools generate file types like those shown in the example: a.out, *.o, and core. Other users have similar commonly generated temporary files and can edit the command accordingly, using file masks like *.tmp, *.junk, and so on. You might also find it useful to put the command into a script called clean, which you can execute whenever you need to clean a directory.</p>
+<h3 id="Copy-a-directory’s-contents"><a href="#Copy-a-directory’s-contents" class="headerlink" title="Copy a directory’s contents"></a>Copy a directory’s contents</h3><p>The find command lets you copy the entire contents of a directory while preserving the permissions, times, and ownership of every file and subdirectory. To do so, combine find and the <code>cpio</code> command, like this:</p>
+<p>Listing 2. Combining the find and <code>cpio</code> command</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /path/to/<span class="built_in">source</span>/dir</span><br><span class="line">$</span><br><span class="line">$ find . | cpio -pdumv /path/to/destination/dir</span><br></pre></td></tr></table></figure>
+<p>The <code>cpio</code> command is a copy command designed to copy files into and out of a <code>cpio</code> or tar archive, automatically preserving permissions, times, and ownership of files and subdirectories.</p>
+<h3 id="List-the-first-lines-of-text-files"><a href="#List-the-first-lines-of-text-files" class="headerlink" title="List the first lines of text files"></a>List the first lines of text files</h3><p>Some people use the first line of every text file as a heading or description of the file’s contents. A report that lists the filenames and first line of each text file can make sifting through several hundred text files a lot easier. The following command lists the first line in every text file in your home directory in a report, ready to be examined at your leisure with the less command:</p>
+<p>Listing 3. The less command</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ find <span class="variable">$HOME</span>/. -name *.txt -<span class="built_in">exec</span> head -n 1 -v &#123;&#125; \; &gt; report.txt</span><br><span class="line">$</span><br><span class="line">$ less &lt; report.txt</span><br></pre></td></tr></table></figure>
+<h3 id="Maintain-LOG-and-TMP-file-storage-spaces"><a href="#Maintain-LOG-and-TMP-file-storage-spaces" class="headerlink" title="Maintain LOG and TMP file storage spaces"></a>Maintain LOG and TMP file storage spaces</h3><p>To maintain LOG and TMP file storage space for applications that generate a lot of these files, you can put the following commands into a cron job that runs daily:</p>
+<p>Listing 4. Maintaining LOG and TMP file storage spaces</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ find <span class="variable">$LOGDIR</span> -<span class="built_in">type</span> d -mtime +0 -<span class="built_in">exec</span> compress -r &#123;&#125; \;</span><br><span class="line">$</span><br><span class="line">$ find <span class="variable">$LOGDIR</span> -<span class="built_in">type</span> d -mtime +5 -<span class="built_in">exec</span> rm -f &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p>The first command runs all the directories (<code>-type d</code>) found in the <code>$LOGDIR</code> directory wherein a file’s data has been modified within the last 24 hours (<code>-mtime +0</code>) and compresses them (<code>compress -r {}</code>) to save disk space. The second command deletes them (<code>rm -f {}</code>) if they are more than a work-week old (<code>-mtime +5</code>), to increase the free space on the disk. In this way, the cron job automatically keeps the directories for a window of time that you specify.</p>
+<h3 id="Copy-complex-directory-trees"><a href="#Copy-complex-directory-trees" class="headerlink" title="Copy complex directory trees"></a>Copy complex directory trees</h3><p>If you want to copy complex directory trees from one machine to another while preserving copy permissions and the User ID and Group ID (UID and GID – numbers used by the operating system to mark files for ownership purposes), and leaving user files alone, find and <code>cpio</code> once again come to the rescue:</p>
+<p>Listing 5. Maintaining LOG and TMP file storage spaces</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /<span class="built_in">source</span>/directory</span><br><span class="line">$</span><br><span class="line">$ find . -depth -<span class="built_in">print</span> | cpio -o -O /target/directory</span><br></pre></td></tr></table></figure>
+<h3 id="Find-links-that-point-to-nothing"><a href="#Find-links-that-point-to-nothing" class="headerlink" title="Find links that point to nothing"></a>Find links that point to nothing</h3><p>To find links that point to nothing, use the perl interpreter with find, like this:</p>
+<p><code>$ find / -type l -print | perl -nle &#39;-e || print&#39;;</code></p>
+<p>or loop through:<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">$ for f in <span class="code">`find . -type l ! -exec test -r &#123;&#125; \; -print`</span>; do rm -f $f; done</span><br></pre></td></tr></table></figure></p>
+<p>or use the built in <code>-L</code> option:</p>
+<p><code>$ find -L -type l -exec rm -f {} \;</code></p>
+<p>This command starts at the topmost directory (/) and lists all links (<code>-type l -print</code>) that the perl interpreter determines point to nothing (<code>-nle &#39;-e || print&#39;</code>) – see the Resources section for more information regarding this tip from the Unix Guru Universe site. You can further pipe the output through the <code>rm -f {}</code> functionality if you want to delete the files. Perl is, of course, one of the many powerful interpretive language tools also found in most UNIX toolkits.</p>
+<h3 id="Locate-and-rename-unprintable-directories"><a href="#Locate-and-rename-unprintable-directories" class="headerlink" title="Locate and rename unprintable directories"></a>Locate and rename unprintable directories</h3><p>It’s possible in UNIX for an errant or malicious program to create a directory with unprintable characters. Locating and renaming these directories makes it easier to examine and remove them. To do so, you first include the -i switch of ls to get the directory’s inode number. Then, use find to turn the inode number into a filename that can be renamed with the mv command:</p>
+<p>Listing 6. Locating and renaming unprintable directories</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls -ail</span><br><span class="line">$</span><br><span class="line">$ find . -inum 211028 -<span class="built_in">exec</span> mv &#123;&#125; newname.dir \;</span><br></pre></td></tr></table></figure>
+<p>List zero-length files</p>
+<p>To list all zero-length files, use this command:</p>
+<p><code>$ find . -empty -exec ls {} \;</code></p>
+<p>After finding empty files, you might choose to delete them by replacing the ls command with the rm command.</p>
+<p>Find all php files and tar them up:</p>
+<p><code>find . -name *.php -exec tar -uvf ~/www/allphp.tar {} \;</code></p>
+<p>grep for “base64_decode” in files</p>
+<p><code>find . -type f -exec grep -l &#39;base64_decode&#39; {} \;</code></p>
+<p>Search for files 5 MB or larger, then list its size and location from smallest to largest in size.  Use the <code>-mount</code> option to instruct <code>find</code> not to descend directories on other file systems.</p>
+<p><code>find / -mount -type f -size +5096k -exec ls -lh {} \; | awk &#39;{ print $5 &quot;: &quot; $9 }&#39; | sort -n</code></p>
+<p>Search for files based on a certain time frame and perform some action.  For example, if a file system is filling up due to a bunch of large log files, and the option to delete them is not available, search for and zip them up:</p>
+<p><code>find * -type f -mtime +4 -print -exec /usr/local/bin/gzip --best {} \;</code></p>
+<p>or look for files older than 7 days that are NOT named *.gz and zip them the up:</p>
+<p><code>find . -mtime +7 ! -name &quot;*.gz&quot; -exec gzip {} \;</code></p>
+<p>To apply tests only at certain depths, the depth, mindepth, and maxdepth can be used to aid in finding directories that are consuming the most space.</p>
+<p><code>find /var -depth -mindepth 1 -maxdepth 3 -type d -exec du -sh {} \;</code></p>
+<p>Clearly, your use of the UNIX find command is limited only by your knowledge and creativity.</p>
+<p>Conclusion</p>
+<p>Exploring the vast terrain of the UNIX file system is easy with the find command. It is well worth your time to experiment with this command and see what works for you. As shown in the examples listed in this article, you can use find in many creative ways to make the exploration and management of your file system terrain easy, and fun.</p>
+<p>Bill Zimmerly is a knowledge engineer, a low-level systems programmer with expertise in various versions of UNIX and Microsoft® Windows®, and a free thinker who worships at the altar of Logic. Bill is also known as an unreasonable person. Unreasonable as in, “Reasonable people adapt themselves to the world. Unreasonable people attempt to adapt the world to themselves. All progress, therefore, depends on unreasonable people” (George Bernard Shaw). Creating new technologies and writing about them are his passions. He resides in rural Hillsboro, Missouri, where the air is fresh, the views are inspiring, and good wineries are all around. There’s nothing quite like writing an article on UNIX shell scripting while sipping on a crystal-clear glass of Stone Hill Blush. You can contact him at <a href="mailto:bill@zimmerly.com" target="_blank" rel="noopener">bill@zimmerly.com</a>.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/05/advanced-techniques-for-using-the-unix-find-command/" data-id="cjvacabw6000s07o90t5wm7pi" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Advanced techniques using unix &#39;find&#39;",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Linux",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-04",
+        "url": "http://kristianreese.com/2019/05/05/advanced-techniques-for-using-the-unix-find-command/",
+        "description": "I found this article on IBMs Developer Works site and had to put it here!  Some of this is basic, but it’s a good read nonetheless.
+There’s nothing quite like the thrill of exploring, discovering new "
+        "wordCount": 2357
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Setup yum repo from DVD ISO
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/rescan-for-lun/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">How To Rescan Linux for a New LUN</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tcpdump-commands/" class="title">tcpdump commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">32</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/05/advanced-techniques-for-using-the-unix-find-command/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
