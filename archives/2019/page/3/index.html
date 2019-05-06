@@ -83,7 +83,7 @@ ga('send', 'pageview');
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Networking/">Networking</a></li></ul>
                                     
                                 <li class="main-nav-list-item">
                                     <a class="main-nav-list-link" href="/about/index.html">About</a>
@@ -183,17 +183,13 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
-
-1 represents standard output
-2 represents standard error 
-
-2&gt;
+            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
+Resol
         </p>
     </div>
 </article>
@@ -215,71 +211,12 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
+        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
-!!! note    output below h
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
         </p>
     </div>
 </article>
@@ -333,12 +270,71 @@ In the case of redhat, copy the media.repo file from the root dir of the mount p
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
 
         <p class="article-excerpt">
-            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
+!!! note    output below h
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
         </p>
     </div>
 </article>
@@ -532,9 +528,9 @@ The procedure below pertains to downloading the software from Teradata,
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Networking/">Networking</a></p>
                             <p class="item-title"><a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/" class="title">Convert Single Cat 5e into Ethernet and Phone</a></p>
-                            <p class="item-date"><time datetime="2019-05-06T01:42:27.000Z" itemprop="datePublished">05-05-2019</time></p>
+                            <p class="item-date"><time datetime="2019-05-06T06:42:00.000Z" itemprop="datePublished">05-06-2019</time></p>
                         </div>
                     </li>
                 
@@ -569,7 +565,7 @@ The procedure below pertains to downloading the software from Teradata,
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-title"><a href="/2019/05/05/top-cpu-mem-processes/" class="title">Top CPU &amp; Memory Processes</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -583,7 +579,7 @@ The procedure below pertains to downloading the software from Teradata,
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -603,7 +599,7 @@ The procedure below pertains to downloading the software from Teradata,
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -613,7 +609,7 @@ The procedure below pertains to downloading the software from Teradata,
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
         </div>
     </div>
 
