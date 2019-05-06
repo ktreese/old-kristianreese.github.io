@@ -211,14 +211,15 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sed-commands/">sed Commands</a>
+        <a href="/2019/05/05/nmap/">nmap commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
-Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
-Su
+            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
+Check if port is opennmap -P0 -p1521 oracle.com
+Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+
         </p>
     </div>
 </article>
@@ -244,15 +245,72 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/sed-commands/">sed Commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
+Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
+Su
+        </p>
+    </div>
+</article>
+    
 
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -282,64 +340,6 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
             Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
 Display by userps -U apache -u apache u
 Display top 10 processes eating up memoryps axo %mem
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -397,13 +397,19 @@ To view current
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
+        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
         </h1>
     
 
         <p class="article-excerpt">
-            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
-root@pxe:~# mkdir /targetroot@pxe:~# mount
+            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
+Linux/Solaris
+/etc/profile
+
+AIX
+/etc/security/.profile
+
+Parameter decl
         </p>
     </div>
 </article>
@@ -429,19 +435,14 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
-
-AIX
-/etc/security/.profile
-
-Parameter decl
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -554,9 +555,9 @@ Parameter decl
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
-                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" class="title">Home Lab DNS Using dnsmasq and Puppet</a></p>
+                            <p class="item-date"><time datetime="2019-05-06T02:19:36.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
                 
@@ -564,8 +565,8 @@ Parameter decl
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
-                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
                 
@@ -582,7 +583,7 @@ Parameter decl
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/top-cpu-mem-processes/" class="title">Top CPU &amp; Memory Processes</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -606,7 +607,7 @@ Parameter decl
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">33</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
         </div>
     </div>
 

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Home Lab DNS Using dnsmasq and Puppet | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content>
+    
+    <meta name="description" content="It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Home Lab DNS Using dnsmasq and Puppet">
+<meta property="og:url" content="http://kristianreese.com/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from t">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-06T02:32:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Home Lab DNS Using dnsmasq and Puppet">
+<meta name="twitter:description" content="It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from t">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Networking/">Networking</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+                            <article id="post-Home-Lab-DNS-Using-dnsmasq-and-Puppet" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Home Lab DNS Using dnsmasq and Puppet
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" class="article-date">
+            <time datetime="2019-05-06T02:19:36.000Z" itemprop="datePublished">05-05-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from the things I used to write on often.  It’s my hope that I’ll get back into contributing to my kb site as I’ve enjoyed the collaboration with those of you who visit.  So let’s get to it!</p>
+<p>I’m going to try something new this time around.  Here is a video overview on the installation and setup of DNS. </p>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/P2kiinwg00c" frameborder="0" allowfullscreen></iframe>
+
+<p>Followed by a write up on the overall approach I’ve taken to setup DNS for my home network.</p>
+<p>First, let’s outline the article:</p>
+<ul>
+<li>dnsmasq<ul>
+<li>installing and configuration dnsmasq for DNS services only</li>
+</ul>
+</li>
+<li>Putting it to use<ul>
+<li>Is the DNS service to be used by lab systems only?</li>
+<li>Is the DNS service to be used for the entire home network?</li>
+<li>Inputting and managing DNS entries</li>
+</ul>
+</li>
+<li>Puppet<ul>
+<li>How Puppet can be used to automate the management of DNS entries</li>
+<li>How Puppet can be used to automate the build and configuration of dnsmasq</li>
+</ul>
+</li>
+<li>DNS with the help of Puppet, and without dnsmasq<ul>
+<li>How Puppet can be used to provide a poor mans DNS system without dnsmasq</li>
+</ul>
+</li>
+</ul>
+<p>And then the infrastructure:</p>
+<ul>
+<li>Puppet Enterprise 2016.2.1</li>
+<li>Red Hat Enterprise Linux 6 for the puppet master</li>
+<li>Red Hat Enterprise Linux 7 for the dnsmasq server</li>
+<li>DHCP enabled network</li>
+</ul>
+<p>I am using Puppet Enterprise 2016.2.1 in my home lab, taking advantage of the free 10 node license.  In order to setup DNS for your home network, you don’t need Puppet, but it comes in handy when dynamically deploying VMs that get an IP via DHCP and you want it automatically registered with DNS.  With that, Puppet is not required to setup dnsmasq, nor is a DHCP enabled network should you assign static IPs to your lab systems.  You can still follow along with the dnsmasq portion of this article and still come out with DNS for your home network / lab.</p>
+<p>–</p>
+<h3 id="Red-Hat-Developer-Network"><a href="#Red-Hat-Developer-Network" class="headerlink" title="Red Hat Developer Network"></a>Red Hat Developer Network</h3><p>For those who aren’t aware, you can now get Red Hat Enterprise Linux for free.  Simply sign up at <a href="https://developers.redhat.com/" target="_blank" rel="noopener">https://developers.redhat.com/</a> and you’ll have access to a no-cost Red Hat Enterprise Linux Developer Suite subscription.  This article will reference the use of Red Hat, but of course CentOS or any distro will do as the dnsmasq configs will be the same.</p>
+<h3 id="dnsmasq"><a href="#dnsmasq" class="headerlink" title="dnsmasq"></a>dnsmasq</h3><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+<p>Let’s talk about dnsmasq first, and we’ll tie in the Puppet piece later.  I’ve chosen to run my dnsmasq server in Red Hat 7.  Our dnsmasq instance is only going to serve up DNS.  We will NOT use the DHCP and TFTP capabilities of dnsmasq for this use case.  I refer to my home lab as 3031.net.  I do not own this domain, and I’m not really sure who does.  I don’t care either, but I want to use it, and I can setup dnsmasq to resolve requests for 3031.net any way I’d like.  You can do the same, but obviously, you wouldn’t want to use something that you use often, like google.com.  Goes without saying I think…  With that, chose your name with care, and start to set things up.</p>
+<p><em>(For those intereted in the Puppet part, the things done manually here are puppetized further down in the article.  At least continue reading from this point for the sake of context.)</em></p>
+<ol>
+<li>Deploy a Linux VM as the dnsmasq server</li>
+<li>Ensure that the dnsmasq package is installed</li>
+<li>We will configure dnsmasq to use the local <code>/etc/hosts</code> file to contain and serve up the the DNS records</li>
+<li><p>Leave /etc/dnsmasq.conf alone.  Instead, place your dnsmasq configurations under <code>/etc/dnsmasq.d</code>.  This is not a requirement, but just something I’ve opted to do.  </p>
+<ol>
+<li>For example, I call my home lab 3031.net so I named my config file 3031.net</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">3031 vmwdnsmasq ~ <span class="comment"># cat /etc/dnsmasq.d/3031.net  </span></span><br><span class="line">domain-needed  </span><br><span class="line">bogus-priv  </span><br><span class="line">domain=3031.net  </span><br><span class="line">expand-hosts  </span><br><span class="line"><span class="built_in">local</span>=/3031.net/  </span><br><span class="line">no-dhcp-interface=ens160  </span><br><span class="line">no-resolv  </span><br><span class="line">no-poll  </span><br><span class="line">server=8.8.8.8  </span><br><span class="line">server=8.8.4.4</span><br></pre></td></tr></table></figure>
+<p>Refer to what these various options mean by looking at <code>/etc/dnsmasq.conf</code>.  In short:</p>
+<ul>
+<li><code>domain-needed</code> Block incomplete requests from leaving your network, such as google vs. google.com</li>
+<li><code>bogus-priv</code> Bogus private reverse lookups. All reverse lookups for private IP ranges (ie 192.168.x.x, etc) which are not found in /etc/hosts or the DHCP leases file are answered with “no such domain” rather than being forwarded upstream.</li>
+<li><code>no-resolv</code> Don’t read /etc/resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file</li>
+<li><code>no-poll</code> Don’t poll /etc/resolv.conf for changes</li>
+<li><code>domain</code> and <code>expand-hosts</code> play together.  What this allows is for a DNS lookup to succeed if someone conducts a lookup on a fully qualified domain name, but only the short name exists in <code>/etc/hosts</code>.  For instance, the ‘what’ entry below is only the short name:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">3031 vmwdnsmasq ~ <span class="comment"># cat /etc/hosts  </span></span><br><span class="line">127.0.0.1    localhost    localhost.localdomain localhost4 localhost4.localdomain4  </span><br><span class="line">::1          localhost    localhost.localdomain localhost6 localhost6.localdomain6  </span><br><span class="line">192.168.1.3    vmwdnsmasq.3031.net    vmwdnsmasq  </span><br><span class="line">192.168.1.254  what  </span><br><span class="line"></span><br><span class="line">3031 vmwdnsmasq ~ <span class="comment">#</span></span><br><span class="line">3031 vmwdnsmasq ~ <span class="comment"># nslookup what.3031.net 192.168.1.3  </span></span><br><span class="line">Server:        192.168.1.3  </span><br><span class="line">Address:       192.168.1.3<span class="comment">#53  </span></span><br><span class="line"></span><br><span class="line">Name:    what.3031.net  </span><br><span class="line">Address: 192.168.1.254</span><br></pre></td></tr></table></figure>
+<p>If those two options were not set, the lookup would only work against the short name, and fail on the FQDN:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">3031 vmwdnsmasq ~ <span class="comment"># nslookup what          </span></span><br><span class="line">Server:     192.168.1.1  </span><br><span class="line">Address:    192.168.1.1<span class="comment">#53  </span></span><br><span class="line"></span><br><span class="line">Name:    what  </span><br><span class="line">Address: 192.168.1.254</span><br></pre></td></tr></table></figure>
+<p>vs.  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">3031 vmwdnsmasq ~ <span class="comment"># nslookup what.3031.net 192.168.1.3  </span></span><br><span class="line">Server:     192.168.1.3  </span><br><span class="line">Address:    192.168.1.3<span class="comment">#53  </span></span><br><span class="line"></span><br><span class="line">** server can<span class="string">'t find what.3031.net: NXDOMAIN</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>local</code> ensures that queries for your private domain are only answered by dnsmasq, from <code>/etc/hosts</code>.  In the 3031.net example, I can set <code>local=/3031.net/</code> to tell dnsmasq never resolve this domain outside of what I’ve setup in /etc/hosts.  That way, I will never get the real Internet facing IP address to anything 3031.net.</li>
+<li><code>no-dhcp-interface</code> turns off DHCP and TFTP, and provides DNS service only.</li>
+<li>The <code>server</code> lines inform dnsmasq where for forward Internet DNS requests.  The upstream nameservers have been set to Google DNS.</li>
+</ul>
+<p>That’s it for the dnsmasq setup!  Add whatever you want resolved to the local /etc/hosts file on the dnsmasq server, restart the dnsmasq service, and resolve away!  At this point, implement dnsmasq into your lab however you see fit.  Further reading below outlines my implementation.</p>
+<h3 id="Putting-it-to-use"><a href="#Putting-it-to-use" class="headerlink" title="Putting it to use"></a>Putting it to use</h3><p><strong>Is the DNS service to be used by lab systems only?</strong></p>
+<p>If you’re simply in need of a DNS system for your lab systems only, you could call it done at this point, and manually manage your dnsmasq config from this point going foward.  If you’re manually deploying lab VMs and assigning static IPs, you can simply point DNS for those interfaces to your new dnsmasq server, update /etc/hosts on the dnsmasq server, bounce the dnsmasq service, and allow for name resolution within your lab systems only.  Manual management of the config may be okay if you are only deploying a handful of machines, and just need to get something setup and functional.</p>
+<p><strong>Is the DNS service to be used for the entire home network?</strong></p>
+<p>For me, I wanted to take it a step further.  In my lab, I auto deploy VMs to my vCenter instance directly from my laptop using vagrant (see this article yet to be linked).  Each VM is assigned an IP via DHCP via my router, and I want this IP to auto-register itself with the dnsmasq server and become resolvable automatically, without having to <span style="font-size: small;"><em>manually</em></span> inject the information into the dnsmasq servers <code>/etc/hosts</code> file.  I also want to be able to resolve my lab systems from <ins>any system on the home network</ins>, including my laptop.  To accomplish the latter, <strong>I pointed my routers DNS servers to my dnsmasq server</strong> (which is staically IP’d), instead of my ISPs DNS servers.  This means less configuration on the side of dnsmasq to take over DHCP handouts, and setup of dhcp-options to ensure proper router configurations are being handed out.</p>
+<p>Changing the DNS servers of the router banks heavily on the stability and uptime of the dnsmasq server of course.  Obviously, if it went down, I will have no DNS resolution until the server is back up.  For me, this is acceptable.  My Lenovo TS140 that runs vCenter is on a battery backup with an uptime of 540+ days, where my router gets rebooted periodically and is not on a battery backup.  So far, this setup has been extremely reliable.</p>
+<p>Cool – now that we’ve got DNS resolution for lab systems and Internet requests, where does <strong>Puppet</strong> come into play?  <strong>Exported resources</strong>!!</p>
+<h3 id="Puppet"><a href="#Puppet" class="headerlink" title="Puppet"></a>Puppet</h3><p><strong>How Puppet can be used to automate the management of DNS entries</strong></p>
+<p><em>Stay tuned for more indepth coverage on this via the video session!</em></p>
+<p>Using exported resources, we can publish the resources of individual nodes for use by other nodes.  Think about it… Most things in puppet are a resource; package, file, service, cron, mount, <strong>host</strong>.</p>
+<p>Using Puppet, we can export the host resource of each VM, and collect the exported resources across other nodes, including our newly created dnsmasq server.  Note that in order to use exported resources, you must have a PuppetDB deployment.  This is where exported resources are stored.</p>
+<p>To accomplish this, here is a simple <a href="https://github.com/ktreese/hosts/blob/master/manifests/init.pp" target="_blank" rel="noopener">host module</a> that exports AND collects the exported host resource.</p>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hosts</span> &#123;</span></span><br><span class="line">  resources &#123;<span class="string">'host'</span><span class="symbol">:</span></span><br><span class="line">    purge =&gt; <span class="literal">true</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  host &#123; <span class="string">'localhost'</span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">ensure</span>       =&gt; present,</span><br><span class="line">    host_aliases =&gt; [<span class="string">'localhost.localdomain'</span>, <span class="string">'localhost4'</span>, <span class="string">'localhost4.localdomain4'</span>],</span><br><span class="line">    ip           =&gt; <span class="string">'127.0.0.1'</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @@host &#123; $facts[<span class="string">'fqdn'</span>]<span class="symbol">:</span></span><br><span class="line">    <span class="keyword">ensure</span>       =&gt; present,</span><br><span class="line">    host_aliases =&gt; $facts[<span class="string">'hostname'</span>],</span><br><span class="line">    ip           =&gt; $facts[<span class="string">'ipaddress'</span>],</span><br><span class="line">    tag          =&gt; <span class="string">'3031'</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Simply classify all of your lab systems with the host class, and on subsequent puppet runs, it’ll export the systems hostname and ipaddress on all nodes classified with the host class.  In addition, any /etc/hosts entries not managed via the hosts class will be purged.  A quick note on purging…  Puppet will purge anything that it doesn’t know about when setting purge =&gt; true.  Be careful when using this if there are local /etc/host entries that need to be kept and haven’t been declared as a host resource within the host class.  In addition, if a node is destroyed, the exported resources won’t be removed from PuppetDB until they too, have been purged from PuppetDB, meaning purging the node on the puppet master via the ‘<code>puppet node purge &lt;puppet node cert&gt;</code>‘ command.</p>
+<p>You’ll notice that the resource collector is not included in the hosts class.  If you want to populate each systems local /etc/hosts file, a collector may be added here.  Otherwise, I’ve personally opted NOT to do that, and instead, want to collect the exported resource on the dnsmasq server only, as shown below.  As part of the resource collector, the dnsmasq service will be notified each time an exported resource tagged as 3031 is collected.  That way, newly added DNS records input into /etc/hosts will be available for name resolution.</p>
+<h3 id="Puppetizing-dnsmasq"><a href="#Puppetizing-dnsmasq" class="headerlink" title="Puppetizing dnsmasq"></a>Puppetizing dnsmasq</h3><p><strong>How Puppet can be used to automate the build and configuration of dnsmasq</strong></p>
+<p>ktreese <a href="https://github.com/ktreese/puppet-control" target="_blank" rel="noopener">puppet-control</a> (classify with the role::dnsmasq class contained here)</p>
+<p><a href="https://github.com/ktreese/dnsmasq" target="_blank" rel="noopener">ktreese/dnsmasq</a></p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dnsmasq</span> (</span></span><br><span class="line">  $network_ip        = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_ip</span>,</span><br><span class="line">  $network_netmask   = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_netmask</span>,</span><br><span class="line">  $network_gateway   = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_gateway</span>,</span><br><span class="line">  $network_bootproto = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_bootproto</span>,</span><br><span class="line">  $network_onboot    = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_onboot</span>,</span><br><span class="line">  $network_dns1      = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_dns1</span>,</span><br><span class="line">  $network_defroute  = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_defroute</span>,</span><br><span class="line">  $network_iface     = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_iface</span>,</span><br><span class="line">  $network_domain    = $:<span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span><span class="symbol">:</span><span class="symbol">:network_domain</span>,</span><br><span class="line">) inherits <span class="symbol">:</span><span class="symbol">:dnsmasq</span><span class="symbol">:</span><span class="symbol">:params</span> &#123;</span><br><span class="line"></span><br><span class="line">  package &#123; <span class="string">'dnsmasq'</span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">ensure</span> =&gt; present,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  file &#123; <span class="string">"/etc/dnsmasq.d/$&#123;network_domain&#125;"</span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">ensure</span>  =&gt; present,</span><br><span class="line">    content =&gt; template(<span class="string">"dnsmasq/$&#123;network_domain&#125;.erb"</span>),</span><br><span class="line">    owner   =&gt; <span class="string">'root'</span>,</span><br><span class="line">    group   =&gt; <span class="string">'root'</span>,</span><br><span class="line">    mode    =&gt; <span class="string">'0644'</span>,</span><br><span class="line">    notify  =&gt; Service[<span class="string">'dnsmasq'</span>],</span><br><span class="line">    <span class="keyword">require</span> =&gt; Package[<span class="string">'dnsmasq'</span>],</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  service &#123; <span class="string">'dnsmasq'</span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">ensure</span>  =&gt; running,</span><br><span class="line">    enable  =&gt; <span class="literal">true</span>,</span><br><span class="line">    <span class="keyword">require</span> =&gt; Package[<span class="string">'dnsmasq'</span>],</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  network::interface &#123; $network_iface<span class="symbol">:</span></span><br><span class="line">    ipaddress =&gt; $network_ip,</span><br><span class="line">    netmask   =&gt; $network_netmask,</span><br><span class="line">    gateway   =&gt; $network_gateway,</span><br><span class="line">    bootproto =&gt; $network_bootproto,</span><br><span class="line">    onboot    =&gt; $network_onboot,</span><br><span class="line">    dns1      =&gt; $network_dns1,</span><br><span class="line">    defroute  =&gt; $network_defroute,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Host &lt;&lt;<span class="params">| tag == '3031' |</span><span class="meta">&gt;&gt; </span>~&gt; Service[<span class="string">'dnsmasq'</span>]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">➜ dnsmasq git:(master) cat templates/dnsmasq/3031.net  </span><br><span class="line">domain-needed  </span><br><span class="line">bogus-priv  </span><br><span class="line">domain=&lt;%= @network_domain %&gt;  </span><br><span class="line">expand-hosts  </span><br><span class="line"><span class="built_in">local</span>=/&lt;%= @network_domain %&gt;/  </span><br><span class="line">no-dhcp-interface=&lt;%= @network_iface %&gt;  </span><br><span class="line">no-resolv  </span><br><span class="line">no-poll  </span><br><span class="line">server=8.8.8.8  </span><br><span class="line">server=8.8.4.4</span><br></pre></td></tr></table></figure>
+<p><strong>DNS with the help of Puppet, and without dnsmasq</strong></p>
+<p>Another approach would be to bypass the use of dnsmasq altogether, and instead, add a resource collector to the host module, and use it to populate the /etc/hosts file on every system, thus relying on local /etc/hosts entries for name resolution.  You may consider installing the puppet agent on your laptop as well, and classify it with the host class so that it too, will get the exported host resource of your lab gear, therefore allowing your laptop to resolve against /etc/hosts.  Lots of ways to approach this…  Let me know what you think!</p>
+<p><strong>Limitations</strong></p>
+<p>Exported resources should be immediately available upon new system deployments and their first puppet run, assuming newly deployed systems match the Node Group configured with the host class.</p>
+<p>However, DNS Record updates will become available as frequent as the runinterval of the puppet agent on the dnsmasq server.  Provided this is a home lab, either perform a puppet run on the dnsmasq server via command line, from the Puppet Console, via mco, or set the runinterval to run every n seconds, whatever works for your setup.</p>
+<p>For me, I’m not deploying VMs frequently enough to warrant the dnsmasq server checking in with the puppet master every 30 seconds, for example, so I left mine set to default, and opt’d to force a puppet run in one of the ways noted above.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" data-id="cjvbr3bov002h56o9tj4ilppd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Home Lab DNS Using dnsmasq and Puppet",
+        "image": "http://kristianreese.com",
+        "keywords": "",
+        "genre": "",
+        "datePublished": "2019-05-05",
+        "dateCreated": "2019-05-05",
+        "dateModified": "2019-05-05",
+        "url": "http://kristianreese.com/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/",
+        "description": "It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from t"
+        "wordCount": 2773
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Convert Single Cat 5e into Ethernet and Phone
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/05/05/zero-byte-a-file/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Zero byte a File</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Networking/">Networking</a></p>
+                            <p class="item-title"><a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/" class="title">Convert Single Cat 5e into Ethernet and Phone</a></p>
+                            <p class="item-date"><time datetime="2019-05-06T06:42:00.000Z" itemprop="datePublished">05-06-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" class="title">Home Lab DNS Using dnsmasq and Puppet</a></p>
+                            <p class="item-date"><time datetime="2019-05-06T02:19:36.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/zero-byte-a-file/" class="title">Zero byte a File</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/sed-commands/" class="title">sed Commands</a></p>
+                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
