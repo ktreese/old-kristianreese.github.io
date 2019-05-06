@@ -147,17 +147,13 @@ ga('send', 'pageview');
 </div>
 
                         <div class="main-body-content">
-                            <!-- AD Header on each Page for Google AdSense -->
-<script type="text/javascript"><!--
-  google_ad_client = "ca-pub-8101539885827084";
-  google_ad_slot = "5943956216";
-  google_ad_width = 970;
-  google_ad_height = 90;
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
 </script>
-
-<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-<!-- END AD HEADER -->
 
                             
 
@@ -216,13 +212,77 @@ There are various ways to schedule a command to run, su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
+            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
+
+cpio archive
+ext2 filesystem data
+
+The easiest way to determine what you’re w
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
         </p>
     </div>
 </article>
@@ -276,6 +336,38 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
         </h1>
     
@@ -290,73 +382,10 @@ EDS etldev1 ~ # FDISK_C
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
-root@pxe:~# mkdir /targetroot@pxe:~# mount
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -380,38 +409,6 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
     </div>
 </article>
     
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/initrd/">Extracting initrd</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
-
-cpio archive
-ext2 filesystem data
-
-The easiest way to determine what you’re w
-        </p>
-    </div>
-</article>
-    
         </div>
     
 
@@ -433,12 +430,13 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
 
         <p class="article-excerpt">
-            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
+Resol
         </p>
     </div>
 </article>
@@ -460,14 +458,17 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
         </h1>
     
 
         <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
+            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+
+1 represents standard output
+2 represents standard error 
+
+2&gt;
         </p>
     </div>
 </article>
@@ -572,7 +573,7 @@ In the example above, the root
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -581,7 +582,7 @@ In the example above, the root
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/top-cpu-mem-processes/" class="title">Top CPU &amp; Memory Processes</a></p>
+                            <p class="item-title"><a href="/2019/05/05/tar-gzip/" class="title">tar / gzip commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
