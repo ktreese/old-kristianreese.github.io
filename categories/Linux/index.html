@@ -204,19 +204,22 @@ ga('send', 'pageview');
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
+        <a href="/2019/05/05/nmap/">nmap commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
+            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
+Check if port is opennmap -P0 -p1521 oracle.com
+Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+
         </p>
     </div>
 </article>
@@ -235,22 +238,19 @@ ga('send', 'pageview');
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
+            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
         </p>
     </div>
 </article>
@@ -332,14 +332,12 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
-Display by userps -U apache -u apache u
-Display top 10 processes eating up memoryps axo %mem
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -365,12 +363,14 @@ Display top 10 processes eating up memoryps axo %mem
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
+            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+Display by userps -U apache -u apache u
+Display top 10 processes eating up memoryps axo %mem
         </p>
     </div>
 </article>
@@ -430,17 +430,12 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
-
-Use of a hard disk partition
-Create a swap file on an existing file system
-
-To view current 
+            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
         </p>
     </div>
 </article>
@@ -462,16 +457,13 @@ To view current
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
         </h1>
     
 
         <p class="article-excerpt">
-            This example uses a local hard disk to create a logical volume.
-
-partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
-
-EDS etldev1 ~ # FDISK_C
+            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
+root@pxe:~# mkdir /targetroot@pxe:~# mount
         </p>
     </div>
 </article>
@@ -559,7 +551,7 @@ EDS etldev1 ~ # FDISK_C
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Networking/">Networking</a></p>
                             <p class="item-title"><a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/" class="title">Convert Single Cat 5e into Ethernet and Phone</a></p>
-                            <p class="item-date"><time datetime="2019-05-06T06:42:00.000Z" itemprop="datePublished">05-06-2019</time></p>
+                            <p class="item-date"><time datetime="2019-05-06T11:42:00.000Z" itemprop="datePublished">05-06-2019</time></p>
                         </div>
                     </li>
                 
@@ -575,8 +567,8 @@ EDS etldev1 ~ # FDISK_C
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -584,8 +576,8 @@ EDS etldev1 ~ # FDISK_C
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
+                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -619,7 +611,7 @@ EDS etldev1 ~ # FDISK_C
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -629,7 +621,7 @@ EDS etldev1 ~ # FDISK_C
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 10px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 10px;">Puppet</a> <a href="/tags/commands/" style="font-size: 15px;">commands</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 13.33px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 10px;">Puppet</a> <a href="/tags/commands/" style="font-size: 16.67px;">commands</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
         </div>
     </div>
 
