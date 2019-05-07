@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="kristianreese.com">
 <meta property="og:description" content="This example uses a local hard disk to create a logical volume.  partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.  EDS etldev1 ~ # FDISK_C">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-05T03:00:20.000Z">
+<meta property="og:updated_time" content="2019-05-07T01:47:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Create logical volume using lvm">
 <meta name="twitter:description" content="This example uses a local hard disk to create a logical volume.  partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.  EDS etldev1 ~ # FDISK_C">
@@ -207,13 +207,14 @@ ga('send', 'pageview');
 </ol>
 <p><em>Steps 2, 3, 4 are illustrated below</em></p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">EDS etldev1 ~ # pvcreate /dev/sdc1</span><br><span class="line">  Physical volume "/dev/sdc1" successfully created</span><br><span class="line"></span><br><span class="line">EDS etldev1 ~ # vgcreate vg_dwstore /dev/sdc1</span><br><span class="line">  Volume group "vg_dwstore" successfully created</span><br><span class="line"></span><br><span class="line">EDS etldev1 ~ # vgs</span><br><span class="line">  VG              #PV #LV #SN Attr   VSize   VFree  </span><br><span class="line">  vg_dwstore        1   0   0 wz--n- 136.11g 136.11g</span><br><span class="line">  vg_etldev1        1   8   0 wz--n- 135.62g 124.00m</span><br><span class="line">  vg<span class="emphasis">_etldev1_</span>data   1   1   0 wz--n- 136.12g      0 </span><br><span class="line"></span><br><span class="line">EDS etldev1 ~ # lvcreate -L 136.11g -n lv<span class="emphasis">_dwstore vg_</span>dwstore</span><br><span class="line">  Rounding up size to full physical extent 136.11 GiB</span><br><span class="line">  Logical volume "lv_dwstore" created</span><br><span class="line"></span><br><span class="line">EDS etldev1 ~ # mkfs.ext4 /dev/vg<span class="emphasis">_dwstore/lv_</span>dwstore </span><br><span class="line">mke2fs 1.41.12 (17-May-2010)</span><br><span class="line">Filesystem label=</span><br><span class="line">OS type: Linux</span><br><span class="line">Block size=4096 (log=2)</span><br><span class="line">Fragment size=4096 (log=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">8921088 inodes, 35681280 blocks</span><br><span class="line">1784064 blocks (5.00%) reserved for the super user</span><br><span class="line">First data block=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">1089 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8192 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line"><span class="code">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span></span><br><span class="line"><span class="code">        4096000, 7962624, 11239424, 20480000, 23887872</span></span><br><span class="line"></span><br><span class="line">Writing inode tables: done                            </span><br><span class="line">Creating journal (32768 blocks): done</span><br><span class="line">Writing superblocks and filesystem accounting information: done</span><br><span class="line"></span><br><span class="line">This filesystem will be automatically checked every 39 mounts or</span><br><span class="line">180 days, whichever comes first.  Use tune2fs -c or -i to override.</span><br><span class="line">EDS etldev1 ~ # </span><br><span class="line">EDS etldev1 ~ # mkdir /dwstore</span><br><span class="line">EDS etldev1 ~ # mount /dev/vg<span class="emphasis">_dwstore/lv_</span>dwstore /dwstore</span><br><span class="line">EDS etldev1 ~ # df -Ph /dwstore</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg<span class="emphasis">_dwstore-lv_</span>dwstore  134G  188M  127G   1% /dwstore</span><br><span class="line">EDS etldev1 ~ #</span><br></pre></td></tr></table></figure>
+
         </div>
         <footer class="article-footer">
             
 
 
 
-    <a data-url="http://kristianreese.com/2019/05/05/create-logical-volume-using-lvm/" data-id="cjvbrbyc2000v90o9nvcdw813" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/05/05/create-logical-volume-using-lvm/" data-id="cjvd5km8w000c07o9fx3559pg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -289,7 +290,7 @@ ga('send', 'pageview');
         "genre": "Linux",
         "datePublished": "2019-05-05",
         "dateCreated": "2019-05-05",
-        "dateModified": "2019-05-04",
+        "dateModified": "2019-05-06",
         "url": "http://kristianreese.com/2019/05/05/create-logical-volume-using-lvm/",
         "description": "This example uses a local hard disk to create a logical volume.
 
@@ -360,20 +361,20 @@ EDS etldev1 ~ # FDISK_C"
         
 <nav id="article-nav">
     
-        <a href="/2019/05/05/create-chroot-jail-with-openssh/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2019/05/05/add-swap-space/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            Create chroot jail with openssh
+            How to Add Swap Space
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2019/05/05/ip-conntrack/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">ip_conntrack table full</p>
+        <p class="article-nav-title">Create temp file with random characters</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
