@@ -6,24 +6,24 @@
     
 
     
-    <title>nmap commands | kristianreese.com</title>
+    <title>Various Puppet Errors | kristianreese.com</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Linux,commands">
+        <meta name="keywords" content="Puppet">
     
-    <meta name="description" content="Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log Check if port is opennmap -P0 -p1521 oracle.com Scan UDPnmap -sU -p &amp;lt;port&amp;gt; &amp;lt;target&amp;gt;">
-<meta name="keywords" content="Linux,commands">
+    <meta name="description" content="Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]">
+<meta name="keywords" content="Puppet">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nmap commands">
-<meta property="og:url" content="http://kristianreese.com/2019/05/05/nmap/index.html">
+<meta property="og:title" content="Various Puppet Errors">
+<meta property="og:url" content="http://kristianreese.com/2019/06/08/Various-Puppet-Errors/index.html">
 <meta property="og:site_name" content="kristianreese.com">
-<meta property="og:description" content="Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log Check if port is opennmap -P0 -p1521 oracle.com Scan UDPnmap -sU -p &amp;lt;port&amp;gt; &amp;lt;target&amp;gt;">
+<meta property="og:description" content="Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-07T14:56:55.000Z">
+<meta property="og:updated_time" content="2019-06-08T18:09:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nmap commands">
-<meta name="twitter:description" content="Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log Check if port is opennmap -P0 -p1521 oracle.com Scan UDPnmap -sU -p &amp;lt;port&amp;gt; &amp;lt;target&amp;gt;">
+<meta name="twitter:title" content="Various Puppet Errors">
+<meta name="twitter:description" content="Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]">
     
 
     
@@ -146,7 +146,7 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    <a class="page-title-link" href="/categories/Puppet/">Puppet</a>
     </h1>
 </div>
 
@@ -159,14 +159,14 @@ ga('send', 'pageview');
      });
 </script>
 
-                            <article id="post-nmap" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Various-Puppet-Errors" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        nmap commands
+        Various Puppet Errors
         </h1>
     
 
@@ -176,8 +176,8 @@ ga('send', 'pageview');
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/05/05/nmap/" class="article-date">
-            <time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time>
+        <a href="/2019/06/08/Various-Puppet-Errors/" class="article-date">
+            <time datetime="2019-06-08T23:08:00.000Z" itemprop="datePublished">06-08-2019</time>
         </a>
     </div>
 
@@ -186,16 +186,26 @@ ga('send', 'pageview');
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Linux/">Linux</a>, <a class="tag-link" href="/tags/commands/">commands</a>
+        <a class="tag-link" href="/tags/Puppet/">Puppet</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="Scan-network-for-responsive-IPs"><a href="#Scan-network-for-responsive-IPs" class="headerlink" title="Scan network for responsive IPs"></a>Scan network for responsive IPs</h2><p><code>nmap -sS -O 10.199.42.0/23 | tee nmap.log</code></p>
-<h2 id="Check-if-port-is-open"><a href="#Check-if-port-is-open" class="headerlink" title="Check if port is open"></a>Check if port is open</h2><p><code>nmap -P0 -p1521 oracle.com</code></p>
-<h2 id="Scan-UDP"><a href="#Scan-UDP" class="headerlink" title="Scan UDP"></a>Scan UDP</h2><p><code>nmap -sU -p &lt;port&gt; &lt;target&gt;</code></p>
+            <div class="box blackBox"><span style="color: rgb(255, 0, 0);"><strong>Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]</strong></span></div>
+
+<p>The time between the puppet agent node and the puppet master is out of sync.  Sync the time, and regenerate the cert.</p>
+<p>Reference: <a href="http://serverfault.com/questions/655090/new-server-unable-to-fetch-configuration-from-puppetmaster-due-to-some-ssl-error" target="_blank" rel="noopener">http://serverfault.com/questions/655090/new-server-unable-to-fetch-configuration-from-puppetmaster-due-to-some-ssl-error</a></p>
+<h3 id="Evaluation-Error-Operator-‘-’-is-not-applicable-to-an-Undef-Value"><a href="#Evaluation-Error-Operator-‘-’-is-not-applicable-to-an-Undef-Value" class="headerlink" title="Evaluation Error: Operator ‘[]’ is not applicable to an Undef Value"></a>Evaluation Error: Operator ‘[]’ is not applicable to an Undef Value</h3><p>If using facts to evaluate inside of a condition, you won’t be able to access secondary elements if one isn’t returned to the first element.</p>
+<p><span style="font-family: Courier New;">  # If false, include rhel::resolv<br>  unless $::facts[‘dhcp_servers’][‘system’] {<br>    include rhel::resolv<br>  }</span></p>
+<script type="text/javascript"><!-- google_ad_client = "ca-pub-8101539885827084"; /* Text Ads Leaderboard in each Article */ google_ad_slot = "1104119814"; google_ad_width = 728; google_ad_height = 90; //--></script>
+
+<p>If this systems interface was not configured via DHCP, a puppet run would result in:</p>
+<p><span style="font-family: Courier New;">Error: Could not retrieve catalog from remote server: Error 400 on SERVER: Evaluation Error: Error while evaluating a Resource Statement, Evaluation Error: Operator ‘[]’ is not applicable to an Undef Value. at /etc/puppetlabs/code/environments/snd/modules/rhel/manifests/init.pp:25:10 on node mongodb</span></p>
+<p>This means that the <span style="font-family: Courier New;">facts[‘dhcp_servers’]</span> is empty, which results in an undef value, as documented by Puppet:  “whenever no other value is applicable, the value is undef”</p>
+<p>Thus, we cannot access the [‘system’] element, just as the error suggests:  <span style="font-family: Courier New;">Operator ‘[]’ is not applicable to an Undef Value</span>.</p>
+<p>Since the dhcp_server fact will result in an undef value provided the servers interface was not setup via DHCP, we can simply rely on it to satisfy our conditional which aims whether or not to include rhel::resolv.</p>
 
         </div>
         <footer class="article-footer">
@@ -203,7 +213,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/05/05/nmap/" data-id="cjwnu2gvk00192qo9khj4bpz1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/06/08/Various-Puppet-Errors/" data-id="cjwnu2gut00042qo982hf1mhx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -273,19 +283,16 @@ ga('send', 'pageview');
             "@type": "Person",
             "name": "Kris Reese"
         },
-        "headline": "nmap commands",
+        "headline": "Various Puppet Errors",
         "image": "http://kristianreese.com",
-        "keywords": "Linux commands",
-        "genre": "Linux",
-        "datePublished": "2019-05-05",
-        "dateCreated": "2019-05-05",
-        "dateModified": "2019-05-07",
-        "url": "http://kristianreese.com/2019/05/05/nmap/",
-        "description": "Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-"
-        "wordCount": 44
+        "keywords": "Puppet",
+        "genre": "Puppet",
+        "datePublished": "2019-06-08",
+        "dateCreated": "2019-06-08",
+        "dateModified": "2019-06-08",
+        "url": "http://kristianreese.com/2019/06/08/Various-Puppet-Errors/",
+        "description": "Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]"
+        "wordCount": 291
     }
 </script>
 
@@ -349,20 +356,10 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
         
 <nav id="article-nav">
     
-        <a href="/2019/05/05/zero-byte-a-file/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            Zero byte a File
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/05/05/netmasks-table/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">netmasks table</p>
+        <p class="article-nav-title">Using puppet-classify to interface with the classifier service</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -521,7 +518,7 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
     var disqus_shortname = 'kristianreese';
     
     
-    var disqus_url = 'http://kristianreese.com/2019/05/05/nmap/';
+    var disqus_url = 'http://kristianreese.com/2019/06/08/Various-Puppet-Errors/';
     
     (function() {
     var dsq = document.createElement('script');
