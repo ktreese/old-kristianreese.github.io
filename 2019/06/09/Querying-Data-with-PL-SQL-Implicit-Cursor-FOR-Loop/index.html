@@ -6,20 +6,24 @@
     
 
     
-    <title>Archive: 2019 | kristianreese.com</title>
+    <title>Querying Data with PL/SQL: Implicit Cursor FOR Loop | kristianreese.com</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="My personal, yet public knowledgebase">
-<meta property="og:type" content="website">
-<meta property="og:title" content="kristianreese.com">
-<meta property="og:url" content="http://kristianreese.com/archives/2019/index.html">
+        <meta name="keywords" content="SQL">
+    
+    <meta name="description" content="Looping through result sets from SELECT statement using PL/SQLOne day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I u">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Querying Data with PL&#x2F;SQL: Implicit Cursor FOR Loop">
+<meta property="og:url" content="http://kristianreese.com/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/index.html">
 <meta property="og:site_name" content="kristianreese.com">
-<meta property="og:description" content="My personal, yet public knowledgebase">
+<meta property="og:description" content="Looping through result sets from SELECT statement using PL/SQLOne day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I u">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-08T18:31:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kristianreese.com">
-<meta name="twitter:description" content="My personal, yet public knowledgebase">
+<meta name="twitter:title" content="Querying Data with PL&#x2F;SQL: Implicit Cursor FOR Loop">
+<meta name="twitter:description" content="Looping through result sets from SELECT statement using PL/SQLOne day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I u">
     
 
     
@@ -142,7 +146,7 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-archive"></i>Archive: 2019
+    uncategorized
     </h1>
 </div>
 
@@ -155,320 +159,147 @@ ga('send', 'pageview');
      });
 </script>
 
-                            
+                            <article id="post-Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Querying Data with PL/SQL: Implicit Cursor FOR Loop
+        </h1>
+    
 
-    
-    
+            </header>
         
         
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2019" class="archive-year"><i class="icon fa fa-calendar-o"></i>2019</a>
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/" class="article-date">
+            <time datetime="2019-06-09T04:25:00.000Z" itemprop="datePublished">06-08-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SQL/">SQL</a>
+    </div>
+
             </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
         
-        <div class="article-meta">
-            <div class="category">
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h6 id="Looping-through-result-sets-from-SELECT-statement-using-PL-SQL"><a href="#Looping-through-result-sets-from-SELECT-statement-using-PL-SQL" class="headerlink" title="Looping through result sets from SELECT statement using PL/SQL"></a>Looping through result sets from SELECT statement using PL/SQL</h6><p>One day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I used an Implicit Cursor FOR Loop.  Here is my example:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BEGIN  </span><br><span class="line">FOR item IN  </span><br><span class="line"> (select cust_id from products where server_id = 1542 and cust_status in (10,11))  </span><br><span class="line">LOOP  </span><br><span class="line"> PROD_PKG_V1.migrateCustInDb ( item.cust_id , 2783 );  </span><br><span class="line">END LOOP;  </span><br><span class="line">END;  </span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.</span><br></pre></td></tr></table></figure>
+<p>If the desire is to display the output before committing execution of the stored procedure, DBMS_OUTPUT.PUT_LINE can be used.  You may have to <code>SET SERVEROUTPUT ON FORMAT WRAPPED</code> from the SQL prompt for DBMS_OUTPUT.PUT_LINE to actually display output to the console. In the example below, I used ed to edit the previous example.  In order for ed to work, ensure that export <code>EDITOR=vi</code> is set it your oracle profile</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ed  </span><br><span class="line">~  </span><br><span class="line">~  </span><br><span class="line">&quot;afiedt.buf&quot; 8L, 189C written  </span><br><span class="line">  1  BEGIN  </span><br><span class="line">  2  FOR item IN  </span><br><span class="line">  3  (select cust_id from products where server_id = 2783 and cust_status in (10,11))  </span><br><span class="line">  4  LOOP  </span><br><span class="line">  5  DBMS_OUTPUT.PUT_LINE(&apos;cust_id = &apos; || item.cust_id);  </span><br><span class="line">  6  END LOOP;  </span><br><span class="line">  7* END;  </span><br><span class="line">SQL&gt;&lt;/span&gt; &lt;span style=&quot;font-family: Courier New;&quot;&gt;&lt;span style=&quot;font-family: Courier New;&quot;&gt;SET SERVEROUTPUT ON FORMAT WRAPPED  </span><br><span class="line">SQL&gt; /  </span><br><span class="line"></span><br><span class="line">cust_id = WN.HP.251736914  </span><br><span class="line">cust_id = WN.HP.252888120  </span><br><span class="line">cust_id = WN.HP.255425860  </span><br><span class="line">cust_id = WN.HP.255721892  </span><br><span class="line">cust_id = WN.HP.255919690  </span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.  </span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+<p>Or to output the SQL / stored procedure statement for copy/paste into a shell script or what-have-you:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DECLARE  </span><br><span class="line"> updpkgsql VARCHAR(1000);  </span><br><span class="line">BEGIN  </span><br><span class="line">FOR item IN  </span><br><span class="line">(select cust_id from products where server_id = 1542 and cust_status in (10,11))  </span><br><span class="line">LOOP  </span><br><span class="line">updpkgsql:=&apos;exec&lt;/span&gt; &lt;span style=&quot;font-family: Courier New;&quot;&gt;&lt;span style=&quot;font-family: Courier New;&quot;&gt;PROD_PKG_V1.migrateCustInDb&lt;/span&gt; ( &apos; || item.cust_id || &apos;, 2783 );&apos;;  </span><br><span class="line">DBMS_OUTPUT.PUT_LINE(&apos;sql = &apos; || updpkgsql);  </span><br><span class="line">END LOOP;  </span><br><span class="line">END;  </span><br><span class="line"></span><br><span class="line">sql = exec PROD_PKG_V1.migrateCustInDb ( WN.HP.251736914, 2783 );  </span><br><span class="line">sql = exec PROD_PKG_V1.migrateCustInDb ( WN.HP.252888120, 2783 );  </span><br><span class="line">sql = exec PROD_PKG_V1.migrateCustInDb ( WN.HP.255425860, 2783 );  </span><br><span class="line">sql = exec PROD_PKG_V1.migrateCustInDb ( WN.HP.255721892, 2783 );  </span><br><span class="line">sql = exec PROD_PKG_V1.migrateCustInDb ( WN.HP.255919690, 2783 ); </span><br><span class="line"></span><br><span class="line">PL/SQL procedure successfully completed.  </span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
             
-            </div>
-            <div class="date"><time datetime="2019-06-09T04:25:00.000Z" itemprop="datePublished">06-08-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/">Querying Data with PL/SQL: Implicit Cursor FOR Loop</a>
-        </h1>
-    
 
-        <p class="article-excerpt">
-            Looping through result sets from SELECT statement using PL/SQLOne day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I u
-        </p>
+
+
+    <a data-url="http://kristianreese.com/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/" data-id="cjwnuub6s00005to98pgcjnt4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Querying Data with PL/SQL: Implicit Cursor FOR Loop",
+        "image": "http://kristianreese.com",
+        "keywords": "SQL",
+        "genre": "",
+        "datePublished": "2019-06-08",
+        "dateCreated": "2019-06-08",
+        "dateModified": "2019-06-08",
+        "url": "http://kristianreese.com/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/",
+        "description": "Looping through result sets from SELECT statement using PL/SQLOne day, I was looking to update a bunch of records with a stored procedure via a for loop using PL/SQL.  In order to accomplish this, I u"
+        "wordCount": 442
+    }
+</script>
+
 </article>
-    
 
+    <section id="comments">
     
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
         
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Puppet/">Puppet</a>
-            </div>
-            <div class="date"><time datetime="2019-06-08T23:08:00.000Z" itemprop="datePublished">06-08-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/06/08/Various-Puppet-Errors/">Various Puppet Errors</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Error: Could not request certificate: SSL_connect returned=1 errno=0 state=error: certificate verify failed: [CRL is not yet valid for /CN=Puppet CA generated on pemaster at 2015-03-17 12:14:32 -0500]
-        </p>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-</article>
-    
-        </div>
-    
 
     
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Puppet/">Puppet</a>
-            </div>
-            <div class="date"><time datetime="2019-06-08T22:09:00.000Z" itemprop="datePublished">06-08-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/">Using puppet-classify to interface with the classifier service</a>
-        </h1>
-    
+    </section>
 
-        <p class="article-excerpt">
-            I’ve been looking for an opportunity to share something with the Puppet Community and I think I found it in puppet-classify and how I’m using it along with MongoDB to manage classifications in a Puppe
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Puppet/">Puppet</a>
-            </div>
-            <div class="date"><time datetime="2019-05-06T12:19:00.000Z" itemprop="datePublished">05-06-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/">Home Lab DNS Using dnsmasq and Puppet</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            It has been a long while since I’ve published anything to my kb site, perhaps just as long since I’ve started a new job nearly 2.5 years ago.  In that time, my job responsibilities have shifted from t
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Networking/">Networking</a>
-            </div>
-            <div class="date"><time datetime="2019-05-06T11:42:00.000Z" itemprop="datePublished">05-06-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/">Convert Single Cat 5e into Ethernet and Phone</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to convert a single Cat5e connection into an Ethernet &amp; Phone lineMy new home was prewired with Cat5e cable for telephone.  While this is nice, I didn’t want to be tied down to phone-only main
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/zero-byte-a-file/">Zero byte a File</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            /dev/null (zero out) a bunch of files at oncecd /var/logcat /dev/null | tee &#123;boot.log,cron,dmesg,lastlog,messages,secure,vzctl.log,vznetcfg.log,wtmp&#125;
-&gt;boot.log&gt;cron&gt;dmesg&gt;message
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sed-commands/">sed Commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
-Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
-Su
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-
-    </div></section>
-
-
-    <nav id="page-nav">
-        <span class="pages">Page 1 of 4</span>
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><a class="extend next" rel="next" href="/archives/2019/page/2/">&raquo;</a>
-    </nav>
 
 
                         </div>
@@ -513,6 +344,19 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/06/08/Various-Puppet-Errors/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Various Puppet Errors</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -666,11 +510,13 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
     var disqus_shortname = 'kristianreese';
     
     
+    var disqus_url = 'http://kristianreese.com/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
