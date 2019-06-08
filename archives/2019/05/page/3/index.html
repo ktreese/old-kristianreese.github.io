@@ -215,17 +215,14 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
-
-1 represents standard output
-2 represents standard error 
-
-2&gt;
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
         </p>
     </div>
 </article>
@@ -279,14 +276,12 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
         </h1>
     
 
         <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
+            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
         </p>
     </div>
 </article>
@@ -312,12 +307,17 @@ In the example above, the root
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
+        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+
+1 represents standard output
+2 represents standard error 
+
+2&gt;
         </p>
     </div>
 </article>
@@ -430,12 +430,12 @@ There’s nothing quite like the thrill of exploring, discovering new
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/resize-iscsi-lun/">Resize an iscsi LUN in Linux</a>
+        <a href="/2019/05/05/rescan-for-lun/">How To Rescan Linux for a New LUN</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ
+            How to rescan Linux for newly presented LUNsThis article focuses on utilizing the lun_scan utility provided by Emulex No-Reboot Dynamic Target/LUN Discovery Tool.  This tool is part of the Emulex Driv
         </p>
     </div>
 </article>
@@ -457,12 +457,12 @@ There’s nothing quite like the thrill of exploring, discovering new
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/rescan-for-lun/">How To Rescan Linux for a New LUN</a>
+        <a href="/2019/05/05/resize-iscsi-lun/">Resize an iscsi LUN in Linux</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to rescan Linux for newly presented LUNsThis article focuses on utilizing the lun_scan utility provided by Emulex No-Reboot Dynamic Target/LUN Discovery Tool.  This tool is part of the Emulex Driv
+            How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ
         </p>
     </div>
 </article>
