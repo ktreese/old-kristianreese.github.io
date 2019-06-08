@@ -390,14 +390,12 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
-Display by userps -U apache -u apache u
-Display top 10 processes eating up memoryps axo %mem
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -423,12 +421,14 @@ Display top 10 processes eating up memoryps axo %mem
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+Display by userps -U apache -u apache u
+Display top 10 processes eating up memoryps axo %mem
         </p>
     </div>
 </article>
