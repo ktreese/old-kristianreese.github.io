@@ -262,22 +262,19 @@ ga('send', 'pageview');
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
+            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
         </p>
     </div>
 </article>
@@ -296,19 +293,22 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
+        <a href="/2019/05/05/nmap/">nmap commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
+            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
+Check if port is opennmap -P0 -p1521 oracle.com
+Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+
         </p>
     </div>
 </article>
@@ -363,14 +363,12 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
-Display by userps -U apache -u apache u
-Display top 10 processes eating up memoryps axo %mem
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -392,12 +390,14 @@ Display top 10 processes eating up memoryps axo %mem
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+Display by userps -U apache -u apache u
+Display top 10 processes eating up memoryps axo %mem
         </p>
     </div>
 </article>
@@ -563,8 +563,8 @@ To view current
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
+                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -572,8 +572,8 @@ To view current
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>

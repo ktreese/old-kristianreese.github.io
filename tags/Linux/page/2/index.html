@@ -248,14 +248,16 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
+        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
+            This example uses a local hard disk to create a logical volume.
+
+partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
+
+EDS etldev1 ~ # FDISK_C
         </p>
     </div>
 </article>
@@ -309,13 +311,14 @@ On systems in which this is being constantly logged to syslog, th
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
-Define default gateway in /etc/sysconfig/network:[root@linux01 ~
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -337,14 +340,13 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
         </h1>
     
 
         <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
+            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
+Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         </p>
     </div>
 </article>
@@ -370,6 +372,35 @@ In the example above, the root
         
     
         <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
@@ -381,10 +412,14 @@ Resol
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -413,42 +448,6 @@ The easiest way to determine what you’re w
     </div>
 </article>
     
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
-
-1 represents standard output
-2 represents standard error 
-
-2&gt;
-        </p>
-    </div>
-</article>
-    
 
     
     
@@ -466,13 +465,12 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
+        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
-!!! note    output below h
+            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
         </p>
     </div>
 </article>
@@ -575,8 +573,8 @@ The easiest way to determine what you’re w
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
+                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -584,8 +582,8 @@ The easiest way to determine what you’re w
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>

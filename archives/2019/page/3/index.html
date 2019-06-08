@@ -183,76 +183,17 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        <a href="/2019/05/05/initrd/">Extracting initrd</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
 
-1 represents standard output
-2 represents standard error 
+cpio archive
+ext2 filesystem data
 
-2&gt;
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
-!!! note    output below h
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+The easiest way to determine what you’re w
         </p>
     </div>
 </article>
@@ -305,13 +246,13 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
+        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
-In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
+            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
+!!! note    output below h
         </p>
     </div>
 </article>
@@ -333,12 +274,17 @@ In the case of redhat, copy the media.repo file from the root dir of the mount p
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
+        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
+            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+
+1 represents standard output
+2 represents standard error 
+
+2&gt;
         </p>
     </div>
 </article>
@@ -364,13 +310,71 @@ In the case of redhat, copy the media.repo file from the root dir of the mount p
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
+        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
         </h1>
     
 
         <p class="article-excerpt">
-            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
-root@pxe:~# mkdir /targetroot@pxe:~# mount
+            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
+In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
         </p>
     </div>
 </article>
@@ -424,12 +428,12 @@ There’s nothing quite like the thrill of exploring, discovering new
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/resize-iscsi-lun/">Resize an iscsi LUN in Linux</a>
+        <a href="/2019/05/05/rescan-for-lun/">How To Rescan Linux for a New LUN</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ
+            How to rescan Linux for newly presented LUNsThis article focuses on utilizing the lun_scan utility provided by Emulex No-Reboot Dynamic Target/LUN Discovery Tool.  This tool is part of the Emulex Driv
         </p>
     </div>
 </article>
@@ -451,12 +455,12 @@ There’s nothing quite like the thrill of exploring, discovering new
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/rescan-for-lun/">How To Rescan Linux for a New LUN</a>
+        <a href="/2019/05/05/resize-iscsi-lun/">Resize an iscsi LUN in Linux</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to rescan Linux for newly presented LUNsThis article focuses on utilizing the lun_scan utility provided by Emulex No-Reboot Dynamic Target/LUN Discovery Tool.  This tool is part of the Emulex Driv
+            How To Resize an iscsi LUN in LinuxNetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To displ
         </p>
     </div>
 </article>
@@ -559,8 +563,8 @@ There’s nothing quite like the thrill of exploring, discovering new
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
-                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
+                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
@@ -568,8 +572,8 @@ There’s nothing quite like the thrill of exploring, discovering new
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
                         </div>
                     </li>
