@@ -183,19 +183,12 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
-
-AIX
-/etc/security/.profile
-
-Parameter decl
+            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
         </p>
     </div>
 </article>
@@ -217,12 +210,16 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
+        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
+            This example uses a local hard disk to create a logical volume.
+
+partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
+
+EDS etldev1 ~ # FDISK_C
         </p>
     </div>
 </article>
@@ -248,16 +245,13 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
         </h1>
     
 
         <p class="article-excerpt">
-            This example uses a local hard disk to create a logical volume.
-
-partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
-
-EDS etldev1 ~ # FDISK_C
+            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
+root@pxe:~# mkdir /targetroot@pxe:~# mount
         </p>
     </div>
 </article>
@@ -311,14 +305,13 @@ On systems in which this is being constantly logged to syslog, th
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
+        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
+            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
+Resol
         </p>
     </div>
 </article>
@@ -340,13 +333,14 @@ There are various ways to schedule a command to run, su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
-Define default gateway in /etc/sysconfig/network:[root@linux01 ~
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -372,14 +366,13 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
         </h1>
     
 
         <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
+            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
+Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         </p>
     </div>
 </article>
@@ -401,13 +394,14 @@ In the example above, the root
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
-Resol
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
         </p>
     </div>
 </article>
@@ -465,12 +459,13 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
 
         <p class="article-excerpt">
-            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
+!!! note    output below h
         </p>
     </div>
 </article>
@@ -547,6 +542,15 @@ The easiest way to determine what you’re w
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Puppet/">Puppet</a></p>
+                            <p class="item-title"><a href="/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/" class="title">Using puppet-classify to interface with the classifier service</a></p>
+                            <p class="item-date"><time datetime="2019-06-08T22:09:00.000Z" itemprop="datePublished">06-08-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Puppet/">Puppet</a></p>
                             <p class="item-title"><a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" class="title">Home Lab DNS Using dnsmasq and Puppet</a></p>
                             <p class="item-date"><time datetime="2019-05-06T12:19:00.000Z" itemprop="datePublished">05-06-2019</time></p>
                         </div>
@@ -573,15 +577,6 @@ The easiest way to determine what you’re w
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/05/netmasks-table/" class="title">netmasks table</a></p>
-                            <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
                             <p class="item-title"><a href="/2019/05/05/nmap/" class="title">nmap commands</a></p>
                             <p class="item-date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></p>
@@ -597,7 +592,7 @@ The easiest way to determine what you’re w
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -607,7 +602,7 @@ The easiest way to determine what you’re w
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
         </div>
     </div>
 
@@ -617,7 +612,7 @@ The easiest way to determine what you’re w
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -627,7 +622,7 @@ The easiest way to determine what you’re w
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 13.33px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 10px;">Puppet</a> <a href="/tags/commands/" style="font-size: 16.67px;">commands</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 13.33px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 13.33px;">Puppet</a> <a href="/tags/commands/" style="font-size: 16.67px;">commands</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
         </div>
     </div>
 
