@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>couldn&#39;t find device with uuid | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux,lvm">
+    
+    <meta name="description" content="Linux LVM commands result in Couldn’t find device with uuid Couldn’t find all physical volumes for volume group   Help!  Commands like lvs, lvdisplay, vgdisplay, and pvscan result in an error like the">
+<meta name="keywords" content="Linux,lvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="couldn&#39;t find device with uuid">
+<meta property="og:url" content="http://kristianreese.com/2019/07/06/couldn-t-find-device-with-uuid/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="Linux LVM commands result in Couldn’t find device with uuid Couldn’t find all physical volumes for volume group   Help!  Commands like lvs, lvdisplay, vgdisplay, and pvscan result in an error like the">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-07-06T18:25:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="couldn&#39;t find device with uuid">
+<meta name="twitter:description" content="Linux LVM commands result in Couldn’t find device with uuid Couldn’t find all physical volumes for volume group   Help!  Commands like lvs, lvdisplay, vgdisplay, and pvscan result in an error like the">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/Networking/">Networking</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Networking/">Networking</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Puppet/">Puppet</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Linux/">Linux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+                            <article id="post-couldn-t-find-device-with-uuid" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        couldn&#39;t find device with uuid
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/07/06/couldn-t-find-device-with-uuid/" class="article-date">
+            <time datetime="2019-07-06T23:17:00.000Z" itemprop="datePublished">07-06-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>, <a class="tag-link" href="/tags/lvm/">lvm</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h6 id="Linux-LVM-commands-result-in"><a href="#Linux-LVM-commands-result-in" class="headerlink" title="Linux LVM commands result in"></a>Linux LVM commands result in</h6><ul>
+<li>Couldn’t find device with uuid</li>
+<li>Couldn’t find all physical volumes for volume group</li>
+</ul>
+<hr>
+<p>Help!  Commands like <code>lvs</code>, <code>lvdisplay</code>, <code>vgdisplay</code>, and <code>pvscan</code> result in an error like the following:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.</span><br><span class="line"></span><br><span class="line">Volume group &quot;metabackupvg&quot; not found</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># pvscan</span><br><span class="line">Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.</span><br><span class="line">Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.</span><br><span class="line">Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.</span><br><span class="line">Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.</span><br><span class="line">  PV /dev/emcpoweraa1   VG srcdata1vg      lvm2 [50.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerz1    VG srcdata2vg      lvm2 [50.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerj1    VG metalogvg       lvm2 [3.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerl1    VG metalogvg       lvm2 [3.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowern1    VG metalogvg       lvm2 [4.99 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerad1   VG metalogvg       lvm2 [14.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowery1    VG auditbackupvg   lvm2 [229.99 GB / 0    free]</span><br><span class="line">  PV /dev/emcpoweru1    VG metabackupvg    lvm2 [45.00 GB / 0    free]</span><br><span class="line"></span><br><span class="line">  PV unknown device     VG metabackupvg    lvm2 [69.99 GB / 0    free]</span><br><span class="line">  PV /dev/emcpoweraf1   VG metabackupvg    lvm2 [124.99 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerv1    VG auditlogvg      lvm2 [3.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerw1    VG auditlogvg      lvm2 [3.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerx1    VG auditlogvg      lvm2 [3.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowert1    VG auditlogvg      lvm2 [89.99 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerb1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerc1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerd1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowere1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerk1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerm1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowero1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerq1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerp1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerr1    VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerab1   VG auditdatavg     lvm2 [25.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerf1    VG metadatavg      lvm2 [11.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerg1    VG metadatavg      lvm2 [11.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerh1    VG metadatavg      lvm2 [11.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpoweri1    VG metadatavg      lvm2 [11.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowers1    VG metadatavg      lvm2 [20.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowera1    VG metadatavg      lvm2 [20.00 GB / 0    free]</span><br><span class="line">  PV /dev/emcpowerae1   VG metadatavg      lvm2 [14.00 GB / 0    free]</span><br><span class="line">  Total: 32 [1.04 TB] / in use: 32 [1.04 TB] / in no VG: 0 [0   ]</span><br></pre></td></tr></table></figure>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><hr>
+<p>This scenario indicates that a disk is missing from the volume group.  This is clear since pvscan scans all disks for physical volumes, and it’s telling us that it cannot find a device.  In my case, I deleted a LUN from the EMC that I knew was no longer being used, but I forgot to update the LVM configuration.  To correct the issue, I removed the lost physical volume from the volume group using the <code>--removemissing</code> argument of the <code>vgreduce</code> command.</p>
+<p>Tip: Run vgreduce with the <code>--test</code> and <code>--verbose</code> options to validate what will be executed and confirm this is what you want to do.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@dwetlprod2 ~]# vgreduce --removemissing --verbose metabackupvg  </span><br><span class="line">    Finding volume group &quot;metabackupvg&quot;  </span><br><span class="line">    Wiping cache of LVM-capable devices  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find all physical volumes for volume group metabackupvg.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">  Couldn&apos;t find device with uuid &apos;R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP&apos;.  </span><br><span class="line">    Archiving volume group &quot;metabackupvg&quot; metadata (seqno 73).  </span><br><span class="line">    metabackupvg/backup2lv has missing extents: removing (including dependencies)  </span><br><span class="line">    Removing LV backup2lv from VG metabackupvg  </span><br><span class="line">    Removing PV with UUID R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP from VG metabackupvg  </span><br><span class="line">    Creating volume group backup &quot;/etc/lvm/backup/metabackupvg&quot; (seqno 74).  </span><br><span class="line">  Wrote out consistent volume group metabackupvg  </span><br><span class="line">[root@dwetlprod2 ~]#</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@dwetlprod2 ~]# pvcreate --uuid R5zG2s-g4yi-ytEO-8Xvk-2B0s-S36G-9nWhXP /dev/emcpowerah  </span><br><span class="line">  Physical volume &quot;/dev/emcpowerah&quot; successfully created  </span><br><span class="line">[root@dwetlprod2 ~]# vgcfgrestore metabackupvg  </span><br><span class="line">  Restored volume group metabackupvg  </span><br><span class="line">[root@dwetlprod2 ~]# vgscan  </span><br><span class="line">  Reading all physical volumes.  This may take a while...  </span><br><span class="line">  Found volume group &quot;srcdata1vg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;srcdata2vg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;metalogvg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;auditbackupvg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;auditlogvg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;metabackupvg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;auditdatavg&quot; using metadata type lvm2  </span><br><span class="line">  Found volume group &quot;metadatavg&quot; using metadata type lvm2</span><br></pre></td></tr></table></figure>
+<p>Run a file system check on the device then mount it.  If your device (LUN) was mistakenly deleted, or in the case of physical media the disk has gone kaput, then you’ll need to restore data from backups.</p>
+<p>You may have noticed that I didn’t even fdisk the replacement device.  Don’t forget to do this step if you will be restoring data and you’re restoring to a partition.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/07/06/couldn-t-find-device-with-uuid/" data-id="cjxrv58me00050no96ybx0h6h" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "couldn&#39;t find device with uuid",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux lvm",
+        "genre": "Linux",
+        "datePublished": "2019-07-06",
+        "dateCreated": "2019-07-06",
+        "dateModified": "2019-07-06",
+        "url": "http://kristianreese.com/2019/07/06/couldn-t-find-device-with-uuid/",
+        "description": "Linux LVM commands result in
+Couldn’t find device with uuid
+Couldn’t find all physical volumes for volume group
+
+
+Help!  Commands like lvs, lvdisplay, vgdisplay, and pvscan result in an error like the"
+        "wordCount": 1181
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/07/06/ternary-example/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            ternary example
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/07/06/expand-alias-in-shell-script/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">expand alias in shell script</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/07/curl-with-cookie-authentication/" class="title">curl with cookie authentication</a></p>
+                            <p class="item-date"><time datetime="2019-07-07T04:04:00.000Z" itemprop="datePublished">07-06-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/concatenate-a-file-list-into-a-string/" class="title">concatenate a file list into a string</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:28:00.000Z" itemprop="datePublished">07-06-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/ternary-example/" class="title">ternary example</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:26:00.000Z" itemprop="datePublished">07-06-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/couldn-t-find-device-with-uuid/" class="title">couldn&#39;t find device with uuid</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:17:00.000Z" itemprop="datePublished">07-06-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/expand-alias-in-shell-script/" class="title">expand alias in shell script</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:15:00.000Z" itemprop="datePublished">07-06-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvm/">lvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scripting/">scripting</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 12.5px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 15px;">Puppet</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/bash/" style="font-size: 15px;">bash</a> <a href="/tags/commands/" style="font-size: 17.5px;">commands</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a> <a href="/tags/scripting/" style="font-size: 15px;">scripting</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/07/06/couldn-t-find-device-with-uuid/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

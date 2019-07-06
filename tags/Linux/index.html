@@ -178,6 +178,72 @@ ga('send', 'pageview');
             <div class="category">
             <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
+            <div class="date"><time datetime="2019-07-06T23:17:00.000Z" itemprop="datePublished">07-06-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/07/06/couldn-t-find-device-with-uuid/">couldn&#39;t find device with uuid</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Linux LVM commands result in
+Couldn’t find device with uuid
+Couldn’t find all physical volumes for volume group
+
+
+Help!  Commands like lvs, lvdisplay, vgdisplay, and pvscan result in an error like the
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-07-06T23:13:00.000Z" itemprop="datePublished">07-06-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/07/06/Rename-batch-of-files/">Rename batch of files</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to rename a batch or group of fileskreese@MacBook ~/wbsvr $ ls -l
+total 200
+-rwx------  1 kreese  1575811233  34652 Mar 19 16:49 httpd.conf
+-rw-r--r--  1 kreese  1575811233  13609 Mar 25 08:30 vho
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
             <div class="date"><time datetime="2019-05-05T16:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
@@ -242,14 +308,15 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sed-commands/">sed Commands</a>
+        <a href="/2019/05/05/nmap/">nmap commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
-Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
-Su
+            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
+Check if port is opennmap -P0 -p1521 oracle.com
+Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+
         </p>
     </div>
 </article>
@@ -271,15 +338,14 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/sed-commands/">sed Commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
+            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
+Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
+Su
         </p>
     </div>
 </article>
@@ -305,12 +371,12 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -332,12 +398,12 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -399,76 +465,6 @@ Display top 10 processes eating up memoryps axo %mem
         <p class="article-excerpt">
             After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
 root@pxe:~# mkdir /targetroot@pxe:~# mount
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
-
-Use of a hard disk partition
-Create a swap file on an existing file system
-
-To view current 
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
-
-AIX
-/etc/security/.profile
-
-Parameter decl
         </p>
     </div>
 </article>
@@ -544,45 +540,45 @@ Parameter decl
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2019/06/09/Querying-Data-with-PL-SQL-Implicit-Cursor-FOR-Loop/" class="title">Querying Data with PL/SQL: Implicit Cursor FOR Loop</a></p>
-                            <p class="item-date"><time datetime="2019-06-09T04:25:00.000Z" itemprop="datePublished">06-08-2019</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/07/curl-with-cookie-authentication/" class="title">curl with cookie authentication</a></p>
+                            <p class="item-date"><time datetime="2019-07-07T04:04:00.000Z" itemprop="datePublished">07-06-2019</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Puppet/">Puppet</a></p>
-                            <p class="item-title"><a href="/2019/06/08/Various-Puppet-Errors/" class="title">Various Puppet Errors</a></p>
-                            <p class="item-date"><time datetime="2019-06-08T23:08:00.000Z" itemprop="datePublished">06-08-2019</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/concatenate-a-file-list-into-a-string/" class="title">concatenate a file list into a string</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:28:00.000Z" itemprop="datePublished">07-06-2019</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Puppet/">Puppet</a></p>
-                            <p class="item-title"><a href="/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/" class="title">Using puppet-classify to interface with the classifier service</a></p>
-                            <p class="item-date"><time datetime="2019-06-08T22:09:00.000Z" itemprop="datePublished">06-08-2019</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/ternary-example/" class="title">ternary example</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:26:00.000Z" itemprop="datePublished">07-06-2019</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Puppet/">Puppet</a></p>
-                            <p class="item-title"><a href="/2019/05/06/Home-Lab-DNS-Using-dnsmasq-and-Puppet/" class="title">Home Lab DNS Using dnsmasq and Puppet</a></p>
-                            <p class="item-date"><time datetime="2019-05-06T12:19:00.000Z" itemprop="datePublished">05-06-2019</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/couldn-t-find-device-with-uuid/" class="title">couldn&#39;t find device with uuid</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:17:00.000Z" itemprop="datePublished">07-06-2019</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Networking/">Networking</a></p>
-                            <p class="item-title"><a href="/2019/05/06/Convert-Single-Cat-5e-into-Ethernet-and-Phone/" class="title">Convert Single Cat 5e into Ethernet and Phone</a></p>
-                            <p class="item-date"><time datetime="2019-05-06T11:42:00.000Z" itemprop="datePublished">05-06-2019</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Linux/">Linux</a></p>
+                            <p class="item-title"><a href="/2019/07/06/expand-alias-in-shell-script/" class="title">expand alias in shell script</a></p>
+                            <p class="item-date"><time datetime="2019-07-06T23:15:00.000Z" itemprop="datePublished">07-06-2019</time></p>
                         </div>
                     </li>
                 
@@ -595,7 +591,7 @@ Parameter decl
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">32</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -605,7 +601,7 @@ Parameter decl
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
         </div>
     </div>
 
@@ -615,7 +611,7 @@ Parameter decl
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvm/">lvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scripting/">scripting</a><span class="tag-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -625,7 +621,7 @@ Parameter decl
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 12.5px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 15px;">Puppet</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/commands/" style="font-size: 17.5px;">commands</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a>
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 12.5px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 15px;">Puppet</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/bash/" style="font-size: 15px;">bash</a> <a href="/tags/commands/" style="font-size: 17.5px;">commands</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a> <a href="/tags/scripting/" style="font-size: 15px;">scripting</a>
         </div>
     </div>
 
