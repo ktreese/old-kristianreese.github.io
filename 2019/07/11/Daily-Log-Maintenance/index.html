@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Daily Log Maintenance | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="For systems that have lots of application logs, this shell script can be run from cron on a daily basis to maximize space utiliazation by gzipping and deleting old log files by the defined time limita">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Daily Log Maintenance">
+<meta property="og:url" content="http://kristianreese.com/2019/07/11/Daily-Log-Maintenance/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="For systems that have lots of application logs, this shell script can be run from cron on a daily basis to maximize space utiliazation by gzipping and deleting old log files by the defined time limita">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-07-10T22:09:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Daily Log Maintenance">
+<meta name="twitter:description" content="For systems that have lots of application logs, this shell script can be run from cron on a daily basis to maximize space utiliazation by gzipping and deleting old log files by the defined time limita">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/Networking/">Networking</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Networking/">Networking</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Puppet/">Puppet</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Rabbitmq/">Rabbitmq</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Scripting/">Scripting</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+                            <article id="post-Daily-Log-Maintenance" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Daily Log Maintenance
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/07/11/Daily-Log-Maintenance/" class="article-date">
+            <time datetime="2019-07-11T03:01:00.000Z" itemprop="datePublished">07-10-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>For systems that have lots of application logs, this shell script can be run from cron on a daily basis to maximize space utiliazation by gzipping and deleting old log files by the defined time limitations</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/bin/sh  </span><br><span class="line">#  </span><br><span class="line"># app/logs/current log maintenance. by: jhazelwo, 2012  </span><br><span class="line">#  </span><br><span class="line"># meant to be run daily from cron  </span><br><span class="line">#  </span><br><span class="line">#30 0 * * * /app/bin/logMaint.sh &gt;&gt; /var/log/cron.err 2&gt;&amp;1  </span><br><span class="line">#  </span><br><span class="line">matches=&quot;server.log_*[0-9]  </span><br><span class="line">server_20*.log  </span><br><span class="line">server_access_log*[0-9]  </span><br><span class="line">server_access_log*[0-9]s  </span><br><span class="line">business.log.*[0-9]  </span><br><span class="line">error.log.*[0-9]  </span><br><span class="line">info.log.*[0-9]  </span><br><span class="line">other.log.*[0-9]  </span><br><span class="line">sf.log.*[0-9]  </span><br><span class="line">warn.log.*[0-9]  </span><br><span class="line">other.log.20*[0-9]  </span><br><span class="line">error.log.20*[0-9]  </span><br><span class="line">warn.log.20*[0-9]  </span><br><span class="line">info.log.20*[0-9]  </span><br><span class="line">business.log.20*[0-9]  </span><br><span class="line">server.log_20*[0-9]  </span><br><span class="line">sf.log.20*[0-9]&quot;&lt;/span&gt;  </span><br><span class="line">&lt;span style=&quot;font-family: Courier New;&quot;&gt;  </span><br><span class="line">Where=&quot;/data/applications/log&quot;  </span><br><span class="line"></span><br><span class="line">gzipLimit=&quot;-mtime +30&quot;  </span><br><span class="line">rmLimit=&quot;-mtime +120&quot;  </span><br><span class="line"></span><br><span class="line">cd /  </span><br><span class="line"></span><br><span class="line">thisExec=`basename $0`  </span><br><span class="line">thisProc=&quot;$&#123;thisExec&#125;[$]&quot;  </span><br><span class="line">thisHost=&quot;`hostname | head -1 | cut -d\. -f1`&quot;  </span><br><span class="line"></span><br><span class="line">DEBUG=0  </span><br><span class="line"></span><br><span class="line">for Here in $&#123;Where&#125;; do  </span><br><span class="line">        for name in $&#123;matches&#125;; do  </span><br><span class="line">                echo &quot;`date` $&#123;thisHost&#125; $&#123;thisProc&#125; gzip $&#123;name&#125; in $&#123;Here&#125;&quot;  </span><br><span class="line">                if [ $&#123;DEBUG&#125; -eq 1 ]; then  </span><br><span class="line">                    echo /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;gzipLimit&#125; -name &quot;$&#123;name&#125;&quot; -exec ls -al &#123;&#125; \;  </span><br><span class="line">                    /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;gzipLimit&#125; -name &quot;$&#123;name&#125;&quot; -exec ls -al &#123;&#125; \;  </span><br><span class="line">                else  </span><br><span class="line">                    /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;gzipLimit&#125; -name $&#123;name&#125; -exec /bin/gzip -9vf &#123;&#125; \;  </span><br><span class="line">                fi  </span><br><span class="line">        done  </span><br><span class="line">        for name in $&#123;matches&#125;; do  </span><br><span class="line">                echo &quot;`date` $&#123;thisHost&#125; $&#123;thisProc&#125; rm $&#123;name&#125;.gz in $&#123;Here&#125;&quot;  </span><br><span class="line">                if [ $&#123;DEBUG&#125; -eq 1 ]; then  </span><br><span class="line">                    echo /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;rmLimit&#125; -name $&#123;name&#125;.gz -exec ls -al &#123;&#125; \; -print  </span><br><span class="line">                    /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;rmLimit&#125; -name $&#123;name&#125;.gz -exec ls -al &#123;&#125; \; -print  </span><br><span class="line">                else  </span><br><span class="line">                    /usr/bin/find $&#123;Here&#125; -mount -type f $&#123;rmLimit&#125; -name $&#123;name&#125;.gz -exec rm -f &#123;&#125; \; -print  </span><br><span class="line">                fi  </span><br><span class="line">        done  </span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/07/11/Daily-Log-Maintenance/" data-id="cjxxtldy200081mo9oe4esumj" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Daily Log Maintenance",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "",
+        "datePublished": "2019-07-10",
+        "dateCreated": "2019-07-10",
+        "dateModified": "2019-07-10",
+        "url": "http://kristianreese.com/2019/07/11/Daily-Log-Maintenance/",
+        "description": "For systems that have lots of application logs, this shell script can be run from cron on a daily basis to maximize space utiliazation by gzipping and deleting old log files by the defined time limita"
+        "wordCount": 372
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/07/11/Redirect-command-line-results-into-while-loop/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Redirect command line results into while loop
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/07/07/curl-with-cookie-authentication/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">curl with cookie authentication</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Scripting/">Scripting</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Monitor-Log-for-pattern-match-and-trigger-an-action/" class="title">Monitor Log for pattern match and trigger an action</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T08:11:00.000Z" itemprop="datePublished">07-11-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Rabbitmq/">Rabbitmq</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" class="title">Run RabbitMQ as a non-root user</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T08:04:00.000Z" itemprop="datePublished">07-11-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/07/11/How-to-configure-rsyslog-7-4-9-with-TLS/" class="title">How to configure rsyslog 7.4.9 with TLS</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:21:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/07/11/How-to-force-NFSv4-via-config-files-instead-of-mount-options/" class="title">How to force NFSv4 via config files instead of mount options</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:16:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Scripting/">Scripting</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Redirect-command-line-results-into-while-loop/" class="title">Redirect command line results into while loop</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:09:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Rabbitmq/">Rabbitmq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scripting/">Scripting</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">40</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvm/">lvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scripting/">scripting</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 12.5px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 15px;">Puppet</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/bash/" style="font-size: 15px;">bash</a> <a href="/tags/commands/" style="font-size: 17.5px;">commands</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a> <a href="/tags/scripting/" style="font-size: 15px;">scripting</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/07/11/Daily-Log-Maintenance/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

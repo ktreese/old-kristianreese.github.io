@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Run RabbitMQ as a non-root user | kristianreese.com</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Linux">
+    
+    <meta name="description" content="By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq use">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Run RabbitMQ as a non-root user">
+<meta property="og:url" content="http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/index.html">
+<meta property="og:site_name" content="kristianreese.com">
+<meta property="og:description" content="By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq use">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-07-10T22:08:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Run RabbitMQ as a non-root user">
+<meta name="twitter:description" content="By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq use">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6930497-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">new home of kb.kristianreese.com</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/">Linux</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Linux/Networking/">Networking</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Networking/">Networking</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Puppet/">Puppet</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Rabbitmq/">Rabbitmq</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Scripting/">Scripting</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Rabbitmq/">Rabbitmq</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8101539885827084",
+          enable_page_level_ads: true
+     });
+</script>
+
+                            <article id="post-Run-RabbitMQ-as-a-non-root-user" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Run RabbitMQ as a non-root user
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" class="article-date">
+            <time datetime="2019-07-11T08:04:00.000Z" itemprop="datePublished">07-11-2019</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq user.  As far as I can tell, this is required because lock and pid files are created in root owned directories.  However, since RabbitMQ, by default, does not run on a privledged port, we can customize the installation process of RabbitMQ and set it up to start, stop, and run as any user we wish.  My approach was to create my own RPM package from RabbitMQ binary tar.gz.</p>
+<h3 id="Create-custom-RabbitMQ-RPM-Package"><a href="#Create-custom-RabbitMQ-RPM-Package" class="headerlink" title="Create custom RabbitMQ RPM Package"></a>Create custom RabbitMQ RPM Package</h3><hr>
+<p>In order to create our own RabbitMQ RPM package, the following packages need to exist on the system:</p>
+<ul>
+<li>rpm-build</li>
+<li>redhat-rpm-config</li>
+</ul>
+<p>Typically, in an rpmbuild scenario, we would also require a complier like gcc and make, but in this example, we will not be compling code since we’re going to make an RPM out of a binary distribution of files provided to us in a tar.gz.</p>
+<p><strong>Prepare rpmbuild environment</strong></p>
+<p>The first order of business is to prepare the rpmbuild directory structure.  There are two ways to do this:</p>
+<h3 id="First"><a href="#First" class="headerlink" title="First"></a>First</h3><p>This is as easy as creating a few subdirectories along with a <span style="font-family: Courier New;">.rpmmacros</span> file to contain directives not typically found in a <span style="font-family: Courier New;">.spec</span> file.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEV mquser@rabbitmq01 ~ $ echo &apos;%_topdir %(echo $HOME)/rpmbuild&apos; &gt; ~/.rpmmacros  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ mkdir -p ~/rpmbuild/&#123;BUILD,RPMS,SOURCES,SPECS,SRPMS&#125;</span><br></pre></td></tr></table></figure>
+<p>Alternatively, install the rpmdevtools package and as a non-root user (in this example the mquser), run the command <code>rpmdev-setuptree</code>.</p>
+<h3 id="Second"><a href="#Second" class="headerlink" title="Second"></a>Second</h3><p>Alternatively, one may wish to implement customizations from the src RPM, whereby upon installation of the src RPM, the rpmbuild directory structure is created for you along with the source files and spec file used to create the RPM.  In order to do this, first create the .rpmmacros file as in the First option above, then download the src RabbitMQ RPM and install it from the home dir of the non-root user being used to build the custom RPM.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEV mquser@rabbitmq01 ~ $ cd $HOME  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.3/rabbitmq-server-3.3.3-1.src.rpm  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ rpm -ivh rabbitmq-server-3.3.3-1.src.rpm&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>If the second option is exercised, the rpmbuild and subsequent directories are put into place.  Navigate around and check them out.  For our purposes, we do not require everything the src RPM provides us, therefore, delete everything from the SOURCES directory except for <code>rabbitmq-server.init</code></p>
+<p><strong>Download RabbitMQ generic unix tar ball</strong></p>
+<p>Now that the rpmbuild directory structure is in place, it’s time to download the binary.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEV mquser@rabbitmq01 ~ $ cd  /export/home/mquser/rpmbuild/SOURCES  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.3.3/rabbitmq-server-generic-unix-3.3.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>Extract the contents, rename the extracted directory, and re-tar.  This is necessary in order to keep the name schema consistent with how we will define our directives within the spec file.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEV mquser@rabbitmq01 ~ $ tar zxvf rabbitmq-server-generic-unix-3.3.3.tar.gz  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ mv rabbitmq_server-3.3.3 rabbitmq-3.3.3  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ tar cvf - ./rabbitmq-3.3.3 | gzip &gt; rabbitmq-3.3.3.tar.gz  </span><br><span class="line">DEV mquser@rabbitmq01 ~ $ rm –rf ./rabbitmq-3.3.3</span><br></pre></td></tr></table></figure>
+<h3 id="Create-modify-the-spec-file"><a href="#Create-modify-the-spec-file" class="headerlink" title="Create / modify the spec file"></a><strong>Create / modify the spec file</strong></h3><p>The spec file is kept in the <code>~/rpmbuild/SPECS</code> directory and is what allows the custom definitions we’re after in allowing the start / stop of the RabbitMQ application as a non-root user.  It is usually a good idea to model the spec file from the src RPM spec file.  This can be obtained by installing the src RPM as a non-root user as described in the Second option above, and modifying the resulting spec file from the ~/rpmbuild/SPECS directory.  Otherwise, a spec file can be created manually as shown here.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Name:		rabbitmq</span><br><span class="line">Version:	3.3.3</span><br><span class="line">Release:	1%&#123;?dist&#125;</span><br><span class="line">Summary:	RabbitMQ custom RPM build for mquser</span><br><span class="line"></span><br><span class="line">Group:		Development/Libraries</span><br><span class="line">License:	MPLv1.1 and MIT and ASL 2.0 and BSD</span><br><span class="line">URL:		http://www.rabbitmq.com/</span><br><span class="line">Source0:	%&#123;name&#125;-%&#123;version&#125;.tar.gz</span><br><span class="line">Source1:	rabbitmq-server.init</span><br><span class="line">BuildArch:	noarch</span><br><span class="line">BuildRoot:	%(mktemp -ud %&#123;_tmppath&#125;/%&#123;name&#125;-%&#123;version&#125;-%&#123;release&#125;-XXXXXX)</span><br><span class="line"></span><br><span class="line">BuildRequires:	erlang &gt;= R13B-03</span><br><span class="line">Requires:	erlang &gt;= R13B-03, logrotate</span><br><span class="line">Requires(post):	chkconfig initscripts</span><br><span class="line">Requires(pre):	chkconfig initscripts</span><br><span class="line"></span><br><span class="line">%description</span><br><span class="line">RabbitMQ is an implementation of AMQP, the emerging standard for high</span><br><span class="line">performance enterprise messaging. The RabbitMQ server is a robust and</span><br><span class="line">scalable implementation of an AMQP broker.</span><br><span class="line"></span><br><span class="line"># Install RabbitMQ to /opt</span><br><span class="line">%define _prefix /opt/</span><br><span class="line"></span><br><span class="line">%prep</span><br><span class="line">%setup -q</span><br><span class="line"></span><br><span class="line">%build</span><br><span class="line"></span><br><span class="line">%install</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line">mkdir -m 0755 -p %&#123;buildroot&#125;%&#123;_prefix&#125;%&#123;name&#125;</span><br><span class="line">mkdir -m 0755 -p %&#123;buildroot&#125;%&#123;_prefix&#125;%&#123;name&#125;%&#123;_localstatedir&#125;</span><br><span class="line">mkdir -m 0755 -p %&#123;buildroot&#125;%&#123;_prefix&#125;%&#123;name&#125;%&#123;_localstatedir&#125;/lock/subsys</span><br><span class="line">cp -R * %&#123;buildroot&#125;%&#123;_prefix&#125;%&#123;name&#125;</span><br><span class="line"></span><br><span class="line">#Copy all necessary start up, logrotate config files etc.</span><br><span class="line">install -p -D -m 0755 %&#123;S:1&#125; %&#123;buildroot&#125;%&#123;_initrddir&#125;/rabbitmq-server</span><br><span class="line"></span><br><span class="line">%clean</span><br><span class="line">rm -rf %&#123;buildroot&#125;</span><br><span class="line"></span><br><span class="line">%post</span><br><span class="line">if [ $1 = 1 ]; then</span><br><span class="line">	#rpm -ivh issued for initial installation</span><br><span class="line">	echo &quot;Enabling rabbitmq-management plugin&quot;</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmq-plugins enable rabbitmq_management &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmq-server -detached &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line"></span><br><span class="line">	sleep 2</span><br><span class="line"></span><br><span class="line">	echo &quot;Creating user accounts...&quot;</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl add_user mqadmin password &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl set_user_tags mqadmin administrator &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl set_permissions -p / mqadmin \&quot;.*\&quot; \&quot;.*\&quot; \&quot;.*\&quot; &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line"></span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl add_user mqreadonly password &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl set_user_tags mqreadonly management &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl set_permissions -p / mqreadonly \&quot;\&quot; \&quot;\&quot; \&quot;.*\&quot; &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line"></span><br><span class="line">	echo &quot;Deleting guest user account&quot;</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl delete_user guest &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line"></span><br><span class="line">	echo &quot;Shutting down server&quot;</span><br><span class="line">	su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl stop &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">chown -R mquser:root %&#123;_prefix&#125;%&#123;name&#125;/%&#123;_localstatedir&#125;*</span><br><span class="line">echo &quot;Please start RabbitMQ as mquser via &apos;/etc/init.d/rabbitmq-server start&apos;&quot;</span><br><span class="line"></span><br><span class="line">%preun</span><br><span class="line">su -c &quot;%&#123;_prefix&#125;%&#123;name&#125;/sbin/rabbitmqctl stop &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line"></span><br><span class="line">%postun</span><br><span class="line">if [ $1 = 0 ]; then</span><br><span class="line">	#service is stopped in the preun section</span><br><span class="line">        #Complete uninstall</span><br><span class="line">	su -c &quot;kill -9 `pidof epmd` &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">	su -c &quot;rm -rf %&#123;_prefix&#125;%&#123;name&#125; &gt; /dev/null 2&gt;&amp;1 ||:&quot; mquser</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">%files</span><br><span class="line">%defattr(0755,mquser,root,-)</span><br><span class="line">%&#123;_prefix&#125;%&#123;name&#125;/*</span><br><span class="line">%&#123;_initrddir&#125;/rabbitmq-server</span><br><span class="line"></span><br><span class="line">%dir %&#123;_prefix&#125;%&#123;name&#125;</span><br><span class="line">%dir %&#123;_prefix&#125;%&#123;name&#125;/%&#123;_localstatedir&#125;</span><br><span class="line"></span><br><span class="line">%doc</span><br><span class="line"></span><br><span class="line">%changelog</span><br><span class="line">* Mon Jun 18 2014 Kris Reese</span><br><span class="line">- Initial creation</span><br></pre></td></tr></table></figure>
+<p><strong>Description of Changes / Items of note  
+</strong></p>
+<p>Line Item 1: Change Name to ‘rabbitmq’</p>
+<p>Line Item 9: Change Source0 to what’s shown</p>
+<p>Line Item 10: Change <a href="http://kb.kristianreese.com/index.php?View=download&amp;EntryID=34" target="_blank" rel="noopener">rabbitmq-server.init</a> Source definition as Source1</p>
+<p>get rid of all other Source definitions</p>
+<p>Line Item 14: modify as shown</p>
+<p>Litem Item 15: modify as shown</p>
+<p>Line Item 25: Define prefix as /opt as this is where rabbitmq will be installed, and things like the lock and pid files will be kept.</p>
+<p>Litem Items 34 thru 37: Define as shown.  Some directories have to be made as part of the build as they’re not part of the binary tar.</p>
+<p>%post section</p>
+<ul>
+<li>Check if this is an initial installation – if [ $1 = 1 ] as we don’t want to run %post for an upgrade event</li>
+<li>If initial, enable the rabbitmq-managment plugin as part of the installation process, create user accounts, and delete guest user</li>
+<li>set permissions to the mquser</li>
+</ul>
+<p>%preun and %postun</p>
+<ul>
+<li>set steps for uninstall</li>
+</ul>
+<h3 id="Modify-rabbitmq-server-init-script"><a href="#Modify-rabbitmq-server-init-script" class="headerlink" title="Modify rabbitmq-server.init script"></a>Modify rabbitmq-server.init script</h3><p>There are only a few lines that require modification from the rabbitmq-server.init script provided via the src RPM, and that is to add “/opt/rabbitmq” to the defined PATH, DAEMON, CONTROL, INIT_LOG_DIR, and PID_FILE variables.  Also, add GROUP=users and change USER=mquser.</p>
+<h3 id="Build-the-RPM"><a href="#Build-the-RPM" class="headerlink" title="Build the RPM"></a>Build the RPM</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEV mquser@rabbitmq01 ~/rpmbuild/SPECS $ rpmbuild -bb rabitmq-server-3.3.3.spec</span><br></pre></td></tr></table></figure>
+<p>Once the command completes, the RPM will be written to the $HOME/rpmbuild/RPMS/noarch/rabbitmq-3.3.3-1.el6.noarch.rpm and can be installed onto any system.  Things to note are:</p>
+<ol>
+<li>erlang is still a prerequisite to installing RabbitMQ.  Please follow the instructions on RabbitMQ’s website for installing erlang.</li>
+<li>The custom RPM needs to be installed as the root user.  The reason is because we’re creating directories in /opt which is owned by root, and we’re copying the rabbitmq-server init script to /etc/init.d.  If these aren’t necessary for you, modify the spec file accordingly to the point where the RPM can be installed as mquser.  To each their own, hence the flexibility being documented here in creating the RPM.</li>
+</ol>
+<p>Once complete, RabbitMQ can be started using the ‘/etc/init.d/rabbitmq-server start’ script as the mquser.  I hope this helped!</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" data-id="cjxxtle9f004h1mo9nvjkqswg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Kris Reese"
+        },
+        "headline": "Run RabbitMQ as a non-root user",
+        "image": "http://kristianreese.com",
+        "keywords": "Linux",
+        "genre": "Rabbitmq",
+        "datePublished": "2019-07-11",
+        "dateCreated": "2019-07-11",
+        "dateModified": "2019-07-10",
+        "url": "http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/",
+        "description": "By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq use"
+        "wordCount": 1372
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="youtube" href="https://youtube.com/ktreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-youtube"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="reddit" href="https://reddit.com/u/kristianreese" target="_blank" rel="noopener">
+                        <i class="icon fa fa-reddit"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/07/11/Monitor-Log-for-pattern-match-and-trigger-an-action/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Monitor Log for pattern match and trigger an action
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/07/11/How-to-configure-rsyslog-7-4-9-with-TLS/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">How to configure rsyslog 7.4.9 with TLS</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Scripting/">Scripting</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Monitor-Log-for-pattern-match-and-trigger-an-action/" class="title">Monitor Log for pattern match and trigger an action</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T08:11:00.000Z" itemprop="datePublished">07-11-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Rabbitmq/">Rabbitmq</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" class="title">Run RabbitMQ as a non-root user</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T08:04:00.000Z" itemprop="datePublished">07-11-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/07/11/How-to-configure-rsyslog-7-4-9-with-TLS/" class="title">How to configure rsyslog 7.4.9 with TLS</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:21:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/07/11/How-to-force-NFSv4-via-config-files-instead-of-mount-options/" class="title">How to force NFSv4 via config files instead of mount options</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:16:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Scripting/">Scripting</a></p>
+                            <p class="item-title"><a href="/2019/07/11/Redirect-command-line-results-into-while-loop/" class="title">Redirect command line results into while loop</a></p>
+                            <p class="item-date"><time datetime="2019-07-11T03:09:00.000Z" itemprop="datePublished">07-10-2019</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Networking/">Networking</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Networking/">Networking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Puppet/">Puppet</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Rabbitmq/">Rabbitmq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scripting/">Scripting</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">34</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Home-Projects/">Home Projects</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">40</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Networking/">Networking</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppet/">Puppet</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/commands/">commands</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dnsmasq/">dnsmasq</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvm/">lvm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postfix/">postfix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scripting/">scripting</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Home-Projects/" style="font-size: 10px;">Home Projects</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Networking/" style="font-size: 12.5px;">Networking</a> <a href="/tags/Puppet/" style="font-size: 15px;">Puppet</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/bash/" style="font-size: 15px;">bash</a> <a href="/tags/commands/" style="font-size: 17.5px;">commands</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/dnsmasq/" style="font-size: 10px;">dnsmasq</a> <a href="/tags/lvm/" style="font-size: 10px;">lvm</a> <a href="/tags/postfix/" style="font-size: 10px;">postfix</a> <a href="/tags/scripting/" style="font-size: 15px;">scripting</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Kris Reese</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kristianreese';
+    
+    
+    var disqus_url = 'http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
