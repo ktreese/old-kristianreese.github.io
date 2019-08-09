@@ -262,22 +262,19 @@ ga('send', 'pageview');
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
+            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
         </p>
     </div>
 </article>
@@ -296,19 +293,22 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
+        <a href="/2019/05/05/nmap/">nmap commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
+            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
+Check if port is opennmap -P0 -p1521 oracle.com
+Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
+
         </p>
     </div>
 </article>
@@ -363,12 +363,12 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -390,12 +390,12 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
