@@ -211,13 +211,19 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
+            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
+Linux/Solaris
+/etc/profile
+
+AIX
+/etc/security/.profile
+
+Parameter decl
         </p>
     </div>
 </article>
@@ -230,33 +236,6 @@ On systems in which this is being constantly logged to syslog, th
     
     
         <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -282,14 +261,10 @@ There are various ways to schedule a command to run, su
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -303,20 +278,26 @@ There are various ways to schedule a command to run, su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
         </h1>
     
 
         <p class="article-excerpt">
-            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
         </p>
     </div>
 </article>
+    
+        </div>
     
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -345,39 +326,6 @@ The easiest way to determine what you’re w
     </div>
 </article>
     
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
-        </p>
-    </div>
-</article>
-    
 
     
     
@@ -395,13 +343,13 @@ In the example above, the root
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
-!!! note    output below h
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
         </p>
     </div>
 </article>
@@ -455,17 +403,72 @@ Resol
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
+!!! note    output below h
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
 
-1 represents standard output
-2 represents standard error 
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        </h1>
+    
 
-2&gt;
+        <p class="article-excerpt">
+            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
+In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
         </p>
     </div>
 </article>

@@ -212,66 +212,6 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
-Display by userps -U apache -u apache u
-Display top 10 processes eating up memoryps axo %mem
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
@@ -298,22 +238,17 @@ Display top 10 processes eating up memoryps axo %mem
             <div class="category">
             <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
-
-Use of a hard disk partition
-Create a swap file on an existing file system
-
-To view current 
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -330,24 +265,19 @@ To view current
             <div class="category">
             <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
+        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
-
-AIX
-/etc/security/.profile
-
-Parameter decl
+            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+Display by userps -U apache -u apache u
+Display top 10 processes eating up memoryps axo %mem
         </p>
     </div>
 </article>
@@ -401,16 +331,13 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
         </h1>
     
 
         <p class="article-excerpt">
-            This example uses a local hard disk to create a logical volume.
+            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
 
-partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
-
-EDS etldev1 ~ # FDISK_C
         </p>
     </div>
 </article>
@@ -436,13 +363,79 @@ EDS etldev1 ~ # FDISK_C
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
+        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
         </h1>
     
 
         <p class="article-excerpt">
-            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
+            This example uses a local hard disk to create a logical volume.
 
+partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
+
+EDS etldev1 ~ # FDISK_C
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
+
+Use of a hard disk partition
+Create a swap file on an existing file system
+
+To view current 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
         </p>
     </div>
 </article>

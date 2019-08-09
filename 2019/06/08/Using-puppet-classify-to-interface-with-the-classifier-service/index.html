@@ -192,6 +192,7 @@ ga('send', 'pageview');
             </div>
         
         
+        
         <div class="article-entry" itemprop="articleBody">
             <p>I’ve been looking for an opportunity to share something with the Puppet Community and I think I found it in <a href="https://github.com/puppetlabs/puppet-classify" target="_blank" rel="noopener">puppet-classify</a> and how I’m using it along with MongoDB to manage classifications in a Puppet Enterprise deployment.</p>
 <p>The approach I’ve taken is to backup and store our Puppet Classifications into MongoDB.  That way, in the event of a rebuild, we can easily reimport all of our classifications.  Where this approach has additional value is in tear down environment such as Vagrant.  Puppet module developers can use Vagrant to deploy their own local puppetmaster and tear it down/rebuild it as often as they like since they can store their classifications in MongoDB and import them with ease.  Anytime a developer wants to save off a classification, they can easily export to MongoDB for later retrieval or sharing with a co-worker.</p>
@@ -203,7 +204,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/" data-id="cjxxtle0f000l1mo9rrbi4dsl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/06/08/Using-puppet-classify-to-interface-with-the-classifier-service/" data-id="cjz3hywvd000j07o9h2tu6ku9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {

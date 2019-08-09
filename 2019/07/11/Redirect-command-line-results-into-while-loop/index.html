@@ -192,6 +192,7 @@ ga('send', 'pageview');
             </div>
         
         
+        
         <div class="article-entry" itemprop="articleBody">
             <p>In a scenario where there are various config files contained throughout various subdirectories where one needs to commit mass updates quickly, it’s possible to redirect the results of a command into a while loop.</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /opt/Jboss_5.1.2/server/</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> file1.xml file2.xml file3.xml file4.xml file5.xml</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="keyword">while</span> <span class="built_in">read</span> filename</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		<span class="comment">#sed -i -e 's:&lt;old_password&gt;:&lt;new_password&gt;:g' $filename</span></span><br><span class="line">		ls -1 <span class="variable">$&#123;filename&#125;</span></span><br><span class="line"> 	<span class="keyword">done</span> &lt; &lt;(find . -name <span class="variable">$&#123;file&#125;</span>)</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
@@ -206,7 +207,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/07/11/Redirect-command-line-results-into-while-loop/" data-id="cjxxtldye000c1mo9fmc6rzfz" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/07/11/Redirect-command-line-results-into-while-loop/" data-id="cjz3hywuy000a07o905oxq1gf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {

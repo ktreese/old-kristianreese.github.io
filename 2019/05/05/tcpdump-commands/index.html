@@ -192,6 +192,7 @@ ga('send', 'pageview');
             </div>
         
         
+        
         <div class="article-entry" itemprop="articleBody">
             <h2 id="Capture-DHCP-requests"><a href="#Capture-DHCP-requests" class="headerlink" title="Capture DHCP requests"></a>Capture DHCP requests</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">PXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes</span><br><span class="line">16:12:28.564974 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:28.565003 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:28.565449 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">16:12:28.565545 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">16:12:32.602043 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:32.602119 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:32.602353 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">16:12:32.602537 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">16:12:36.666578 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:36.666629 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 00:21:5e:09:60:80 (oui Unknown), length 548</span><br><span class="line">16:12:36.666911 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">16:12:36.667052 IP 10.30.71.10.67 &gt; 255.255.255.255.68: BOOTP/DHCP, Reply, length 316</span><br><span class="line">^C</span><br><span class="line">12 packets captured</span><br><span class="line">12 packets received by filter</span><br><span class="line">0 packets dropped by kernel</span><br><span class="line">PXE pxedhcp01 ~ #</span><br></pre></td></tr></table></figure>
 <p><code>tcpdump -n -i any port 67 or port 68 or port 69</code> will also work</p>
@@ -204,7 +205,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/05/05/tcpdump-commands/" data-id="cjxxtle6o003l1mo9j7nhtej2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/05/05/tcpdump-commands/" data-id="cjz3hywwx003907o9do29rl42" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -347,20 +348,20 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2019/05/05/top-cpu-mem-processes/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2019/05/05/sed-commands/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            Top CPU &amp; Memory Processes
+            sed Commands
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/2019/05/05/add-swap-space/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/05/05/tar-gzip/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">How to Add Swap Space</p>
+        <p class="article-nav-title">tar / gzip commands</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     

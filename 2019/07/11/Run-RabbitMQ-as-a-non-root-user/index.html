@@ -192,6 +192,7 @@ ga('send', 'pageview');
             </div>
         
         
+        
         <div class="article-entry" itemprop="articleBody">
             <p>By default, the provided Fedora / RHEL RabbitMQ RPM creates a local user account called ‘rabbitmq’.  However, the app needs to be started by the root user, which starts the service as the rabbitmq user.  As far as I can tell, this is required because lock and pid files are created in root owned directories.  However, since RabbitMQ, by default, does not run on a privledged port, we can customize the installation process of RabbitMQ and set it up to start, stop, and run as any user we wish.  My approach was to create my own RPM package from RabbitMQ binary tar.gz.</p>
 <h3 id="Create-custom-RabbitMQ-RPM-Package"><a href="#Create-custom-RabbitMQ-RPM-Package" class="headerlink" title="Create custom RabbitMQ RPM Package"></a>Create custom RabbitMQ RPM Package</h3><hr>
@@ -251,7 +252,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" data-id="cjxxtle9f004h1mo9nvjkqswg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/07/11/Run-RabbitMQ-as-a-non-root-user/" data-id="cjz3hywyl004j07o91ek6063b" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {

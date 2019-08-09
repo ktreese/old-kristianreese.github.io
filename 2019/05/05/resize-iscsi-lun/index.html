@@ -192,6 +192,7 @@ ga('send', 'pageview');
             </div>
         
         
+        
         <div class="article-entry" itemprop="articleBody">
             <h1 id="How-To-Resize-an-iscsi-LUN-in-Linux"><a href="#How-To-Resize-an-iscsi-LUN-in-Linux" class="headerlink" title="How To Resize an iscsi LUN in Linux"></a>How To Resize an iscsi LUN in Linux</h1><p>NetApp storage systems also allow you to resize a LUN dynamically; however, the iSCSI layer in Linux is not capable of detecting the change in the LUN size. To display the new size of the LUN you must restart the iSCSI service. But a restart of the iSCSI service fails if any iSCSI devices are mounted at that time. Because of this, even if the LUN on which the file system is located is resized, you must unmount the file system and then restart iSCSI and the multipathing service before Linux can detect the new size.</p>
 <p>!!! warning<br>    Though this procedure below has been tested, it is always a good idea to back up your data before attempting resizing.</p>
@@ -242,7 +243,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://kristianreese.com/2019/05/05/resize-iscsi-lun/" data-id="cjxxtle9r004n1mo975otch8v" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://kristianreese.com/2019/05/05/resize-iscsi-lun/" data-id="cjz3hywyp004l07o9y9yzdbre" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
