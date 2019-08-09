@@ -176,22 +176,19 @@ ga('send', 'pageview');
         
         <div class="article-meta">
             <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Linux/Networking/">Networking</a>
             </div>
             <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/nmap/">nmap commands</a>
+        <a href="/2019/05/05/netmasks-table/">netmasks table</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Scan network for responsive IPsnmap -sS -O 10.199.42.0/23 | tee nmap.log
-Check if port is opennmap -P0 -p1521 oracle.com
-Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
-
+            Decimal          Binary                               CIDR Hex-------------------------------------------------------------------255.255.255.255  11111111.11111111.11111111.11111111  /32  ffffffff255.
         </p>
     </div>
 </article>
@@ -200,37 +197,6 @@ Scan UDPnmap -sU -p &lt;port&gt; &lt;target&gt;
     
     
     
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -256,10 +222,14 @@ Su
     </div>
 </article>
     
+        </div>
+    
 
     
     
     
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -273,26 +243,20 @@ Su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
-Display by userps -U apache -u apache u
-Display top 10 processes eating up memoryps axo %mem
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
-    
-        </div>
     
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -316,34 +280,6 @@ Display top 10 processes eating up memoryps axo %mem
     </div>
 </article>
     
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
-root@pxe:~# mkdir /targetroot@pxe:~# mount
-        </p>
-    </div>
-</article>
-    
         </div>
     
 
@@ -360,22 +296,19 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
             <div class="category">
             <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        <a href="/2019/05/05/top-cpu-mem-processes/">Top CPU &amp; Memory Processes</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
-
-Use of a hard disk partition
-Create a swap file on an existing file system
-
-To view current 
+            Display top 10 processes eating up CPUDisplay by processps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+Display by userps -U apache -u apache u
+Display top 10 processes eating up memoryps axo %mem
         </p>
     </div>
 </article>
@@ -435,12 +368,13 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
+        <a href="/2019/05/05/boot-grub-stage1/">/boot/grub/stage1 not read correctly</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
+            After pxe booting a server and installing linux from a cpio archive, grub failed to load using the grub-install command.  The error presented was as follows:
+root@pxe:~# mkdir /targetroot@pxe:~# mount
         </p>
     </div>
 </article>
@@ -462,16 +396,76 @@ Parameter decl
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
         </h1>
     
 
         <p class="article-excerpt">
-            This example uses a local hard disk to create a logical volume.
+            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
 
-partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
+Use of a hard disk partition
+Create a swap file on an existing file system
 
-EDS etldev1 ~ # FDISK_C
+To view current 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
+
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
         </p>
     </div>
 </article>

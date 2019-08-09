@@ -183,95 +183,6 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
-
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
         </h1>
     
@@ -279,6 +190,37 @@ There are various ways to schedule a command to run, su
         <p class="article-excerpt">
             Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
 Define default gateway in /etc/sysconfig/network:[root@linux01 ~
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            This example uses a local hard disk to create a logical volume.
+
+partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
+
+EDS etldev1 ~ # FDISK_C
         </p>
     </div>
 </article>
@@ -332,17 +274,14 @@ Resol
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
-
-cpio archive
-ext2 filesystem data
-
-The easiest way to determine what you’re w
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -368,14 +307,13 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
         </h1>
     
 
         <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
         </p>
     </div>
 </article>
@@ -397,17 +335,14 @@ In the example above, the root
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
-
-1 represents standard output
-2 represents standard error 
-
-2&gt;
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
         </p>
     </div>
 </article>
@@ -439,6 +374,70 @@ In the example above, the root
 
         <p class="article-excerpt">
             ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
+In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
+
+cpio archive
+ext2 filesystem data
+
+The easiest way to determine what you’re w
         </p>
     </div>
 </article>
