@@ -183,12 +183,14 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        <a href="/2019/05/05/sed-commands/">sed Commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
+            sed one linersInsert character at beginning of lineComment all nfs entries in fstabsed -i &#39;/nfs/s/^/#/&#39; /etc/fstab
+Uncomment all nfs entries in fstabsed -i &#39;/nfs/s/^#//g&#39; /etc/fstab
+Su
         </p>
     </div>
 </article>
@@ -197,37 +199,6 @@ ga('send', 'pageview');
     
     
     
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -253,38 +224,6 @@ Display top 10 processes eating up memoryps axo %mem
     </div>
 </article>
     
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
-
-Use of a hard disk partition
-Create a swap file on an existing file system
-
-To view current 
-        </p>
-    </div>
-</article>
-    
         </div>
     
 
@@ -301,24 +240,17 @@ To view current
             <div class="category">
             <a class="article-category-link" href="/categories/Linux/">Linux</a>
             </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+            <div class="date"><time datetime="2019-05-05T11:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
         </div>
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
-
-AIX
-/etc/security/.profile
-
-Parameter decl
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -372,14 +304,17 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
+        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
+            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
+
+Use of a hard disk partition
+Create a swap file on an existing file system
+
+To view current 
         </p>
     </div>
 </article>
@@ -401,13 +336,19 @@ There are various ways to schedule a command to run, su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
+        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
         </h1>
     
 
         <p class="article-excerpt">
-            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
+            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
+Linux/Solaris
+/etc/profile
 
+AIX
+/etc/security/.profile
+
+Parameter decl
         </p>
     </div>
 </article>
@@ -433,13 +374,12 @@ There are various ways to schedule a command to run, su
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
+            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
         </p>
     </div>
 </article>
@@ -471,6 +411,66 @@ On systems in which this is being constantly logged to syslog, th
 partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
 
 EDS etldev1 ~ # FDISK_C
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/create-a-temp-file-with-random-characters/">Create temp file with random characters</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            tmpfile=`/bin/mktemp /var/log/rpmpkgs.XXXXXXXXX` || exit 1
+
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
         </p>
     </div>
 </article>

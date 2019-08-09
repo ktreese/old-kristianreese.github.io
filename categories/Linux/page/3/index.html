@@ -183,13 +183,14 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
-Define default gateway in /etc/sysconfig/network:[root@linux01 ~
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -211,12 +212,13 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-chroot-jail-with-openssh/">Create chroot jail with openssh</a>
+        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
+            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
+Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         </p>
     </div>
 </article>
@@ -242,13 +244,13 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
+        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
-!!! note    output below h
+            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
+Resol
         </p>
     </div>
 </article>
@@ -257,6 +259,42 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
     
     
     
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
+
+cpio archive
+ext2 filesystem data
+
+The easiest way to determine what you’re w
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -282,14 +320,10 @@ In the example above, the root
     </div>
 </article>
     
-        </div>
-    
 
     
     
     
-    
-        <div class="article-row">
     
         <article class="article article-summary">
     <div class="article-summary-inner">
@@ -314,34 +348,6 @@ In the example above, the root
 2 represents standard error 
 
 2&gt;
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
-Resol
         </p>
     </div>
 </article>
@@ -394,12 +400,13 @@ Resol
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
+        <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
+            Setting relayhost in postfixThe relayhost parameter specifies the default host to send mail to.  This is equivalent to the DS entry in sendmails MTA sendmail.cf config file.
+!!! note    output below h
         </p>
     </div>
 </article>
@@ -425,17 +432,12 @@ Resol
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        <a href="/2019/05/05/setup-local-mirror-rhel-repo/">Setup Local Mirror of RHEL Repo</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
-
-cpio archive
-ext2 filesystem data
-
-The easiest way to determine what you’re w
+            How To create your own local Red Hat Enterprise Linux yum repository serverTo begin, build a virutal machine or stand alone system installing the same OS version of Red Hat you wish to serve as the yu
         </p>
     </div>
 </article>
@@ -457,12 +459,13 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
+            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
+In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
         </p>
     </div>
 </article>
