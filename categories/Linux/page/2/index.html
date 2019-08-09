@@ -183,12 +183,12 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
+        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
+            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
         </p>
     </div>
 </article>
@@ -210,12 +210,12 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/tcpdump-commands/">tcpdump commands</a>
+        <a href="/2019/05/05/tar-gzip/">tar / gzip commands</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Capture DHCP requestsPXE pxedhcp01 ~ # tcpdump -i eth1 \(port 67 or port 68\)tcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on eth1, link-type EN10MB (Ethernet), c
+            Here, we are sending the tar file to -, which stands for tar’s standard output. This is piped to gzip, which compresses the incoming tar file, and the result is saved in backup.tar.gz. The -c option t
         </p>
     </div>
 </article>
@@ -270,19 +270,17 @@ Display top 10 processes eating up memoryps axo %mem
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
+        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
-Linux/Solaris
-/etc/profile
+            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
 
-AIX
-/etc/security/.profile
+Use of a hard disk partition
+Create a swap file on an existing file system
 
-Parameter decl
+To view current 
         </p>
     </div>
 </article>
@@ -336,17 +334,19 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
+            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
+Linux/Solaris
+/etc/profile
 
-Use of a hard disk partition
-Create a swap file on an existing file system
+AIX
+/etc/security/.profile
 
-To view current 
+Parameter decl
         </p>
     </div>
 </article>
@@ -431,13 +431,14 @@ To view current
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
+        <a href="/2019/05/05/cron/">cron tips</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
-Define default gateway in /etc/sysconfig/network:[root@linux01 ~
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
         </p>
     </div>
 </article>
@@ -459,16 +460,13 @@ Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
         </h1>
     
 
         <p class="article-excerpt">
-            This example uses a local hard disk to create a logical volume.
-
-partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
-
-EDS etldev1 ~ # FDISK_C
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
         </p>
     </div>
 </article>

@@ -211,17 +211,19 @@ root@pxe:~# mkdir /targetroot@pxe:~# mount
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/add-swap-space/">How to Add Swap Space</a>
+        <a href="/2019/05/05/auto-logoff/">Enable auto logoff</a>
         </h1>
     
 
         <p class="article-excerpt">
-            How To Add Swap Space to a Linux SystemThere are two ways to go about adding swap space to a linux system.
+            Enabling automatic logoffSystems can be set to automatically logoff a user after a period of activity by setting some parameters:
+Linux/Solaris
+/etc/profile
 
-Use of a hard disk partition
-Create a swap file on an existing file system
+AIX
+/etc/security/.profile
 
-To view current 
+Parameter decl
         </p>
     </div>
 </article>
@@ -281,6 +283,67 @@ To view current
 
         <p class="article-excerpt">
             How to create a chroot jail with openssh (sftp only)This write up describes how to utilize openssh to setup a chroot jail for sftp connections within the CentOS family.  I tried &amp; tried to install
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/cron/">cron tips</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
+# m h dom mon dow command
+There are various ways to schedule a command to run, su
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/directory-index-full/">directory index full</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
+On systems in which this is being constantly logged to syslog, th
         </p>
     </div>
 </article>
@@ -369,6 +432,38 @@ EDS etldev1 ~ # FDISK_C
         
     
         <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/initrd/">Extracting initrd</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to extract and view contents of initrdDepending on your version of linux, the /boot/initrd may be one of two formats:
+
+cpio archive
+ext2 filesystem data
+
+The easiest way to determine what you’re w
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
         </h1>
     
@@ -376,96 +471,6 @@ EDS etldev1 ~ # FDISK_C
         <p class="article-excerpt">
             Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
 Resol
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
         </p>
     </div>
 </article>

@@ -183,13 +183,13 @@ ga('send', 'pageview');
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
+        <a href="/2019/05/05/defining-static-and-default-gateway-in-route-eth-file/">Set static and default gateway in route-eth file</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
-Resol
+            Define default gateway in route-eth file[root@linux01 ~]# cat /etc/sysconfig/network-scripts/route-eth1default via 10.195.30.1 dev eth1
+Define default gateway in /etc/sysconfig/network:[root@linux01 ~
         </p>
     </div>
 </article>
@@ -211,134 +211,16 @@ Resol
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/cron/">cron tips</a>
+        <a href="/2019/05/05/create-logical-volume-using-lvm/">Create logical volume using lvm</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Cron tipscrontab formatHere’s a quick comment that can be added to users crontabs as a reminder to the crontab format:
-# m h dom mon dow command
-There are various ways to schedule a command to run, su
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
+            This example uses a local hard disk to create a logical volume.
 
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/directory-index-full/">directory index full</a>
-        </h1>
-    
+partition the disk as normal using fdisk.  I new the fdisk options ahead of time from having done this before.
 
-        <p class="article-excerpt">
-            How to handle “Directory index full” messages in syslogkernel: EXT3-fs warning (device dm-3): ext3_dx_add_entry: Directory index full!
-On systems in which this is being constantly logged to syslog, th
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
-getconf FILESIZEBITS /
-In the example above, the root 
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-            </div>
-            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
-In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
+EDS etldev1 ~ # FDISK_C
         </p>
     </div>
 </article>
@@ -396,6 +278,130 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/failed-to-activate-lv/">Failed to activate lv</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Failed to activate new LVEDS etlprod2 ~ # lvcreate -l 14645 -n lv_dwstore vg_etlprod2  Not activating vg_etlprod2/lv_dwstore since it does not pass activation filter.  Failed to activate new LV.
+Resol
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/ip-conntrack/">ip_conntrack table full</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            ip_conntrack: table full, dropping packetAt one point, there was high call volume into our support center of customers complaining about severe lag.  One common denominator was that the customer base 
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/how-to-check-if-Large-file-Size-is-enabled/">How To Check If LFS is Enabled</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            To check if a file system supports the LFS (Large File System) standard, you can use the getconf command.  If the result is 64, LFS is supported.
+getconf FILESIZEBITS /
+In the example above, the root 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/05/05/redirecting-stdout-and-stderr/">Redirecting stdout and stderr</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            How to redirect standard output and standard errorWe’ve seen the numbers used in redirecting stdout and stderr.  So what do they mean?
+
+1 represents standard output
+2 represents standard error 
+
+2&gt;
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
+            </div>
+            <div class="date"><time datetime="2019-05-05T06:50:00.000Z" itemprop="datePublished">05-05-2019</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
         <a href="/2019/05/05/postfix-masquerade/">postfix masquerade</a>
         </h1>
     
@@ -428,12 +434,13 @@ The easiest way to determine what you’re w
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/05/sort-ip-addresses/">Sorting IP Addresses via bash</a>
+        <a href="/2019/05/05/setup-yum-dvdiso-repo/">Setup yum repo from DVD ISO</a>
         </h1>
     
 
         <p class="article-excerpt">
-            Sort list of IP addresses via command lineDo you have a text file filled with a bunch of IP addresses, and it won’t sort properly with the -n option alone?  Providing additional options can help achiv
+            How to set up a yum repo from locally mounted DVD ISOMount the iso to /mnt
+In the case of redhat, copy the media.repo file from the root dir of the mount point to /etc/yum.repos.d.  Edit the file and 
         </p>
     </div>
 </article>
